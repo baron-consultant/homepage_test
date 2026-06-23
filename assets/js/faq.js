@@ -1,5 +1,27 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.title = "FAQ | (주)바론컨설턴트";
+  const isEnglish = location.pathname.includes("/en/");
+
+  const pageContent = isEnglish
+    ? {
+        title: "FAQ | Baron Consultants",
+        breadcrumbSection: "Customer Support",
+        breadcrumbCurrent: "FAQ",
+        pageLabel: "Go to page",
+        sampleQuestion: "Add your sample question here to display it as an FAQ item.",
+        sampleAnswer:
+          "This is a sample answer area. Keep adding objects in the same format to the array below and the page will paginate automatically in groups of 10. Click a question to expand the answer and click again or open another item to close it.",
+      }
+    : {
+        title: "FAQ | (주)바론컨설턴트",
+        breadcrumbSection: "고객지원",
+        breadcrumbCurrent: "FAQ",
+        pageLabel: "페이지로 이동",
+        sampleQuestion: "예시 질문을 이 위치에 추가하면 FAQ 항목으로 표시됩니다.",
+        sampleAnswer:
+          "이 영역은 답변 예시입니다. 동일한 형식의 객체를 아래 배열에 계속 추가하면 10개 단위로 자동 페이징되고, 질문을 클릭하면 답변이 열리고 다시 클릭하면 닫힙니다.",
+      };
+
+  document.title = pageContent.title;
 
   if (typeof AOS !== "undefined") {
     AOS.init({ once: true });
@@ -7,9 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const faqItems = [
     {
-      question: "예시 질문을 이 위치에 추가하면 FAQ 항목으로 표시됩니다.",
-      answer:
-        "이 영역은 답변 예시입니다. 동일한 형식의 객체를 아래 배열에 계속 추가하면 10개 단위로 자동 페이징되고, 질문을 클릭하면 답변이 열리고 다시 클릭하면 닫힙니다.",
+      question: pageContent.sampleQuestion,
+      answer: pageContent.sampleAnswer,
     },
   ];
 
@@ -23,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
   if (breadcrumb) {
     breadcrumb.innerHTML = `
       <li><i class="home"></i></li>
-      <li>고객지원</li>
-      <li class="on">FAQ</li>
+      <li>${pageContent.breadcrumbSection}</li>
+      <li class="on">${pageContent.breadcrumbCurrent}</li>
     `;
   }
 
@@ -91,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.type = "button";
       button.className = "faq-page-btn";
       button.textContent = String(page);
-      button.setAttribute("aria-label", `${page}페이지로 이동`);
+      button.setAttribute("aria-label", `${pageContent.pageLabel} ${page}`);
 
       if (page === currentPage) {
         button.classList.add("is-active");
