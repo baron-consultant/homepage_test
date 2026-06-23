@@ -27,15 +27,38 @@ jobs:
 
       - name: Validate R2 bucket access
         run: |
-          endpoint="https://$R2_ACCOUNT_ID.r2.cloudflarestorage.com"
-          echo "Checking access to R2 bucket: $R2_BUCKET"
+          trimmed_account_id="$(printf '%s' "$R2_ACCOUNT_ID" | tr -d '\r\n[:space:]')"
+          trimmed_bucket="$(printf '%s' "$R2_BUCKET" | tr -d '\r\n')"
+          endpoint="https://$trimmed_account_id.r2.cloudflarestorage.com"
+
+          if [ -z "$trimmed_account_id" ]; then
+            echo "::error::CF_R2_ACCOUNT_ID is empty. Set it to the Cloudflare account ID that owns the R2 bucket."
+            exit 1
+          fi
+
+          if [ -z "$trimmed_bucket" ]; then
+            echo "::error::CF_R2_BUCKET is empty. Set it to the exact R2 bucket name."
+            exit 1
+          fi
+
+          if [ "$trimmed_bucket" != "$R2_BUCKET" ]; then
+            echo "::warning::CF_R2_BUCKET contained trailing newline characters. The workflow trimmed them before validation."
+          fi
+
+          echo "Checking access to R2 bucket: $trimmed_bucket"
 
           if ! aws s3api list-objects-v2 \
-            --bucket "$R2_BUCKET" \
+            --bucket "$trimmed_bucket" \
             --max-items 1 \
             --endpoint-url "$endpoint" \
-            > /dev/null; then
-            echo "::error::Unable to list objects in R2 bucket '$R2_BUCKET'. Confirm CF_R2_ACCOUNT_ID matches the bucket account and the R2 access key can read and write this bucket. aws s3 sync requires ListObjectsV2 access before upload and delete operations."
+            > /tmp/r2-check.log 2>&1; then
+            if grep -q "NoSuchBucket" /tmp/r2-check.log; then
+              echo "::error::R2 bucket '$trimmed_bucket' was not found at account endpoint '$endpoint'. Check CF_R2_BUCKET for typos, confirm the bucket exists in the Cloudflare account from CF_R2_ACCOUNT_ID, and verify the access key was created in that same account."
+            else
+              echo "::error::Unable to access R2 bucket '$trimmed_bucket'. Confirm the R2 access key can list and write objects in this bucket. aws s3 sync requires ListObjectsV2 access before upload and delete operations."
+            fi
+
+            cat /tmp/r2-check.log
             exit 1
           fi
 
