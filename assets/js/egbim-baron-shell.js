@@ -5,8 +5,8 @@
     }
 
     const logoPath = locale === 'en'
-      ? '../../../baron/assets/img/eng/logo_c.svg'
-      : '../../../baron/assets/img/logo_c.svg';
+      ? '../../../assets/img/eng/logo_c.svg'
+      : '../../../assets/img/logo_c.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-header-style';
@@ -101,7 +101,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+        background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
         margin-left: 4px;
         translate: 0 1px;
       }
@@ -200,7 +200,7 @@
         width: 16px;
         height: 16px;
         margin-top: 4px;
-        background-image: url(../../../baron/assets/img/ico_language.svg);
+        background-image: url(../../../assets/img/ico_language.svg);
         background-position: center;
         background-repeat: no-repeat;
         translate: 0 2px;
@@ -609,8 +609,8 @@
     }
 
     const footerLogoPath = locale === 'en'
-      ? '../../../baron/assets/img/eng/logo_w.svg'
-      : '../../../baron/assets/img/logo_w.svg';
+      ? '../../../assets/img/eng/logo_w.svg'
+      : '../../../assets/img/logo_w.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-footer-style';
@@ -679,7 +679,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+        background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
         margin-left: 4px;
         translate: 0 1px;
         filter: invert(1);
@@ -755,7 +755,7 @@
       footer#footer.baron-footer .family_wrap .family_btn i {
         width: 12px;
         height: 12px;
-        background: url(../../../baron/assets/img/ico_angle.svg) no-repeat center/contain;
+        background: url(../../../assets/img/ico_angle.svg) no-repeat center/contain;
         transition: 0.2s;
       }
       footer#footer.baron-footer .family_wrap:has(.family_on) .family_btn i {
@@ -967,10 +967,10 @@
 
   function normalizeBaronIncludeHtml(html) {
     return html
-      .replace(/\.\.\/ko\//g, '/baron/ko/')
-      .replace(/\.\.\/en\//g, '/baron/en/')
-      .replace(/\.\.\/recruit\//g, '/baron/recruit/')
-      .replace(/\.\.\/assets\//g, '/baron/assets/');
+      .replace(/\.\.\/ko\//g, '/ko/')
+      .replace(/\.\.\/en\//g, '/en/')
+      .replace(/\.\.\/recruit\//g, '/recruit/')
+      .replace(/\.\.\/assets\//g, '/assets/');
   }
 
   function loadBaronInclude(url, target, callback) {
@@ -1127,16 +1127,16 @@
     header.className = 'js__header baron-shell';
     header.innerHTML = '';
 
-    const headerUrl = locale === 'en' ? '/baron/_include/eng/header.html' : '/baron/_include/header.html';
-    const navUrl = locale === 'en' ? '/baron/_include/eng/nav.html' : '/baron/_include/nav.html';
+    const headerUrl = locale === 'en' ? '/_include/eng/header.html' : '/_include/header.html';
+    const navUrl = locale === 'en' ? '/_include/eng/nav.html' : '/_include/nav.html';
 
     loadBaronInclude(headerUrl, '#header', function () {
       loadBaronInclude(navUrl, '#header .corp .nav', function () {
         loadBaronInclude(navUrl, '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
           const languageLinks = header.querySelectorAll('.language a');
           if (languageLinks.length >= 2) {
-            languageLinks[0].setAttribute('href', '/baron/ko/' + productKey + '/' + currentFile);
-            languageLinks[1].setAttribute('href', '/baron/en/' + productKey + '/' + currentFile);
+            languageLinks[0].setAttribute('href', '/ko/' + productKey + '/' + currentFile);
+            languageLinks[1].setAttribute('href', '/en/' + productKey + '/' + currentFile);
             languageLinks[0].classList.toggle('on', locale === 'ko');
             languageLinks[1].classList.toggle('on', locale === 'en');
           }
@@ -1199,8 +1199,8 @@
     }
 
     const footer = shell.footer;
-    const footerUrl = locale === 'en' ? '/baron/_include/eng/footer.html' : '/baron/_include/footer.html';
-    const navUrl = locale === 'en' ? '/baron/_include/eng/nav.html' : '/baron/_include/nav.html';
+    const footerUrl = locale === 'en' ? '/_include/eng/footer.html' : '/_include/footer.html';
+    const navUrl = locale === 'en' ? '/_include/eng/nav.html' : '/_include/nav.html';
 
     injectBaronFooterStyles(locale);
     footer.className = 'baron-footer';

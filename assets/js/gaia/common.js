@@ -3,9 +3,9 @@
   const currentFile = (window.location.pathname.split('/').pop() || 'index.html').split('?')[0];
   const isEnglish = locale === 'en';
 
-  const baseHref = isEnglish ? '/baron/en' : '/baron/ko';
+  const baseHref = isEnglish ? '/en' : '/ko';
   const baronHomeHref = `${baseHref}/sv_sw.html`;
-  const gaiaRoot = '/baron';
+  const gaiaRoot = '';
 
   const navItems = isEnglish
     ? {
@@ -38,16 +38,16 @@
 
   const footerLinks = isEnglish
     ? [
-        ['About TOVA', '/baron/en/tova/value.html'],
-        ['GAIA', '/baron/en/gaia/value.html'],
-        ['EG-BIM', '/baron/en/sv_sw_egbim.html'],
-        ['KNGIL', '/baron/en/sv_sw_kngil.html'],
+        ['About TOVA', '/en/tova/value.html'],
+        ['GAIA', '/en/gaia/value.html'],
+        ['EG-BIM', '/en/sv_sw_egbim.html'],
+        ['KNGIL', '/en/sv_sw_kngil.html'],
       ]
     : [
-        ['TOVA', '/baron/ko/tova/value.html'],
-        ['GAIA', '/baron/ko/gaia/value.html'],
-        ['EG-BIM', '/baron/ko/sv_sw_egbim.html'],
-        ['KNGIL', '/baron/ko/sv_sw_kngil.html'],
+        ['TOVA', '/ko/tova/value.html'],
+        ['GAIA', '/ko/gaia/value.html'],
+        ['EG-BIM', '/ko/sv_sw_egbim.html'],
+        ['KNGIL', '/ko/sv_sw_kngil.html'],
       ];
 
   function injectStyles() {
@@ -372,12 +372,12 @@
 
     document.body.classList.add('baron-gaia-shell');
 
-    const logoPath = isEnglish ? '/baron/assets/img/eng/logo_c.svg' : '/baron/assets/img/logo_c.svg';
-    const footerLogoPath = isEnglish ? '/baron/assets/img/eng/logo_w.svg' : '/baron/assets/img/logo_w.svg';
+    const logoPath = isEnglish ? '/assets/img/eng/logo_c.svg' : '/assets/img/logo_c.svg';
+    const footerLogoPath = isEnglish ? '/assets/img/eng/logo_w.svg' : '/assets/img/logo_w.svg';
 
     header.className = 'js__header baron-shell';
-    const selfHref = isEnglish ? `/baron/en/gaia/${currentFile}` : `/baron/ko/gaia/${currentFile}`;
-    const peerHref = isEnglish ? `/baron/ko/gaia/${currentFile}` : `/baron/en/gaia/${currentFile}`;
+    const selfHref = isEnglish ? `/en/gaia/${currentFile}` : `/ko/gaia/${currentFile}`;
+    const peerHref = isEnglish ? `/ko/gaia/${currentFile}` : `/en/gaia/${currentFile}`;
 
     header.innerHTML = `
       <div class="header_inner corp">

@@ -939,8 +939,8 @@ function injectBaronHeaderStyles(locale) {
     }
 
     const logoPath = locale === 'en'
-        ? '../../../baron/assets/img/eng/logo_c.svg'
-        : '../../../baron/assets/img/logo_c.svg';
+        ? '../../../assets/img/eng/logo_c.svg'
+        : '../../../assets/img/logo_c.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-header-style';
@@ -1036,7 +1036,7 @@ function injectBaronHeaderStyles(locale) {
             display: inline-block;
             width: 16px;
             height: 16px;
-            background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
             margin-left: 4px;
             translate: 0 1px;
         }
@@ -1134,7 +1134,7 @@ function injectBaronHeaderStyles(locale) {
             width: 16px;
             height: 16px;
             margin-top: 4px;
-            background-image: url(../../../baron/assets/img/ico_language.svg);
+            background-image: url(../../../assets/img/ico_language.svg);
             background-position: center;
             background-repeat: no-repeat;
             translate: 0 2px;
@@ -1536,10 +1536,10 @@ function injectBaronHeaderStyles(locale) {
 
 function normalizeBaronIncludeHtml(html) {
     return html
-        .replace(/\.\.\/ko\//g, '/baron/ko/')
-        .replace(/\.\.\/en\//g, '/baron/en/')
-        .replace(/\.\.\/recruit\//g, '/baron/recruit/')
-        .replace(/\.\.\/assets\//g, '/baron/assets/');
+        .replace(/\.\.\/ko\//g, '/ko/')
+        .replace(/\.\.\/en\//g, '/en/')
+        .replace(/\.\.\/recruit\//g, '/recruit/')
+        .replace(/\.\.\/assets\//g, '/assets/');
 }
 
 function loadBaronInclude(url, target, callback) {
@@ -1576,13 +1576,13 @@ function setupBaronHeaderBrand() {
 
     document.querySelectorAll('.popup_sitemap').forEach((popup) => popup.remove());
 
-    loadBaronInclude('/baron/_include/header.html', '#header', function () {
-        loadBaronInclude('/baron/_include/nav.html', '#header .corp .nav', function () {
-            loadBaronInclude('/baron/_include/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
+    loadBaronInclude('/_include/header.html', '#header', function () {
+        loadBaronInclude('/_include/nav.html', '#header .corp .nav', function () {
+            loadBaronInclude('/_include/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
                 const languageLinks = header.querySelectorAll('.language a');
                 if (languageLinks.length >= 2) {
-                    languageLinks[0].setAttribute('href', `./${currentFile}`);
-                    languageLinks[1].setAttribute('href', `../en/${currentFile}`);
+                    languageLinks[0].setAttribute('href', `/ko/tova/${currentFile}`);
+                    languageLinks[1].setAttribute('href', `/en/tova/${currentFile}`);
                     languageLinks[0].classList.add('on');
                     languageLinks[1].classList.remove('on');
                 }
@@ -1600,68 +1600,68 @@ function getBaronNavMarkup() {
                     <li class="depth1">
                         <span><em>미래를 설계하는</em>바론 컨설턴트</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/br_future.html">바론이 제시하는 미래</a></li>
-                            <li><a href="/baron/ko/br_tech.html">바론이 실현하는 기술</a></li>
-                            <li><a href="/baron/ko/br_value.html">바론이 추구하는 가치</a></li>
+                            <li><a href="/ko/br_future.html">바론이 제시하는 미래</a></li>
+                            <li><a href="/ko/br_tech.html">바론이 실현하는 기술</a></li>
+                            <li><a href="/ko/br_value.html">바론이 추구하는 가치</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>변화를 선도하는</em>디지털전환</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/dt_explain.html">건설산업에서의 디지털전환</a></li>
-                            <li><a href="/baron/ko/dt_sw.html">디지털전환과 소프트웨어</a></li>
-                            <li><a href="/baron/ko/dt_use.html">건설산업에서의 디지털전환 활용</a></li>
+                            <li><a href="/ko/dt_explain.html">건설산업에서의 디지털전환</a></li>
+                            <li><a href="/ko/dt_sw.html">디지털전환과 소프트웨어</a></li>
+                            <li><a href="/ko/dt_use.html">건설산업에서의 디지털전환 활용</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/baron/ko/sv_solution.html'"><em>가치를 실현하는</em>솔루션 프로그램</span>
+                        <span onclick="location.href='/ko/sv_solution.html'"><em>가치를 실현하는</em>솔루션 프로그램</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/sv_solution.html">설계 솔루션</a></li>
-                            <li><a href="/baron/ko/sv_solution_construction.html">시공 솔루션</a></li>
-                            <li><a href="/baron/ko/sv_solution_operation.html">운영 및 유지·관리 솔루션</a></li>
+                            <li><a href="/ko/sv_solution.html">설계 솔루션</a></li>
+                            <li><a href="/ko/sv_solution_construction.html">시공 솔루션</a></li>
+                            <li><a href="/ko/sv_solution_operation.html">운영 및 유지·관리 솔루션</a></li>
                         </ul>
                     </li>
                     <li class="depth1 active">
-                        <span onclick="location.href='/baron/ko/sv_sw.html'"><em>가치를 실현하는</em>패키지 S/W</span>
+                        <span onclick="location.href='/ko/sv_sw.html'"><em>가치를 실현하는</em>패키지 S/W</span>
                         <ul class="depth2">
                             <li class="has_depth3">
-                                <a href="/baron/ko/sv_sw.html">TOVA</a>
+                                <a href="/ko/sv_sw.html">TOVA</a>
                                 <ul class="depth3">
-                                    <li><a href="/tova/www/ko/value.html">TOVA 소개</a></li>
-                                    <li><a href="/tova/www/ko/primary.html">주요기능</a></li>
-                                    <li><a href="/tova/www/ko/road.html">공로 분석</a></li>
-                                    <li><a href="/tova/www/ko/public.html">대중교통 분석</a></li>
-                                    <li><a href="/tova/www/ko/buy.html">구매하기</a></li>
+                                    <li><a href="/ko/tova/value.html">TOVA 소개</a></li>
+                                    <li><a href="/ko/tova/primary.html">주요기능</a></li>
+                                    <li><a href="/ko/tova/road.html">공로 분석</a></li>
+                                    <li><a href="/ko/tova/public.html">대중교통 분석</a></li>
+                                    <li><a href="/ko/tova/buy.html">구매하기</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/baron/ko/sv_sw_egbim.html">EG-BIM</a></li>
-                            <li><a href="/baron/ko/sv_sw_gaia.html">GAIA</a></li>
+                            <li><a href="/ko/sv_sw_egbim.html">EG-BIM</a></li>
+                            <li><a href="/ko/sv_sw_gaia.html">GAIA</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/baron/ko/sv_sw_kngil.html'">서비스 S/W</span>
+                        <span onclick="location.href='/ko/sv_sw_kngil.html'">서비스 S/W</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/sv_sw_kngil.html">KNGIL</a></li>
+                            <li><a href="/ko/sv_sw_kngil.html">KNGIL</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/baron/ko/sv_bigroom.html'"><em>가치를 실현하는</em>빅룸</span>
+                        <span onclick="location.href='/ko/sv_bigroom.html'"><em>가치를 실현하는</em>빅룸</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/sv_bigroom.html">빅룸</a></li>
+                            <li><a href="/ko/sv_bigroom.html">빅룸</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>비전을 체험하는</em>D/X 체험</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/dx.html">비전을 체험하는 D/X체험</a></li>
+                            <li><a href="/ko/dx.html">비전을 체험하는 D/X체험</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>이야기를 전하는</em>홍보센터</span>
                         <ul class="depth2">
-                            <li><a href="/baron/ko/pr_news.html">바론뉴스</a></li>
-                            <li><a href="/baron/ko/pr_brochure.html">브로슈어</a></li>
-                            <li><a href="/baron/ko/pr_ci.html">CI</a></li>
+                            <li><a href="/ko/pr_news.html">바론뉴스</a></li>
+                            <li><a href="/ko/pr_brochure.html">브로슈어</a></li>
+                            <li><a href="/ko/pr_ci.html">CI</a></li>
                         </ul>
                     </li>
                 </ol>
@@ -1749,8 +1749,8 @@ function injectBaronFooterStyles(locale) {
     }
 
     const footerLogoPath = locale === 'en'
-        ? '../../../baron/assets/img/eng/logo_w.svg'
-        : '../../../baron/assets/img/logo_w.svg';
+        ? '../../../assets/img/eng/logo_w.svg'
+        : '../../../assets/img/logo_w.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-footer-style';
@@ -1818,7 +1818,7 @@ function injectBaronFooterStyles(locale) {
             display: inline-block;
             width: 16px;
             height: 16px;
-            background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
             margin-left: 4px;
             translate: 0 1px;
             filter: invert(1);
@@ -1894,7 +1894,7 @@ function injectBaronFooterStyles(locale) {
         footer#footer.baron-footer .family_wrap .family_btn i {
             width: 12px;
             height: 12px;
-            background: url(../../../baron/assets/img/ico_angle.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_angle.svg) no-repeat center/contain;
             transition: 0.2s;
         }
         footer#footer.baron-footer .family_wrap:has(.family_on) .family_btn i {
@@ -2115,9 +2115,7 @@ function injectBaronFooterStyles(locale) {
 }
 
 function getBaronFooterMarkup(locale) {
-    const homeHref = window.location.protocol === 'file:'
-        ? (locale === 'en' ? '../../../baron/en/index.html' : '../../../baron/ko/index.html')
-        : (locale === 'en' ? '/baron/en/index.html' : '/baron/ko/index.html');
+    const homeHref = locale === 'en' ? '/en/index.html' : '/ko/index.html';
 
     if (locale === 'en') {
         return `
@@ -2183,8 +2181,8 @@ function setupBaronFooterBrand() {
     injectBaronFooterStyles('ko');
     footer.className = 'baron-footer';
 
-    loadBaronInclude('/baron/_include/footer.html', '#footer', function () {
-        loadBaronInclude('/baron/_include/nav.html', '#footer .nav', function () {
+    loadBaronInclude('/_include/footer.html', '#footer', function () {
+        loadBaronInclude('/_include/nav.html', '#footer .nav', function () {
             const depth3Menus = footer.querySelectorAll('.nav ol li.has_depth3 > .depth3');
             depth3Menus.forEach((menu) => {
                 menu.style.display = 'none';

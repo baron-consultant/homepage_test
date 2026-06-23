@@ -1,18 +1,18 @@
 // ?�� AJAX 관??SCRIPT
 $(function () {
-  // EGBIM은 4-level 깊이 (/baron/ko/egbim/)
-  // TOVA/GAIA는 3-level 깊이 (/baron/ko/tova/, /baron/ko/gaia/)
+  // EGBIM은 4-level 깊이 (/ko/egbim/)
+  // TOVA/GAIA는 3-level 깊이 (/ko/tova/, /ko/gaia/)
   const isEgbim = location.pathname.includes('/egbim/');
   const isTovOrGaia = location.pathname.includes('/tova/') || location.pathname.includes('/gaia/');
   
-  // 절대 경로 사용으로 AJAX 안정성 확보
+  // 배포는 도메인 루트 기준, 로컬 baron 서브경로는 fallback으로 처리
   let includeBase;
   if (isEgbim) {
-    includeBase = '/baron/_include'; // EGBIM: 4-level deep
+    includeBase = '/_include';
   } else if (isTovOrGaia) {
-    includeBase = '/baron/_include'; // TOVA/GAIA: 3-level deep (same as root)
+    includeBase = '/_include';
   } else {
-    includeBase = '/baron/_include'; // Root pages
+    includeBase = '/_include';
   }
 
   $.ajaxSetup({ cache: false });

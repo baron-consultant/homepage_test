@@ -1012,7 +1012,7 @@ function loadEgbimBaronShell(locale) {
 
   const script = document.createElement("script");
   script.id = "egbim-baron-shell-script";
-  script.src = "/baron/assets/js/egbim-baron-shell.js?v=20260623h";
+  script.src = "/assets/js/egbim-baron-shell.js?v=20260623h";
   script.onload = function () {
     window.initEgbimBaronShell?.(locale);
   };

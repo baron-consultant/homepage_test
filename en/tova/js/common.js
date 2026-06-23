@@ -939,8 +939,8 @@ function injectBaronHeaderStyles(locale) {
     }
 
     const logoPath = locale === 'en'
-        ? '../../../baron/assets/img/eng/logo_c.svg'
-        : '../../../baron/assets/img/logo_c.svg';
+        ? '../../../assets/img/eng/logo_c.svg'
+        : '../../../assets/img/logo_c.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-header-style';
@@ -1034,7 +1034,7 @@ function injectBaronHeaderStyles(locale) {
             display: inline-block;
             width: 16px;
             height: 16px;
-            background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
             margin-left: 4px;
             translate: 0 1px;
         }
@@ -1113,7 +1113,7 @@ function injectBaronHeaderStyles(locale) {
             width: 16px;
             height: 16px;
             margin-top: 4px;
-            background-image: url(../../../baron/assets/img/ico_language.svg);
+            background-image: url(../../../assets/img/ico_language.svg);
             background-position: center;
             background-repeat: no-repeat;
             translate: 0 2px;
@@ -1498,10 +1498,10 @@ function injectBaronHeaderStyles(locale) {
 
 function normalizeBaronIncludeHtml(html) {
     return html
-        .replace(/\.\.\/ko\//g, '/baron/ko/')
-        .replace(/\.\.\/en\//g, '/baron/en/')
-        .replace(/\.\.\/recruit\//g, '/baron/recruit/')
-        .replace(/\.\.\/assets\//g, '/baron/assets/');
+        .replace(/\.\.\/ko\//g, '/ko/')
+        .replace(/\.\.\/en\//g, '/en/')
+        .replace(/\.\.\/recruit\//g, '/recruit/')
+        .replace(/\.\.\/assets\//g, '/assets/');
 }
 
 function loadBaronInclude(url, target, callback) {
@@ -1538,13 +1538,13 @@ function setupBaronHeaderBrand() {
 
     document.querySelectorAll('.popup_sitemap').forEach((popup) => popup.remove());
 
-    loadBaronInclude('/baron/_include/eng/header.html', '#header', function () {
-        loadBaronInclude('/baron/_include/eng/nav.html', '#header .corp .nav', function () {
-            loadBaronInclude('/baron/_include/eng/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
+    loadBaronInclude('/_include/eng/header.html', '#header', function () {
+        loadBaronInclude('/_include/eng/nav.html', '#header .corp .nav', function () {
+            loadBaronInclude('/_include/eng/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
                 const languageLinks = header.querySelectorAll('.language a');
                 if (languageLinks.length >= 2) {
-                    languageLinks[0].setAttribute('href', `../ko/${currentFile}`);
-                    languageLinks[1].setAttribute('href', `./${currentFile}`);
+                    languageLinks[0].setAttribute('href', `/ko/tova/${currentFile}`);
+                    languageLinks[1].setAttribute('href', `/en/tova/${currentFile}`);
                     languageLinks[0].classList.remove('on');
                     languageLinks[1].classList.add('on');
                 }
@@ -1562,65 +1562,65 @@ function getBaronNavMarkup() {
                     <li class="depth1">
                         <span><em>Designing the Future</em>Baron Consultants</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/br_future.html">Future Presented by Baron</a></li>
-                            <li><a href="/baron/en/br_tech.html">Technology Realized by Baron</a></li>
-                            <li><a href="/baron/en/br_value.html">The Values Pursued by Baron</a></li>
+                            <li><a href="/en/br_future.html">Future Presented by Baron</a></li>
+                            <li><a href="/en/br_tech.html">Technology Realized by Baron</a></li>
+                            <li><a href="/en/br_value.html">The Values Pursued by Baron</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>Leading the Change</em>Digital Transformation</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/dt_explain.html">D/X <br>Infrastructure Construction</a></li>
-                            <li><a href="/baron/en/dt_sw.html">D/X &amp; Software</a></li>
-                            <li><a href="/baron/en/dt_use.html">Leveraging D/X<br>Infrastructure Construction</a></li>
+                            <li><a href="/en/dt_explain.html">D/X <br>Infrastructure Construction</a></li>
+                            <li><a href="/en/dt_sw.html">D/X &amp; Software</a></li>
+                            <li><a href="/en/dt_use.html">Leveraging D/X<br>Infrastructure Construction</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/baron/en/sv_solution.html'"><em>Realizing Value</em>Solution Program</span>
+                        <span onclick="location.href='/en/sv_solution.html'"><em>Realizing Value</em>Solution Program</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/sv_solution.html">Design Solution</a></li>
-                            <li><a href="/baron/en/sv_solution_construction.html">Construction Solution</a></li>
-                            <li><a href="/baron/en/sv_solution_operation.html">Operation &amp; Maintenance Solution</a></li>
+                            <li><a href="/en/sv_solution.html">Design Solution</a></li>
+                            <li><a href="/en/sv_solution_construction.html">Construction Solution</a></li>
+                            <li><a href="/en/sv_solution_operation.html">Operation &amp; Maintenance Solution</a></li>
                         </ul>
                     </li>
                     <li class="depth1 active">
-                        <span onclick="location.href='/baron/en/sv_sw.html'"><em>Realizing Value</em>Package S/W</span>
+                        <span onclick="location.href='/en/sv_sw.html'"><em>Realizing Value</em>Package S/W</span>
                         <ul class="depth2">
                             <li class="has_depth3">
-                                <a href="/baron/en/sv_sw.html">TOVA</a>
+                                <a href="/en/sv_sw.html">TOVA</a>
                                 <ul class="depth3">
-                                    <li><a href="/tova/www/en/value.html">About TOVA</a></li>
-                                    <li><a href="/tova/www/en/primary.html">Key Features</a></li>
-                                    <li><a href="/tova/www/en/road.html">Roadway Analysis</a></li>
-                                    <li><a href="/tova/www/en/public.html">Public Transit Analysis</a></li>
-                                    <li><a href="/tova/www/en/buy.html">Contact</a></li>
+                                    <li><a href="/en/tova/value.html">About TOVA</a></li>
+                                    <li><a href="/en/tova/primary.html">Key Features</a></li>
+                                    <li><a href="/en/tova/road.html">Roadway Analysis</a></li>
+                                    <li><a href="/en/tova/public.html">Public Transit Analysis</a></li>
+                                    <li><a href="/en/tova/buy.html">Contact</a></li>
                                 </ul>
                             </li>
-                            <li><a href="/baron/en/sv_sw_egbim.html">EG-BIM</a></li>
-                            <li><a href="/baron/en/sv_sw_gaia.html">GAIA</a></li>
-                            <li><a href="/baron/en/sv_sw_kngil.html">KNGIL</a></li>
-                            <li><a href="/baron/en/sv_sw_ipipes.html">iPipeS</a></li>
-                            <li><a href="/baron/en/sv_sw_pq_program.html">PQ Program</a></li>
+                            <li><a href="/en/sv_sw_egbim.html">EG-BIM</a></li>
+                            <li><a href="/en/sv_sw_gaia.html">GAIA</a></li>
+                            <li><a href="/en/sv_sw_kngil.html">KNGIL</a></li>
+                            <li><a href="/en/sv_sw_ipipes.html">iPipeS</a></li>
+                            <li><a href="/en/sv_sw_pq_program.html">PQ Program</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/baron/en/sv_bigroom.html'"><em>Realizing Value</em>Big Room</span>
+                        <span onclick="location.href='/en/sv_bigroom.html'"><em>Realizing Value</em>Big Room</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/sv_bigroom.html">Big Room</a></li>
+                            <li><a href="/en/sv_bigroom.html">Big Room</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>Experiencing the Vision</em>D/X Experience</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/dx.html">D/X experience<br>to experience the vision</a></li>
+                            <li><a href="/en/dx.html">D/X experience<br>to experience the vision</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
                         <span><em>Telling a story</em>PR Center</span>
                         <ul class="depth2">
-                            <li><a href="/baron/en/pr_news.html">Baron News</a></li>
-                            <li><a href="/baron/en/pr_brochure.html">Brochure</a></li>
-                            <li><a href="/baron/en/pr_ci.html">CI</a></li>
+                            <li><a href="/en/pr_news.html">Baron News</a></li>
+                            <li><a href="/en/pr_brochure.html">Brochure</a></li>
+                            <li><a href="/en/pr_ci.html">CI</a></li>
                         </ul>
                     </li>
                 </ol>
@@ -1708,8 +1708,8 @@ function injectBaronFooterStyles(locale) {
     }
 
     const footerLogoPath = locale === 'en'
-        ? '../../../baron/assets/img/eng/logo_w.svg'
-        : '../../../baron/assets/img/logo_w.svg';
+        ? '../../../assets/img/eng/logo_w.svg'
+        : '../../../assets/img/logo_w.svg';
 
     const style = document.createElement('style');
     style.id = 'baron-footer-style';
@@ -1777,7 +1777,7 @@ function injectBaronFooterStyles(locale) {
             display: inline-block;
             width: 16px;
             height: 16px;
-            background: url(../../../baron/assets/img/ico_more.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
             margin-left: 4px;
             translate: 0 1px;
             filter: invert(1);
@@ -1853,7 +1853,7 @@ function injectBaronFooterStyles(locale) {
         footer#footer.baron-footer .family_wrap .family_btn i {
             width: 12px;
             height: 12px;
-            background: url(../../../baron/assets/img/ico_angle.svg) no-repeat center/contain;
+            background: url(../../../assets/img/ico_angle.svg) no-repeat center/contain;
             transition: 0.2s;
         }
         footer#footer.baron-footer .family_wrap:has(.family_on) .family_btn i {
@@ -2074,9 +2074,7 @@ function injectBaronFooterStyles(locale) {
 }
 
 function getBaronFooterMarkup(locale) {
-    const homeHref = window.location.protocol === 'file:'
-        ? (locale === 'en' ? '../../../baron/en/index.html' : '../../../baron/ko/index.html')
-        : (locale === 'en' ? '/baron/en/index.html' : '/baron/ko/index.html');
+    const homeHref = locale === 'en' ? '/en/index.html' : '/ko/index.html';
 
     if (locale === 'en') {
         return `
@@ -2142,8 +2140,8 @@ function setupBaronFooterBrand() {
     injectBaronFooterStyles('en');
     footer.className = 'baron-footer';
 
-    loadBaronInclude('/baron/_include/eng/footer.html', '#footer', function () {
-        loadBaronInclude('/baron/_include/eng/nav.html', '#footer .nav', function () {
+    loadBaronInclude('/_include/eng/footer.html', '#footer', function () {
+        loadBaronInclude('/_include/eng/nav.html', '#footer .nav', function () {
             const depth3Menus = footer.querySelectorAll('.nav ol li.has_depth3 > .depth3');
             depth3Menus.forEach((menu) => {
                 menu.style.display = 'none';

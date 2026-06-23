@@ -1,7 +1,7 @@
 // ?�� AJAX 관??SCRIPT
 $(function () {
-  // 모든 software 페이지에서 절대 경로 사용
-  const includeBase = '/baron/_include/eng';
+  // 배포는 도메인 루트 기준, 로컬 baron 서브경로는 fallback으로 처리
+  const includeBase = '/_include/eng';
 
 
   $.ajaxSetup({ cache: false });

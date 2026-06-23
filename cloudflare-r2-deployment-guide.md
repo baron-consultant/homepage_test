@@ -195,6 +195,14 @@ Cloudflare에서 생성할 값:
 - `Object Read`
 - `Object Write`
 
+중요:
+
+- `aws s3 sync`는 업로드 전에 대상 버킷을 조회하기 때문에 `ListObjectsV2`가 가능해야 한다.
+- 즉, 실제 배포 키는 업로드만 가능한 쓰기 전용 키로는 부족할 수 있다.
+- GitHub Actions에서 `AccessDenied`가 발생하면 먼저 `CF_R2_ACCOUNT_ID`가 해당 버킷의 실제 Cloudflare Account ID와 같은지 확인한다.
+- 그 다음 `CF_R2_ACCESS_KEY_ID`와 `CF_R2_SECRET_ACCESS_KEY`가 같은 계정에서 발급된 R2 자격증명인지 확인한다.
+- 마지막으로 그 키가 배포 대상 버킷에 대해 목록 조회와 업로드가 가능한 권한 범위로 생성되었는지 확인한다.
+
 R2 S3 endpoint 형식:
 
 ```text
