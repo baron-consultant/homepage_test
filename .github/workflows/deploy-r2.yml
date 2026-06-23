@@ -77,6 +77,48 @@ jobs:
             esac
           }
 
+          upload_file() {
+            local path="$1"
+            local cache_control=""
+
+            case "$path" in
+              *.html|assets/js/common.js|assets/js/common_eng.js|assets/js/eng/common.js)
+                cache_control="no-cache, no-store, must-revalidate"
+                ;;
+            esac
+
+            if [ -n "$cache_control" ]; then
+              aws s3 cp "$path" "s3://$R2_BUCKET/$path" \
+                --endpoint-url "$endpoint" \
+                --cache-control "$cache_control" \
+                --only-show-errors
+            else
+              aws s3 cp "$path" "s3://$R2_BUCKET/$path" \
+                --endpoint-url "$endpoint" \
+                --only-show-errors
+            fi
+          }
+
+          refresh_cache_sensitive_files() {
+            while IFS= read -r path; do
+              [ -n "$path" ] || continue
+              [ -f "$path" ] || continue
+              echo "Refreshing cache headers for $path"
+              upload_file "$path"
+            done <<'EOF'
+          assets/js/common.js
+          assets/js/common_eng.js
+          assets/js/eng/common.js
+          EOF
+
+            find . -type f \( -name '*.html' \) -print | sed 's#^./##' | while IFS= read -r path; do
+              [ -n "$path" ] || continue
+              should_skip "$path" && continue
+              echo "Refreshing cache headers for $path"
+              upload_file "$path"
+            done
+          }
+
           full_sync() {
             echo "Running full bucket sync"
             aws s3 sync ./ s3://$R2_BUCKET \
@@ -86,6 +128,8 @@ jobs:
               --exclude ".github/*" \
               --exclude "*.md" \
               --only-show-errors
+
+            refresh_cache_sensitive_files
           }
 
           if [ "${{ github.event_name }}" != "push" ]; then
@@ -130,9 +174,7 @@ jobs:
 
                 if [ -f "$new_path" ]; then
                   echo "Uploading $new_path"
-                  aws s3 cp "$new_path" "s3://$R2_BUCKET/$new_path" \
-                    --endpoint-url "$endpoint" \
-                    --only-show-errors
+                  upload_file "$new_path"
                   changed_count=$((changed_count + 1))
                 fi
                 ;;
@@ -162,9 +204,7 @@ jobs:
 
                 if [ -f "$new_path" ]; then
                   echo "Uploading renamed target $new_path"
-                  aws s3 cp "$new_path" "s3://$R2_BUCKET/$new_path" \
-                    --endpoint-url "$endpoint" \
-                    --only-show-errors
+                  upload_file "$new_path"
                   changed_count=$((changed_count + 1))
                 fi
                 ;;
