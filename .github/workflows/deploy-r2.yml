@@ -72,7 +72,7 @@ jobs:
 
           should_skip() {
             case "$1" in
-              .git/*|.github/*|*.md|"") return 0 ;;
+              .git/*|.github/*|*.md|img/*|*/img/*|"") return 0 ;;
               *) return 1 ;;
             esac
           }
@@ -126,6 +126,8 @@ jobs:
               --delete \
               --exclude ".git/*" \
               --exclude ".github/*" \
+              --exclude "img/*" \
+              --exclude "*/img/*" \
               --exclude "*.md" \
               --only-show-errors
 
