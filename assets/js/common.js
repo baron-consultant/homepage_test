@@ -1,6 +1,7 @@
 // ?�� AJAX 관??SCRIPT
 $(function () {
   const rootPrefix = location.pathname.startsWith('/baron/') ? '/baron' : '';
+  const includeVersion = '20260623-3';
 
   // EGBIM은 4-level 깊이 (/ko/egbim/)
   // TOVA/GAIA는 3-level 깊이 (/ko/tova/, /ko/gaia/)
@@ -78,13 +79,13 @@ $(function () {
   }
   // ?��header ??nav.html ?�결
   if (!$(".container").hasClass("recruit")) {
-    loadHTML(`${includeBase}/header.html`, "#header", function () {
-      loadHTML(`${includeBase}/nav.html`, "#header .corp .nav", function () {
+    loadHTML(`${includeBase}/header.html?v=${includeVersion}`, "#header", function () {
+      loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, "#header .corp .nav", function () {
         connectNavToMapList();
       });
     });
   } else {
-    loadHTML(`${includeBase}/header_recruit.html`, "#header_recruit", function () {
+    loadHTML(`${includeBase}/header_recruit.html?v=${includeVersion}`, "#header_recruit", function () {
       if (!$(".container").hasClass("recruit")) {
       } else {
         const currentPath = location.pathname.split("/").pop();
@@ -103,14 +104,14 @@ $(function () {
 
   // ?��sitemap ??nav.html ?�결
   if (!$(".container").hasClass("recruit")) {
-    loadHTML(`${includeBase}/nav.html`, ".popup_wrap.sitemap .popup_contents_wrap nav");
+    loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, ".popup_wrap.sitemap .popup_contents_wrap nav");
   } else {
-    loadHTML(`${includeBase}/nav_recruit.html`, ".popup_wrap.sitemap .popup_contents_wrap nav");
+    loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, ".popup_wrap.sitemap .popup_contents_wrap nav");
   }
 
   // ?��footer ??nav.html ?�결
-  loadHTML(`${includeBase}/footer.html`, "#footer", function () {
-    loadHTML(`${includeBase}/nav.html`, "#footer .nav", function () {
+  loadHTML(`${includeBase}/footer.html?v=${includeVersion}`, "#footer", function () {
+    loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, "#footer .nav", function () {
       // depth3 항목 숨기기 (TOVA, GAIA, EGBIM 초기 상태)
       $("#footer .nav ol li.has_depth3 > .depth3").hide();
     });
