@@ -78,9 +78,21 @@ $(function () {
     });
   }
 
+  function trimPopupDepth3Nav() {
+    const popupNav = document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav');
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach((depth3) => {
+      depth3.remove();
+    });
+  }
+
   function loadSitemapNav() {
     if (!$('.container').hasClass('recruit')) {
-      loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav');
+      loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', trimPopupDepth3Nav);
     } else {
       loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav');
     }

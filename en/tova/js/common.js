@@ -945,6 +945,38 @@ function injectBaronHeaderStyles(locale) {
     const style = document.createElement('style');
     style.id = 'baron-header-style';
     style.textContent = document.querySelector('#baron-header-style-template')?.textContent || `
+        body.baron-has-header .wrapper {
+            position: relative;
+        }
+        body.baron-has-header .map_list {
+            position: absolute;
+            top: 112px;
+            right: 160px;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            color: #999;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+        body.baron-has-header .map_list li {
+            position: relative;
+            white-space: nowrap;
+        }
+        body.baron-has-header .map_list li + li::before {
+            content: '/';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-weight: 400;
+        }
+        body.baron-has-header .map_list li.on {
+            color: #000;
+            font-weight: 700;
+        }
         header.js__header.baron-shell {
             width: 100%;
             height: 92px;
@@ -1388,6 +1420,9 @@ function injectBaronHeaderStyles(locale) {
             white-space: nowrap;
         }
         @media (max-width: 1024px) {
+            body.baron-has-header .map_list {
+                display: none;
+            }
             header.js__header.baron-shell .header_inner { gap: 24px; padding: 0 24px; }
             header.js__header.baron-shell .header_inner nav { display: none; }
             header.js__header.baron-shell .popup_wrap.sitemap .popup_contents_wrap {
@@ -1524,6 +1559,72 @@ function loadBaronInclude(url, target, callback) {
     });
 }
 
+function trimPopupDepth3Nav(rootElement) {
+    const popupNav = rootElement.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav, .popup_wrap.sitemap .nav');
+
+    if (!popupNav) {
+        return;
+    }
+
+    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach((depth3) => {
+        depth3.remove();
+    });
+}
+
+function ensureBreadcrumb() {
+    let mapList = document.querySelector('.map_list');
+
+    if (mapList) {
+        return mapList;
+    }
+
+    const header = document.querySelector('header.js__header');
+    if (!header) {
+        return null;
+    }
+
+    mapList = document.createElement('ul');
+    mapList.className = 'map_list';
+    header.insertAdjacentElement('afterend', mapList);
+    return mapList;
+}
+
+function updateBaronBreadcrumb(header, currentFile) {
+    const mapList = ensureBreadcrumb();
+    if (!mapList) {
+        return;
+    }
+
+    let categoryTitle = 'Package S/W';
+    let currentTitle = 'TOVA';
+    let matchedLink = null;
+
+    header.querySelectorAll('.corp nav a').forEach((link) => {
+        const href = (link.getAttribute('href') || '').split('?')[0];
+        if (!matchedLink && href.split('/').pop() === currentFile) {
+            matchedLink = link;
+        }
+    });
+
+    if (matchedLink) {
+        const depth1 = matchedLink.closest('.depth1');
+        const span = depth1 ? depth1.querySelector('span') : null;
+        const em = span ? span.querySelector('em') : null;
+        const spanText = span ? span.textContent.replace(/\s+/g, ' ').trim() : '';
+        const emText = em ? em.textContent.replace(/\s+/g, ' ').trim() : '';
+        categoryTitle = spanText.replace(emText, '').trim() || categoryTitle;
+
+        if (matchedLink.closest('.depth3')) {
+            const ownerLink = matchedLink.closest('.has_depth3')?.querySelector(':scope > a');
+            currentTitle = ownerLink ? ownerLink.textContent.replace(/\s+/g, ' ').trim() : currentTitle;
+        } else {
+            currentTitle = matchedLink.textContent.replace(/\s+/g, ' ').trim() || currentTitle;
+        }
+    }
+
+    mapList.innerHTML = `<li>${categoryTitle}</li><li class="on">${currentTitle}</li>`;
+}
+
 function setupBaronHeaderBrand() {
     const header = document.querySelector('header.js__header');
     if (!header) {
@@ -1541,6 +1642,7 @@ function setupBaronHeaderBrand() {
     loadBaronInclude('/_include/eng/header.html', '#header', function () {
         loadBaronInclude('/_include/eng/nav.html', '#header .corp .nav', function () {
             loadBaronInclude('/_include/eng/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
+                trimPopupDepth3Nav(header);
                 const languageLinks = header.querySelectorAll('.language a');
                 if (languageLinks.length >= 2) {
                     languageLinks[0].setAttribute('href', `/ko/tova/${currentFile}`);
@@ -1550,6 +1652,7 @@ function setupBaronHeaderBrand() {
                 }
 
                 activateBaronHeaderLink(header, currentFile);
+                updateBaronBreadcrumb(header, currentFile);
                 setupBaronHeaderInteractions(header);
             });
         });

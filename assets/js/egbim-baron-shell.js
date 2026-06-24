@@ -12,7 +12,37 @@
     style.id = 'baron-header-style';
     style.textContent = `
       body.baron-has-header .wrapper {
+        position: relative;
         padding-top: 92px;
+      }
+      body.baron-has-header .map_list {
+        position: absolute;
+        top: 112px;
+        right: 160px;
+        z-index: 30;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: #999;
+        font-size: 18px;
+        line-height: 1.2;
+      }
+      body.baron-has-header .map_list li {
+        position: relative;
+        white-space: nowrap;
+      }
+      body.baron-has-header .map_list li + li::before {
+        content: '/';
+        position: absolute;
+        left: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+        font-weight: 400;
+      }
+      body.baron-has-header .map_list li.on {
+        color: #000;
+        font-weight: 700;
       }
       header.js__header.baron-shell {
         width: 100%;
@@ -483,6 +513,9 @@
       @media (max-width: 1024px) {
         body.baron-has-header .wrapper {
           padding-top: 50px;
+        }
+        body.baron-has-header .map_list {
+          display: none;
         }
         header.js__header.baron-shell .header_inner {
           gap: 24px;
@@ -1112,6 +1145,72 @@
     });
   }
 
+  function trimPopupDepth3Nav(header) {
+    const popupNav = header.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav');
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach(function (depth3) {
+      depth3.remove();
+    });
+  }
+
+  function ensureBreadcrumb() {
+    let mapList = document.querySelector('.map_list');
+
+    if (mapList) {
+      return mapList;
+    }
+
+    const header = document.querySelector('header.js__header');
+    if (!header) {
+      return null;
+    }
+
+    mapList = document.createElement('ul');
+    mapList.className = 'map_list';
+    header.insertAdjacentElement('afterend', mapList);
+    return mapList;
+  }
+
+  function updateBaronBreadcrumb(header, currentFile, productKey, locale) {
+    const mapList = ensureBreadcrumb();
+    if (!mapList) {
+      return;
+    }
+
+    let categoryTitle = locale === 'en' ? 'Package S/W' : '패키지 S/W';
+    let currentTitle = productKey === 'egbim' ? 'EG-BIM' : productKey === 'gaia' ? 'GAIA' : 'TOVA';
+    let matchedLink = null;
+
+    header.querySelectorAll('.corp nav a').forEach(function (link) {
+      const href = (link.getAttribute('href') || '').split('?')[0];
+      if (!matchedLink && href.split('/').pop() === currentFile) {
+        matchedLink = link;
+      }
+    });
+
+    if (matchedLink) {
+      const depth1 = matchedLink.closest('.depth1');
+      const span = depth1 ? depth1.querySelector('span') : null;
+      const em = span ? span.querySelector('em') : null;
+      const spanText = span ? span.textContent.replace(/\s+/g, ' ').trim() : '';
+      const emText = em ? em.textContent.replace(/\s+/g, ' ').trim() : '';
+      categoryTitle = spanText.replace(emText, '').trim() || categoryTitle;
+
+      if (matchedLink.closest('.depth3')) {
+        const ownerLink = matchedLink.closest('.has_depth3')?.querySelector(':scope > a');
+        currentTitle = ownerLink ? ownerLink.textContent.replace(/\s+/g, ' ').trim() : currentTitle;
+      } else {
+        currentTitle = matchedLink.textContent.replace(/\s+/g, ' ').trim() || currentTitle;
+      }
+    }
+
+    mapList.innerHTML = `<li>${categoryTitle}</li><li class="on">${currentTitle}</li>`;
+  }
+
   function setupBaronHeaderBrand(productKey, locale) {
     const shell = ensureBaronShell();
     if (!shell) {
@@ -1133,6 +1232,7 @@
     loadBaronInclude(headerUrl, '#header', function () {
       loadBaronInclude(navUrl, '#header .corp .nav', function () {
         loadBaronInclude(navUrl, '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
+          trimPopupDepth3Nav(header);
           const languageLinks = header.querySelectorAll('.language a');
           if (languageLinks.length >= 2) {
             languageLinks[0].setAttribute('href', '/ko/' + productKey + '/' + currentFile);
@@ -1142,6 +1242,7 @@
           }
 
           activateBaronHeaderLink(header, currentFile, productKey);
+          updateBaronBreadcrumb(header, currentFile, productKey, locale);
           setupBaronHeaderInteractions(header);
           if (typeof window.setupHeaderAnimation === 'function') {
             window.setupHeaderAnimation();

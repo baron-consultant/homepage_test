@@ -286,6 +286,18 @@
     `;
   }
 
+  function trimPopupDepth3Nav(header) {
+    const popupNav = header.querySelector('.popup_wrap.sitemap .nav');
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach((depth3) => {
+      depth3.remove();
+    });
+  }
+
   function injectHeaderFooter() {
     if (!document.querySelector('header#header')) {
       const header = document.createElement('header');
@@ -403,6 +415,7 @@
     const navMarkup = buildNavMarkup();
     header.querySelector('.header_inner .nav').innerHTML = navMarkup;
     header.querySelector('.popup_wrap.sitemap .nav').innerHTML = navMarkup;
+    trimPopupDepth3Nav(header);
     footer.querySelector('.nav').innerHTML = navMarkup;
 
     setActiveLinks(header);
