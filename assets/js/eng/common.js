@@ -57,6 +57,19 @@ $(function () {
       }
     });
   }
+
+  function trimPopupDepth3Nav() {
+    const popupNav = document.querySelector(".popup_wrap.sitemap .popup_contents_wrap nav");
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll("li.has_depth3 > .depth3").forEach((depth3) => {
+      depth3.remove();
+    });
+  }
+
   // ?��header ??nav.html ?�결
   if (!$(".container").hasClass("recruit")) {
     loadHTML("../_include/eng/header.html", "#header", function () {
@@ -86,7 +99,8 @@ $(function () {
   if (!$(".container").hasClass("recruit")) {
     loadHTML(
       "../_include/eng/nav.html",
-      ".popup_wrap.sitemap .popup_contents_wrap nav"
+      ".popup_wrap.sitemap .popup_contents_wrap nav",
+      trimPopupDepth3Nav
     );
   } else {
     loadHTML(

@@ -108,16 +108,24 @@ footer .footer_inner nav ol li.depth1:last-child{display:none;}
     // Event delegation을 사용해 나중에 로드되는 요소에도 적용
     $(document).on("click", "footer .nav ol li.has_depth3 > a", function (e) {
       e.preventDefault();
+      e.stopPropagation();
+      e.stopImmediatePropagation();
+
+      const currentItem = $(this).closest("li.has_depth3");
       const depth3 = $(this).next(".depth3");
-      const isVisible = depth3.is(":visible");
+      const isOpen = currentItem.hasClass("is-open");
       
       // 다른 소프트웨어 항목 닫기
-      $("footer .nav ol li.has_depth3 > .depth3").slideUp(200);
+      $("footer .nav ol li.has_depth3").removeClass("is-open");
+      $("footer .nav ol li.has_depth3 > .depth3").stop(true, true).slideUp(200);
       
       // 현재 항목 토글
-      if (!isVisible) {
-        depth3.slideDown(200);
+      if (!isOpen) {
+        currentItem.addClass("is-open");
+        depth3.stop(true, true).slideDown(200);
       }
+
+      return false;
     });
 
     // 초기 상태: 모든 depth3 숨김
