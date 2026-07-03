@@ -62,7 +62,7 @@
         width: 100%;
         height: 100%;
         margin: 0 auto;
-        padding: 0 160px;
+        padding: 0 120px;
         background: #fff !important;
       }
       header.js__header.baron-shell .logo_box {
