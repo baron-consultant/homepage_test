@@ -131,7 +131,10 @@ header .header_inner {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 0 160px;
+  padding: 0 120px;
+}
+header .logo_box {
+  flex: 0 0 auto;
 }
 header#header_recruit .header_inner.recruit {
   display: flex;
@@ -254,13 +257,15 @@ header#header_recruit .header_inner.recruit .btn_corp {
 }
 
 header .header_inner nav {
+  flex: 1 1 auto;
+  min-width: 0;
   height: 100%;
 }
 header .header_inner nav ol {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;
+  gap: clamp(20px, 1.6vw, 28px);
   width: 100%;
   height: 100%;
 }
@@ -397,6 +402,7 @@ header .header_inner .header_R {
   display: flex;
   flex-direction: row;
   align-items: center;
+  flex: 0 0 auto;
   margin-left: auto;
 }
 
