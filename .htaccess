@@ -1,0 +1,3 @@
+RewriteEngine On
+
+RewriteRule ^callback/?$ /callback.html [L]

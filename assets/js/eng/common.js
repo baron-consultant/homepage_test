@@ -1,3 +1,7 @@
+import { ensureBaronSsoAuth } from "../baron-sso-auth.js";
+
+await ensureBaronSsoAuth();
+
 // ?�� AJAX 관??SCRIPT
 $(function () {
   $.ajaxSetup({ cache: false });
