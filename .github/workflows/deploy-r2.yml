@@ -82,7 +82,7 @@ jobs:
             local cache_control=""
 
             case "$path" in
-              *.html|assets/js/common.js|assets/js/common_eng.js|assets/js/eng/common.js)
+              *.html|assets/js/common.js|assets/js/common_eng.js|assets/js/eng/common.js|assets/js/egbim-baron-shell.js|ko/tova/js/common.js|en/tova/js/common.js|ko/egbim/js/common.js|en/egbim/js/common.js)
                 cache_control="no-cache, no-store, must-revalidate"
                 ;;
             esac
@@ -109,6 +109,11 @@ jobs:
           assets/js/common.js
           assets/js/common_eng.js
           assets/js/eng/common.js
+          assets/js/egbim-baron-shell.js
+          ko/tova/js/common.js
+          en/tova/js/common.js
+          ko/egbim/js/common.js
+          en/egbim/js/common.js
           EOF
 
             find . -type f \( -name '*.html' \) -print | sed 's#^./##' | while IFS= read -r path; do
