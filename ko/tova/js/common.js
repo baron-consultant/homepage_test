@@ -1,11 +1,3 @@
-window.__baronSsoReady = import("../../../assets/js/baron-sso-auth.js")
-    .then(function (module) {
-        return module.ensureBaronSsoAuth();
-    })
-    .catch(function (error) {
-        console.error("Failed to initialize BARON SSO.", error);
-    });
-
 // 전역 변수
 var errmsg = "";
 var errfld = null;
