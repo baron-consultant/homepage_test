@@ -257,7 +257,9 @@ header#header_recruit .header_inner.recruit .btn_corp {
 }
 
 header .header_inner nav {
+  display: flex;
   flex: 1 1 auto;
+  justify-content: center;
   min-width: 0;
   height: 100%;
 }
@@ -265,8 +267,8 @@ header .header_inner nav ol {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(20px, 1.6vw, 28px);
-  width: 100%;
+  gap: 84px;
+  width: max-content;
   height: 100%;
 }
 header .header_inner nav ol li.depth1 {
@@ -393,9 +395,6 @@ header .header_inner nav ol li.depth1:hover ul.depth2 {
 }
 header .header_inner nav ol li.depth1 ul.depth2 li:hover a {
   color: var(--color-primary);
-}
-header .header_inner nav ol li.depth1:last-child ul.depth2 {
-  display: none;
 }
 
 header .header_inner .header_R {
@@ -528,7 +527,7 @@ header .sitemap nav {
   height: 100%;
   margin: 0 auto;
   text-align: left;
-  overflow: hidden;
+  overflow: auto;
   background-color: #fff;
   padding: 0 160px 0 240px;
 }
@@ -536,9 +535,9 @@ header .sitemap nav ol {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-auto-rows: minmax(auto, 160px);
+  grid-auto-rows: minmax(160px, auto);
   align-content: center;
-  align-items: center;
+  align-items: start;
   position: relative;
 }
 header .sitemap nav ol::before {
@@ -556,8 +555,9 @@ header .sitemap nav ol li.depth1 {
   display: grid;
   grid-template-columns: 1fr 4fr;
   align-content: stretch;
-  align-items: center;
-  height: 100%;
+  align-items: start;
+  min-height: 160px;
+  height: auto;
   opacity: 0.5;
 }
 header .sitemap nav ol li.depth1 span {
@@ -569,15 +569,11 @@ header .sitemap nav ol li.depth1 span em {
   font-size: 20px;
   font-weight: 400;
 }
-header .sitemap nav ol li.depth1:last-child span i,
-header .sitemap nav ol li.depth1:last-child ul.depth2 {
-  display: none;
-}
 header .sitemap nav ol li.depth1 ul.depth2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-  height: 100%;
+  align-items: start;
+  height: auto;
   font-size: 18px;
   padding-left: 80px;
   border-bottom: 1px solid #eee;
@@ -607,7 +603,7 @@ header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 {
   font-size: 15px;
   opacity: 0.75;
 }
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
+header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px 16px;
@@ -617,32 +613,14 @@ header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li {
   width: 100%;
   padding: 0;
 }
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li {
+header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li {
   width: auto;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li a {
   display: block;
 }
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li a {
+header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li a {
   white-space: nowrap;
-}
-header .sitemap nav ol li.depth1:last-child ul.depth2 li i {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  background: no-repeat center/contain;
-  margin-left: 4px;
-  translate: 0 1px;
-  background-color: #000;
-  -webkit-mask-image: url(../img/ico_more.svg);
-  mask-image: url(../img/ico_more.svg);
-  background-size: cover;
-  -webkit-background-size: cover;
-  mask-size: contain;
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li:hover {
   color: var(--color-primary);
@@ -692,17 +670,25 @@ footer .footer_inner {
   width: 100%;
   height: 100%;
   display: grid;
-  justify-content: space-between;
+  grid-template-columns: minmax(0, 1fr) 160px;
+  justify-content: stretch;
   align-content: space-between;
-  grid-auto-columns: min-content;
-  gap: 40px;
-  padding: 40px 160px 24px;
+  column-gap: 28px;
+  row-gap: 40px;
+  padding: 40px 40px 24px;
   overflow: hidden;
+}
+footer .footer_inner nav {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
 }
 footer .footer_inner nav ol {
   width: max-content;
+  max-width: none;
   display: flex;
-  gap: 40px;
+  justify-content: center;
+  gap: 84px;
 }
 footer .footer_inner nav ol li.depth1 {
   display: flex;
@@ -739,22 +725,6 @@ footer .footer_inner nav ol li.depth1 span i {
   margin-left: 4px;
   translate: 0 1px;
   filter: invert(1);
-}
-footer .footer_inner nav ol li.depth1:last-child {
-  padding-left: 48px;
-}
-footer .footer_inner nav ol li.depth1:last-child::before {
-  content: "";
-  position: absolute;
-  width: 1px;
-  height: 100%;
-  border-left: 1px dashed #fff;
-  margin-left: -48px;
-  opacity: 0.5;
-}
-footer .footer_inner nav ol li.depth1:last-child span::after,
-footer .footer_inner nav ol li.depth1:last-child ul.depth2 {
-  display: none;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 {
   display: flex;
@@ -1218,7 +1188,7 @@ header#header_recruit .btn_menu {
     cursor: pointer;
     font-weight: 400;
   }
-  header .sitemap nav ol li.depth1:not(:last-child) span::after {
+  header .sitemap nav ol li.depth1 span::after {
     content: " ";
     position: absolute;
     right: 25px;
@@ -1230,7 +1200,7 @@ header#header_recruit .btn_menu {
     transform: rotate(-135deg);
     transition: transform 0.3s ease-out;
   }
-  header .sitemap nav ol li.depth1:not(:last-child).active span::after {
+  header .sitemap nav ol li.depth1.active span::after {
     transform: rotate(45deg);
     top: 40%;
   }
@@ -1241,23 +1211,8 @@ header#header_recruit .btn_menu {
     opacity: 0;
     transition: opacity 0.2s ease-in;
   }
-  header .sitemap nav ol li.depth1:last-child {
-    padding: 0px 24px;
-  }
-  header .sitemap nav ol li.depth1:last-child span em,
   header .sitemap nav ol li.depth1.active span em {
     opacity: 1;
-  }
-  header .sitemap nav ol li.depth1:last-child span {
-    border-top: 1px dashed rgba(0, 0, 0, 0.1);
-    padding: 24px 0px 16px;
-  }
-  header .sitemap nav ol li.depth1:last-child span i {
-    display: inline-block;
-    float: right;
-    width: 20px;
-    height: 20px;
-    background: url(../img/ico_more.svg) no-repeat center / contain;
   }
 
   header .sitemap nav ol li.depth1 ul.depth2 {
@@ -1284,11 +1239,16 @@ header#header_recruit .btn_menu {
     font-weight: 700;
   }
   header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 {
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     margin-top: 12px;
     padding-top: 12px;
     font-size: 14px;
     opacity: 1;
+  }
+  header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 {
+    grid-template-columns: none;
   }
   header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li {
     padding: 0;

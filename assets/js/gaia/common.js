@@ -85,9 +85,15 @@
         background-color: #0c367f; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;
         -webkit-mask-size: contain; mask-size: contain; background-size: cover;
       }
-      header.js__header.baron-shell nav { height: 100%; }
+      header.js__header.baron-shell nav {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: center;
+        min-width: 0;
+        height: 100%;
+      }
       header.js__header.baron-shell nav ol {
-        display: flex; justify-content: center; align-items: center; gap: 28px; width: 100%; height: 100%;
+        display: flex; justify-content: center; align-items: center; gap: 84px; width: max-content; height: 100%;
       }
       header.js__header.baron-shell nav ol li.depth1 {
         height: 100%; min-width: 60px; position: relative;
@@ -144,8 +150,9 @@
       header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1 ul.depth2 li ul.depth3 { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.08); font-size: 15px; opacity: 0.75; }
       header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li { width: 100%; padding: 0; }
       footer#footer.baron-footer { background: #0c367f; color: #fff; }
-      footer#footer.baron-footer .footer_inner { width: 100%; display: grid; justify-content: space-between; align-content: space-between; grid-auto-columns: min-content; gap: 40px; padding: 40px 160px 24px; overflow: hidden; }
-      footer#footer.baron-footer nav ol { width: max-content; display: flex; gap: 40px; }
+      footer#footer.baron-footer .footer_inner { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 160px; justify-content: stretch; align-content: space-between; column-gap: 28px; row-gap: 40px; padding: 40px 40px 24px; overflow: hidden; }
+      footer#footer.baron-footer nav { display: flex; justify-content: center; min-width: 0; }
+      footer#footer.baron-footer nav ol { width: max-content; max-width: none; display: flex; justify-content: center; gap: 84px; }
       footer#footer.baron-footer nav ol li.depth1 { display: flex; flex-direction: column; gap: 48px; position: relative; height: max-content; }
       footer#footer.baron-footer nav ol li.depth1 span { font-size: 18px; font-weight: 700; position: relative; color: #fff; }
       footer#footer.baron-footer nav ol li.depth1 span em { display: block; opacity: 0.5; font-size: 16px; font-weight: 400; }

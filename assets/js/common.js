@@ -78,23 +78,11 @@ $(function () {
     });
   }
 
-  function trimPopupDepth3Nav() {
-    const popupNav = document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav');
-
-    if (!popupNav) {
-      return;
-    }
-
-    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach((depth3) => {
-      depth3.remove();
-    });
-  }
-
   function loadSitemapNav() {
     if (!$('.container').hasClass('recruit')) {
-      loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', trimPopupDepth3Nav);
+      loadHTML(`${includeBase}/nav.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', mobileMenu);
     } else {
-      loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav');
+      loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', mobileMenu);
     }
   }
   // ?��header ??nav.html ?�결
@@ -394,22 +382,26 @@ window.addEventListener("unhandledrejection", releaseLoadingUI);
 function mobileMenu() {
   const mNav = document.querySelectorAll(".sitemap ol > li.depth1");
 
-  mNav.forEach((item, index) => {
-    item.addEventListener("click", function () {
-      if (mNav.length - 1 != index) {
-        const width = window.innerWidth;
-        if (width <= 1440) {
-          const depth2 = item.querySelector(".depth2");
-          if (!item.classList.contains("active")) {
-            item.classList.add("active");
-            // ?�라?�드 ?�운
-            depth2.style.maxHeight = depth2.scrollHeight + "px";
-          } else {
-            item.classList.remove("active");
-            // ?�라?�드 ??
-            depth2.style.maxHeight = null;
-          }
-        }
+  mNav.forEach((item) => {
+    const trigger = item.querySelector(":scope > span");
+    const depth2 = item.querySelector(":scope > .depth2");
+
+    if (!trigger || !depth2 || trigger.dataset.mobileMenuBound === "true") {
+      return;
+    }
+
+    trigger.dataset.mobileMenuBound = "true";
+    trigger.addEventListener("click", function () {
+      if (window.innerWidth > 1440) {
+        return;
+      }
+
+      if (!item.classList.contains("active")) {
+        item.classList.add("active");
+        depth2.style.maxHeight = depth2.scrollHeight + "px";
+      } else {
+        item.classList.remove("active");
+        depth2.style.maxHeight = null;
       }
     });
   });
