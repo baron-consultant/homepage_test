@@ -1,7 +1,3 @@
-import { ensureBaronSsoAuth } from "./baron-sso-auth.js";
-
-await ensureBaronSsoAuth();
-
 // ?�� AJAX 관??SCRIPT
 $(function () {
   const rootPrefix = location.pathname.startsWith('/baron/') ? '/baron' : '';
