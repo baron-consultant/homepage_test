@@ -1,11 +1,3 @@
-window.__baronSsoReady = import("../../../assets/js/baron-sso-auth.js")
-  .then(function (module) {
-    return module.ensureBaronSsoAuth();
-  })
-  .catch(function (error) {
-    console.error("Failed to initialize BARON SSO.", error);
-  });
-
 // 전역 변수
 var errmsg = "";
 var errfld = null;
@@ -1021,7 +1013,7 @@ function loadEgbimBaronShell(locale) {
 
   const script = document.createElement("script");
   script.id = "egbim-baron-shell-script";
-  script.src = "/assets/js/egbim-baron-shell.js?v=20260623h";
+  script.src = "../../assets/js/egbim-baron-shell.js?v=20260623h";
   script.onload = function () {
     window.initEgbimBaronShell?.(locale);
   };

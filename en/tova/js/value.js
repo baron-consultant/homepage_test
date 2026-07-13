@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                         menuText.style.display = '';
                     });
                 } else {
-                    item.style.backgroundImage = 'url(../img/value_screen1.png)';
+                    item.style.backgroundImage = 'url(./img/value_screen1.png)';
                     item.classList.remove("full");
                     item.style.transition = '0.5s';
                     item.style.transform = 'translateY(70%) scale(0.5)';
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 }
             },
             onLeave: () => {
-                document.querySelector(".js__height_item").style.backgroundImage = 'url(../img/value_screen1.png)';
+                document.querySelector(".js__height_item").style.backgroundImage = 'url(./img/value_screen1.png)';
             }
         });
     }
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function() {
         if (button.classList.contains('on')) {
             button.classList.remove('on');
-            guide.style.backgroundImage = 'url(../img/value_screen1.png)'
+            guide.style.backgroundImage = 'url(./img/value_screen1.png)'
             listItems.forEach(item => {
                 const menuText = item.querySelector('.menu_text');
                 if (menuText) {
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
         } else {
             button.classList.add('on');
-            guide.style.backgroundImage = 'url(../img/value_screen2.png)'
+            guide.style.backgroundImage = 'url(./img/value_screen2.png)'
             guide.style.transition = '0s'
             listItems.forEach(item => {
                 const menuText = item.querySelector('.menu_text');

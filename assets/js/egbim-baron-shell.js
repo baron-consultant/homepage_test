@@ -1,12 +1,22 @@
 (function () {
+  function getBaronRootPrefix() {
+    return window.location.pathname.startsWith('/baron/') ? '/baron' : '';
+  }
+
+  function getBaronAssetPath(relativePath) {
+    return getBaronRootPrefix() + '/assets/' + relativePath;
+  }
+
   function injectBaronHeaderStyles(locale) {
     if (document.getElementById('baron-header-style')) {
       return;
     }
 
     const logoPath = locale === 'en'
-      ? '../../../assets/img/eng/logo_c.svg'
-      : '../../../assets/img/logo_c.svg';
+      ? getBaronAssetPath('img/eng/logo_c.svg')
+      : getBaronAssetPath('img/logo_c.svg');
+    const moreIconPath = getBaronAssetPath('img/ico_more.svg');
+    const languageIconPath = getBaronAssetPath('img/ico_language.svg');
 
     const style = document.createElement('style');
     style.id = 'baron-header-style';
@@ -89,14 +99,18 @@
         mask-repeat: no-repeat;
       }
       header.js__header.baron-shell nav {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: center;
+        min-width: 0;
         height: 100%;
       }
       header.js__header.baron-shell nav ol {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 28px;
-        width: 100%;
+        gap: 84px;
+        width: max-content;
         height: 100%;
       }
       header.js__header.baron-shell nav ol li.depth1 {
@@ -131,7 +145,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
+        background: url(${moreIconPath}) no-repeat center/contain;
         margin-left: 4px;
         translate: 0 1px;
       }
@@ -230,7 +244,7 @@
         width: 16px;
         height: 16px;
         margin-top: 4px;
-        background-image: url(../../../assets/img/ico_language.svg);
+        background-image: url(${languageIconPath});
         background-position: center;
         background-repeat: no-repeat;
         translate: 0 2px;
@@ -364,12 +378,12 @@
       header.js__header.baron-shell .popup_wrap.sitemap nav {
         width: 100%;
         max-width: 100%;
-        height: auto;
+        height: 100%;
         min-height: 0;
         flex: 1 1 auto;
         margin: 0 auto;
         text-align: left;
-        overflow: hidden;
+        overflow: auto;
         background-color: #fff;
         padding: 0 160px 0 240px;
       }
@@ -378,9 +392,9 @@
         height: 100%;
         display: grid;
         grid-template-columns: 100%;
-        grid-auto-rows: minmax(auto, 160px);
+        grid-auto-rows: minmax(160px, auto);
         align-content: center;
-        align-items: center;
+        align-items: start;
         gap: 0;
         justify-content: normal;
         position: relative;
@@ -400,8 +414,9 @@
         display: grid;
         grid-template-columns: 1fr 4fr;
         align-content: stretch;
-        align-items: center;
-        height: 100%;
+        align-items: start;
+        min-height: 160px;
+        height: auto;
         opacity: 0.5;
       }
       header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:hover {
@@ -437,8 +452,8 @@
         min-width: 0;
         width: auto;
         grid-template-columns: repeat(3, 1fr);
-        align-items: center;
-        height: 100%;
+        align-items: start;
+        height: auto;
         font-size: 18px;
         padding: 0 0 0 80px;
         background-color: transparent;
@@ -485,7 +500,7 @@
         font-size: 15px;
         opacity: 0.75;
       }
-      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
+      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 8px 16px;
@@ -497,7 +512,7 @@
         padding: 0;
         text-align: left;
       }
-      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li {
+      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li {
         width: auto;
       }
       header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li a {
@@ -507,7 +522,7 @@
         line-height: normal;
         font-weight: inherit;
       }
-      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li a {
+      header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li a {
         white-space: nowrap;
       }
       @media (max-width: 1024px) {
@@ -619,11 +634,16 @@
           opacity: 1;
         }
         header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1 ul.depth2 li ul.depth3 {
+          display: flex;
+          flex-direction: column;
           gap: 10px;
           margin-top: 12px;
           padding-top: 12px;
           font-size: 14px;
           opacity: 1;
+        }
+        header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 {
+          grid-template-columns: none;
         }
         header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li {
           padding: 0;
@@ -642,8 +662,10 @@
     }
 
     const footerLogoPath = locale === 'en'
-      ? '../../../assets/img/eng/logo_w.svg'
-      : '../../../assets/img/logo_w.svg';
+      ? getBaronAssetPath('img/eng/logo_w.svg')
+      : getBaronAssetPath('img/logo_w.svg');
+    const moreIconPath = getBaronAssetPath('img/ico_more.svg');
+    const angleIconPath = getBaronAssetPath('img/ico_angle.svg');
 
     const style = document.createElement('style');
     style.id = 'baron-footer-style';
@@ -667,14 +689,16 @@
         overflow: hidden;
       }
       footer#footer.baron-footer nav {
+        display: flex;
+        justify-content: center;
         min-width: 0;
       }
       footer#footer.baron-footer nav ol {
-        width: 100%;
-        max-width: 100%;
+        width: max-content;
+        max-width: none;
         display: flex;
-        justify-content: space-between;
-        gap: clamp(12px, 1vw, 24px);
+        justify-content: center;
+        gap: 84px;
       }
       footer#footer.baron-footer nav ol li.depth1 {
         display: flex;
@@ -712,7 +736,7 @@
         display: inline-block;
         width: 16px;
         height: 16px;
-        background: url(../../../assets/img/ico_more.svg) no-repeat center/contain;
+        background: url(${moreIconPath}) no-repeat center/contain;
         margin-left: 4px;
         translate: 0 1px;
         filter: invert(1);
@@ -788,7 +812,7 @@
       footer#footer.baron-footer .family_wrap .family_btn i {
         width: 12px;
         height: 12px;
-        background: url(../../../assets/img/ico_angle.svg) no-repeat center/contain;
+        background: url(${angleIconPath}) no-repeat center/contain;
         transition: 0.2s;
       }
       footer#footer.baron-footer .family_wrap:has(.family_on) .family_btn i {
@@ -874,15 +898,23 @@
         background-color: #071933;
         cursor: pointer;
         box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+      }
+      footer#footer.baron-footer .btn_top.topbtn_off {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+      footer#footer.baron-footer .btn_top.topbtn_on {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transition: opacity 0.3s ease;
       }
       footer#footer.baron-footer .btn_top::after {
-        position: absolute;
-        content: '';
-        top: 12px;
-        left: calc(50% - 15px);
-        width: 30px;
-        height: 2px;
-        background-color: #fff;
+        content: none;
       }
       footer#footer.baron-footer .btn_top .arrow {
         width: 2px;
@@ -965,6 +997,7 @@
           font-size: 12px;
         }
         footer#footer.baron-footer .btn_top {
+          display: block !important;
           right: 24px;
           width: 40px;
           height: 40px;
@@ -998,12 +1031,19 @@
     document.head.appendChild(style);
   }
 
+  function getBaronRootPrefix() {
+    return window.location.pathname.startsWith('/baron/') ? '/baron' : '';
+  }
+
   function normalizeBaronIncludeHtml(html) {
-    return html
-      .replace(/\.\.\/ko\//g, '/ko/')
-      .replace(/\.\.\/en\//g, '/en/')
-      .replace(/\.\.\/recruit\//g, '/recruit/')
-      .replace(/\.\.\/assets\//g, '/assets/');
+    const rootPrefix = getBaronRootPrefix();
+    const sanitizedHtml = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+
+    return sanitizedHtml
+      .replace(/\.\.\/ko\//g, rootPrefix + '/ko/')
+      .replace(/\.\.\/en\//g, rootPrefix + '/en/')
+      .replace(/\.\.\/recruit\//g, rootPrefix + '/recruit/')
+      .replace(/\.\.\/assets\//g, rootPrefix + '/assets/');
   }
 
   function loadBaronInclude(url, target, callback) {
@@ -1123,14 +1163,17 @@
         }
       });
     }
-    mobileNavItems.forEach(function (item, index) {
-      item.addEventListener('click', function () {
-        if (mobileNavItems.length - 1 === index || window.innerWidth > 1024) {
-          return;
-        }
+    mobileNavItems.forEach(function (item) {
+      const trigger = item.querySelector(':scope > span');
+      const depth2 = item.querySelector(':scope > .depth2');
 
-        const depth2 = item.querySelector('.depth2');
-        if (!depth2) {
+      if (!trigger || !depth2 || trigger.dataset.mobileMenuBound === 'true') {
+        return;
+      }
+
+      trigger.dataset.mobileMenuBound = 'true';
+      trigger.addEventListener('click', function () {
+        if (window.innerWidth > 1024) {
           return;
         }
 
@@ -1142,18 +1185,6 @@
           depth2.style.maxHeight = null;
         }
       });
-    });
-  }
-
-  function trimPopupDepth3Nav(header) {
-    const popupNav = header.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav');
-
-    if (!popupNav) {
-      return;
-    }
-
-    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach(function (depth3) {
-      depth3.remove();
     });
   }
 
@@ -1219,6 +1250,7 @@
 
     const header = shell.header;
     const currentFile = (window.location.pathname.split('/').pop() || 'index.html').split('?')[0];
+    const rootPrefix = getBaronRootPrefix();
 
     injectBaronHeaderStyles(locale);
 
@@ -1226,17 +1258,16 @@
     header.className = 'js__header baron-shell';
     header.innerHTML = '';
 
-    const headerUrl = locale === 'en' ? '/_include/eng/header.html' : '/_include/header.html';
-    const navUrl = locale === 'en' ? '/_include/eng/nav.html' : '/_include/nav.html';
+    const headerUrl = locale === 'en' ? rootPrefix + '/_include/eng/header.html' : rootPrefix + '/_include/header.html';
+    const navUrl = locale === 'en' ? rootPrefix + '/_include/eng/nav.html' : rootPrefix + '/_include/nav.html';
 
     loadBaronInclude(headerUrl, '#header', function () {
       loadBaronInclude(navUrl, '#header .corp .nav', function () {
         loadBaronInclude(navUrl, '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
-          trimPopupDepth3Nav(header);
           const languageLinks = header.querySelectorAll('.language a');
           if (languageLinks.length >= 2) {
-            languageLinks[0].setAttribute('href', '/ko/' + productKey + '/' + currentFile);
-            languageLinks[1].setAttribute('href', '/en/' + productKey + '/' + currentFile);
+            languageLinks[0].setAttribute('href', rootPrefix + '/ko/' + productKey + '/' + currentFile);
+            languageLinks[1].setAttribute('href', rootPrefix + '/en/' + productKey + '/' + currentFile);
             languageLinks[0].classList.toggle('on', locale === 'ko');
             languageLinks[1].classList.toggle('on', locale === 'en');
           }
@@ -1300,8 +1331,9 @@
     }
 
     const footer = shell.footer;
-    const footerUrl = locale === 'en' ? '/_include/eng/footer.html' : '/_include/footer.html';
-    const navUrl = locale === 'en' ? '/_include/eng/nav.html' : '/_include/nav.html';
+    const rootPrefix = getBaronRootPrefix();
+    const footerUrl = locale === 'en' ? rootPrefix + '/_include/eng/footer.html' : rootPrefix + '/_include/footer.html';
+    const navUrl = locale === 'en' ? rootPrefix + '/_include/eng/nav.html' : rootPrefix + '/_include/nav.html';
 
     injectBaronFooterStyles(locale);
     footer.className = 'baron-footer';
