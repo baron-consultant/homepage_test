@@ -5,22 +5,3 @@ compatibility_date = "2026-07-20"
 [[r2_buckets]]
 binding = "SITE_BUCKET"
 bucket_name = "baron-hompage-test"
-name = "baron-auth-gateway"
-main = "src/index.js"
-compatibility_date = "2026-07-16"
-
-[vars]
-PUBLIC_ROOT_KEY = "ko/index.html"
-PUBLIC_EXACT_PATHS = "/,/ko/index.html,/en/index.html,/ko/sv_sw_kngil.html,/en/sv_sw_kngil.html,/_include/header.html,/_include/footer.html,/_include/nav-public.html,/_include/eng/header.html,/_include/eng/footer.html,/_include/eng/nav-public.html,/assets/css/reset.css,/assets/css/font.css,/assets/css/layout.css,/assets/css/common.css,/assets/css/pr.css,/assets/css/sevice.css,/assets/css/eng/common.css,/assets/css/eng/baron.css,/assets/css/eng/pr.css,/assets/css/eng/sevice.css,/assets/js/common.js,/assets/js/eng/common.js,/assets/js/baron-sso-auth.js,/assets/js/baron-sso-config.js,/assets/js/sv.js,/assets/js/eng/sv.js,/assets/js/pr.js,/assets/js/eng/pr.js,/assets/js/br.js,/assets/js/public-landing.js,/assets/js/eng/public-landing.js,/assets/img/index.mp4,/assets/img/favicon.ico,/assets/img/og-main-thumb_baron.JPG,/assets/img/logo_c.svg,/assets/img/logo_w.svg,/assets/img/logo.svg,/assets/img/ico_language.svg,/assets/img/ico_language_w.svg,/assets/img/ico_more.svg,/assets/img/ico_more_hover.svg,/assets/img/ico_angle.svg,/assets/img/ico_home.svg,/assets/img/ico_close.svg,/assets/img/flipbook_corner.png,/assets/img/eng/logo_c.svg,/assets/img/eng/logo_w.svg"
-PUBLIC_PREFIXES = "/ko/egbim/,/ko/tova/,/ko/gaia/,/en/egbim/,/en/tova/,/en/gaia/,/ko/pr_,/en/pr_,/assets/font/,/assets/css/lib/,/assets/js/lib/,/assets/file/,/assets/img/pr/,/assets/img/sv/"
-PROTECTED_PREFIXES = "/ko/,/en/,/_include/,/assets/,/recruit/,/portfolio/"
-INTERNAL_ONLY_PREFIXES = "/protected/"
-SESSION_COOKIE_NAME = "baron_worker_session"
-OAUTH_COOKIE_NAME = "baron_worker_oauth"
-SESSION_TTL_SECONDS = "3600"
-AUTH_SCOPE = "openid profile email"
-AUTH_POST_LOGOUT_REDIRECT_URI = "https://baroncs.co.kr/"
-
-[[r2_buckets]]
-binding = "SITE_BUCKET"
-bucket_name = "baron-hompage-test"
