@@ -1,4 +1,4 @@
-name = "wispy-flower-ec96"
+name = "baron-auth-gateway"
 main = "src/index.js"
 compatibility_date = "2026-07-20"
 workers_dev = false
