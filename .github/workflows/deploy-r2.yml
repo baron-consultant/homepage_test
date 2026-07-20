@@ -72,7 +72,7 @@ jobs:
 
           should_skip() {
             case "$1" in
-              .git/*|.github/*|*.md|img/*|*/img/*|"") return 0 ;;
+              .git/*|.github/*|cloudflare-worker/*|*.md|img/*|*/img/*|"") return 0 ;;
               *) return 1 ;;
             esac
           }
@@ -131,6 +131,7 @@ jobs:
               --delete \
               --exclude ".git/*" \
               --exclude ".github/*" \
+              --exclude "cloudflare-worker/*" \
               --exclude "img/*" \
               --exclude "*/img/*" \
               --exclude "*.md" \

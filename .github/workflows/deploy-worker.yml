@@ -1,0 +1,40 @@
+name: Deploy Baron Worker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - cloudflare-worker/**
+      - .github/workflows/deploy-worker.yml
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate Worker deployment secrets
+        run: |
+          if [ -z "${{ secrets.CF_API_TOKEN }}" ]; then
+            echo "::error::CF_API_TOKEN is empty. Add a Cloudflare API token with Worker deployment access to this repository's GitHub Actions secrets."
+            exit 1
+          fi
+
+          if [ -z "${{ secrets.CF_R2_ACCOUNT_ID }}" ]; then
+            echo "::error::CF_R2_ACCOUNT_ID is empty. Add the Cloudflare account ID that owns the Worker and the R2 bucket to this repository's GitHub Actions secrets."
+            exit 1
+          fi
+
+      - name: Deploy Worker to Cloudflare
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_R2_ACCOUNT_ID }}
+          workingDirectory: cloudflare-worker
+          command: deploy
