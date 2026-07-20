@@ -1,11 +1,7 @@
-name = "baron-auth-gateway"
+name = "wispy-flower-ec96"
 main = "src/index.js"
 compatibility_date = "2026-07-20"
 workers_dev = false
-
-[[routes]]
-pattern = "test.baroncs.co.kr/*"
-zone_name = "baroncs.co.kr"
 
 [[r2_buckets]]
 binding = "SITE_BUCKET"
