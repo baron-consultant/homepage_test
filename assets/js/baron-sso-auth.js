@@ -835,6 +835,13 @@ export async function ensureBaronSsoAuth(overrides = {}) {
   const currentUrl = new URL(window.location.href);
   const hasCallbackParams = currentUrl.searchParams.has("code") || currentUrl.searchParams.has("state");
   const workerAuth = getWorkerManagedAuth();
+  const workerPublicPaths = normalizeArray(overrides.publicPaths);
+  const workerPublicPath = workerPublicPaths.some((entry) => {
+    const currentPath = normalizePath(window.location.pathname);
+    const normalizedEntry = normalizePath(entry);
+    return currentPath === normalizedEntry || currentPath.startsWith(`${normalizedEntry}/`);
+  });
+  const workerForceAuth = Boolean(overrides.forceAuth);
 
   if (workerAuth) {
     attachWorkerManagedLogout(workerAuth);
@@ -850,7 +857,7 @@ export async function ensureBaronSsoAuth(overrides = {}) {
       return { status: "worker-authenticated", session };
     }
 
-    if (config.forceAuth || !publicPath) {
+    if (workerForceAuth || !workerPublicPath) {
       window.location.assign(workerAuth.loginUrl || "/auth/login");
       return { status: "worker-redirecting" };
     }
