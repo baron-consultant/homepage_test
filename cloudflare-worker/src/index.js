@@ -209,11 +209,15 @@ function buildConfig(url, env) {
     sessionCookieName: String(env.SESSION_COOKIE_NAME || DEFAULT_SESSION_COOKIE_NAME),
     pendingCookieName: String(env.OAUTH_COOKIE_NAME || DEFAULT_PENDING_COOKIE_NAME),
     sessionTtlSeconds: Math.max(Number(env.SESSION_TTL_SECONDS || DEFAULT_SESSION_TTL_SECONDS), 60),
-    publicExactPaths: publicExactPaths.length ? publicExactPaths : DEFAULT_PUBLIC_EXACT_PATHS,
-    publicPrefixes: publicPrefixes.length ? publicPrefixes : DEFAULT_PUBLIC_PREFIXES,
-    protectedPrefixes: protectedPrefixes.length ? protectedPrefixes : DEFAULT_PROTECTED_PREFIXES,
-    internalOnlyPrefixes: internalOnlyPrefixes.length ? internalOnlyPrefixes : DEFAULT_INTERNAL_ONLY_PREFIXES,
+    publicExactPaths: mergeConfigEntries(DEFAULT_PUBLIC_EXACT_PATHS, publicExactPaths),
+    publicPrefixes: mergeConfigEntries(DEFAULT_PUBLIC_PREFIXES, publicPrefixes),
+    protectedPrefixes: mergeConfigEntries(DEFAULT_PROTECTED_PREFIXES, protectedPrefixes),
+    internalOnlyPrefixes: mergeConfigEntries(DEFAULT_INTERNAL_ONLY_PREFIXES, internalOnlyPrefixes),
   };
+}
+
+function mergeConfigEntries(defaultEntries, overrideEntries) {
+  return Array.from(new Set([...(defaultEntries || []), ...(overrideEntries || [])]));
 }
 
 function isAuthConfigured(config) {
