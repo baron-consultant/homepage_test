@@ -299,7 +299,6 @@ async function handleCallback(request, config, url) {
   const sessionValue = await createSignedCookie(
     {
       profile: sessionProfile,
-      idToken: tokenResult.id_token || '',
       expiresAt: Date.now() + Math.max(expiresIn - 30, 30) * 1000,
     },
     config.sessionSecret
