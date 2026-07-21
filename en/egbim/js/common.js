@@ -1003,6 +1003,10 @@ function loadEgbimBaronShell(locale) {
     return;
   }
 
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const rootMarkerSegments = ['ko', 'en', 'callback', 'assets', 'protected', 'public', 'recruit'];
+  const rootPrefix = pathSegments.length && !rootMarkerSegments.includes(pathSegments[0]) ? `/${pathSegments[0]}` : '';
+
   const existingScript = document.getElementById("egbim-baron-shell-script");
   if (existingScript) {
     existingScript.addEventListener("load", function () {
@@ -1013,7 +1017,7 @@ function loadEgbimBaronShell(locale) {
 
   const script = document.createElement("script");
   script.id = "egbim-baron-shell-script";
-  script.src = "../../assets/js/egbim-baron-shell.js?v=20260713a";
+  script.src = `${rootPrefix}/assets/js/egbim-baron-shell.js?v=20260720-1`;
   script.onload = function () {
     window.initEgbimBaronShell?.(locale);
   };

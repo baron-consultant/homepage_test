@@ -1,5 +1,69 @@
+import { ensureBaronSsoAuth } from "../baron-sso-auth.js?v=20260716-logout1";
+
+const pathSegments = location.pathname.split('/').filter(Boolean);
+const rootMarkerSegments = ['ko', 'en', 'callback', 'assets', 'protected', 'public', 'recruit'];
+const rootPrefix = pathSegments.length && !rootMarkerSegments.includes(pathSegments[0]) ? `/${pathSegments[0]}` : '';
+const normalizePath = (path) => {
+  const normalizedPath = (path || '/').replace(/\/index\.html$/i, '/');
+  if (normalizedPath.length > 1 && normalizedPath.endsWith('/')) {
+    return normalizedPath.slice(0, -1);
+  }
+  return normalizedPath;
+};
+const currentPath = normalizePath(location.pathname);
+const landingPagePaths = [
+  `${rootPrefix}/ko`,
+  `${rootPrefix}/ko/`,
+  `${rootPrefix}/ko/index.html`,
+  `${rootPrefix}/en`,
+  `${rootPrefix}/en/`,
+  `${rootPrefix}/en/index.html`,
+];
+const publicPagePaths = [
+  ...landingPagePaths,
+  `${rootPrefix}/ko/sv_sw_kngil.html`,
+  `${rootPrefix}/en/sv_sw_kngil.html`,
+  `${rootPrefix}/ko/pr_`,
+  `${rootPrefix}/en/pr_`,
+];
+const normalizedLandingPagePaths = landingPagePaths.map(normalizePath);
+const isLandingPage = normalizedLandingPagePaths.includes(currentPath);
+const isPublicInfoPage = publicPagePaths.some((entry) => {
+  const normalizedEntry = normalizePath(entry);
+  if (normalizedEntry.endsWith('/pr_')) {
+    return currentPath.startsWith(normalizedEntry);
+  }
+
+  return currentPath === normalizedEntry || currentPath.startsWith(`${normalizedEntry}/`);
+});
+const loginRequested = isPublicInfoPage && new URL(window.location.href).searchParams.get('login') === '1';
+
+if (isLandingPage) {
+  document.documentElement.dataset.baronPageMode = 'landing';
+} else if (isPublicInfoPage) {
+  document.documentElement.dataset.baronPageMode = 'public-info';
+}
+
+const authResult = await ensureBaronSsoAuth(
+  isPublicInfoPage
+    ? {
+        publicPaths: publicPagePaths,
+        forceAuth: loginRequested,
+      }
+    : {}
+);
+
+const isAuthenticated = Boolean(authResult?.session);
+const isAnonymousPublicPage = Boolean(isPublicInfoPage && !isAuthenticated);
+
+document.documentElement.dataset.baronAuthState = isAuthenticated ? 'authenticated' : 'anonymous';
+
 // ?�� AJAX 관??SCRIPT
 $(function () {
+  const includeVersion = '20260623-4';
+  const navIncludeFile = isAnonymousPublicPage ? 'nav-public.html' : 'nav.html';
+  const includeBase = `${rootPrefix}/_include/eng`;
+
   $.ajaxSetup({ cache: false });
 
   function loadHTML(url, target, callback) {
@@ -11,8 +75,34 @@ $(function () {
         if (typeof callback === "function") callback();
       },
       error: function (xhr, status, error) {
-        console.error(`??Failed to load ${url}:`, error);
+        console.error(`Failed to load ${url}:`, error || status);
+        if (typeof callback === "function") callback();
       },
+    });
+  }
+
+  function normalizeSiteLinks(root) {
+    if (!root) {
+      return;
+    }
+
+    root.querySelectorAll('a[href], img[src], source[src]').forEach((node) => {
+      const attributeName = node.hasAttribute('href') ? 'href' : 'src';
+      const rawValue = node.getAttribute(attributeName);
+
+      if (!rawValue || /^(?:https?:|mailto:|tel:|javascript:|#)/i.test(rawValue)) {
+        return;
+      }
+
+      const normalizedValue = rawValue
+        .replace(/^\.\.\/(ko|en|recruit)\//, `${rootPrefix}/$1/`)
+        .replace(/^\/(ko|en|recruit)\//, `${rootPrefix}/$1/`)
+        .replace(/^\.\.\/callback\.html$/, `${rootPrefix}/callback.html`)
+        .replace(/^\/callback\.html$/, `${rootPrefix}/callback.html`);
+
+      if (normalizedValue !== rawValue) {
+        node.setAttribute(attributeName, normalizedValue);
+      }
     });
   }
 
@@ -58,32 +148,79 @@ $(function () {
     });
   }
 
+  function trimPublicNav(root) {
+    if (!isAnonymousPublicPage || !root) {
+      return;
+    }
+
+    const allowedLabels = ['Package S/W', 'Service S/W', 'PR Center'];
+    const topLevels = root.querySelectorAll('ol > li.depth1');
+    topLevels.forEach((item) => {
+      const label = item.querySelector('span')?.textContent.replace(/\s+/g, ' ').trim() || '';
+      const shouldKeep = allowedLabels.some((allowedLabel) => label.includes(allowedLabel));
+
+      if (!shouldKeep) {
+        item.remove();
+      }
+    });
+  }
+
+  function configureHeaderActions(root) {
+    if (!root) {
+      return;
+    }
+
+    const loginButton = root.querySelector('.header_login');
+    if (!loginButton) {
+      return;
+    }
+
+    if (isAuthenticated) {
+      loginButton.hidden = false;
+      loginButton.textContent = 'LOGOUT';
+      loginButton.href = '#';
+      loginButton.onclick = (event) => {
+        event.preventDefault();
+        window.baronSsoLogout?.();
+      };
+      return;
+    }
+
+    if (!isPublicInfoPage) {
+      loginButton.hidden = true;
+      return;
+    }
+
+    loginButton.hidden = false;
+    loginButton.textContent = 'LOGIN';
+    loginButton.href = `${location.pathname}?login=1`;
+    loginButton.onclick = null;
+  }
+
   function loadSitemapNav() {
     if (!$('.container').hasClass('recruit')) {
-      loadHTML(
-        "../_include/eng/nav.html",
-        ".popup_wrap.sitemap .popup_contents_wrap nav",
-        mobileMenu
-      );
+      loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', function () {
+        normalizeSiteLinks(document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav'));
+        trimPublicNav(document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav'));
+      });
     } else {
-      loadHTML(
-        "../_include/eng/nav_recruit.html",
-        ".popup_wrap.sitemap .popup_contents_wrap nav",
-        mobileMenu
-      );
+      loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav');
     }
   }
 
-  // ?��header ??nav.html ?�결
-  if (!$(".container").hasClass("recruit")) {
-    loadHTML("../_include/eng/header.html", "#header", function () {
-      loadHTML("../_include/eng/nav.html", "#header .corp .nav", function () {
+  if (!$('.container').hasClass('recruit')) {
+    loadHTML(`${includeBase}/header.html?v=${includeVersion}`, '#header', function () {
+      normalizeSiteLinks(document.querySelector('#header'));
+      loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#header .corp .nav', function () {
+        normalizeSiteLinks(document.querySelector('#header .corp .nav'));
         connectNavToMapList();
+        trimPublicNav(document.querySelector('#header .corp .nav'));
       });
+      configureHeaderActions(document.querySelector('#header'));
       loadSitemapNav();
     });
   } else {
-    loadHTML("../_include/eng/header_recruit.html", "#header_recruit", function () {
+    loadHTML(`${includeBase}/header_recruit.html?v=${includeVersion}`, '#header_recruit', function () {
       loadSitemapNav();
       if (!$(".container").hasClass("recruit")) {
       } else {
@@ -101,10 +238,12 @@ $(function () {
     });
   }
 
-  // ?��footer ??nav.html ?�결
-  loadHTML("../_include/eng/footer.html", "#footer", function () {
-    loadHTML("../_include/eng/nav.html", "#footer .nav", function () {
+  loadHTML(`${includeBase}/footer.html?v=${includeVersion}`, '#footer', function () {
+    normalizeSiteLinks(document.querySelector('#footer'));
+    loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#footer .nav', function () {
+      normalizeSiteLinks(document.querySelector('#footer .nav'));
       $("#footer .nav ol li.has_depth3 > .depth3").hide();
+      trimPublicNav(document.querySelector('#footer .nav'));
     });
   });
   mobileMenu();

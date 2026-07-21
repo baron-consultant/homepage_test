@@ -1001,7 +1001,6 @@ function injectBaronHeaderStyles(locale) {
             width: 100%;
             height: 100%;
             margin: 0 auto;
-            padding: 0 160px;
             background: #fff !important;
         }
         header.js__header.baron-shell .logo_box {
@@ -1038,7 +1037,7 @@ function injectBaronHeaderStyles(locale) {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 84px;
+            gap: 24px;
             width: max-content;
             height: 100%;
         }
@@ -1427,6 +1426,7 @@ function injectBaronHeaderStyles(locale) {
             font-size: 15px;
             opacity: 0.75;
         }
+        header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3,
         header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1439,6 +1439,7 @@ function injectBaronHeaderStyles(locale) {
             padding: 0;
             text-align: left;
         }
+        header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li,
         header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li {
             width: auto;
         }
@@ -1449,6 +1450,7 @@ function injectBaronHeaderStyles(locale) {
             line-height: normal;
             font-weight: inherit;
         }
+        header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li a,
         header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li a {
             white-space: nowrap;
         }
@@ -1566,6 +1568,7 @@ function injectBaronHeaderStyles(locale) {
                 font-size: 14px;
                 opacity: 1;
             }
+            header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3,
             header.js__header.baron-shell .popup_wrap.sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
                 grid-template-columns: none;
             }
@@ -1581,7 +1584,62 @@ function injectBaronHeaderStyles(locale) {
 }
 
 function getBaronRootPrefix() {
-    return window.location.pathname.startsWith('/baron/') ? '/baron' : '';
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const rootMarkerSegments = ['ko', 'en', 'callback', 'assets', 'protected', 'public', 'recruit'];
+    return pathSegments.length && !rootMarkerSegments.includes(pathSegments[0]) ? `/${pathSegments[0]}` : '';
+}
+
+let baronPackageAuthPromise = null;
+
+function configurePackageHeaderActions(root, locale, isAuthenticated) {
+    if (!root) {
+        return;
+    }
+
+    const loginButton = root.querySelector('.header_login');
+    if (!loginButton) {
+        return;
+    }
+
+    document.documentElement.setAttribute('data-baron-page-mode', 'landing');
+    if (isAuthenticated) {
+        document.documentElement.setAttribute('data-baron-auth-state', 'authenticated');
+        loginButton.hidden = false;
+        loginButton.textContent = locale === 'en' ? 'LOGOUT' : '로그아웃';
+        loginButton.href = '#';
+        loginButton.onclick = function (event) {
+            event.preventDefault();
+            window.baronSsoLogout?.();
+        };
+        return;
+    }
+
+    document.documentElement.removeAttribute('data-baron-auth-state');
+    loginButton.hidden = false;
+    loginButton.textContent = locale === 'en' ? 'LOGIN' : '로그인';
+    loginButton.href = `${window.location.pathname}?login=1`;
+    loginButton.onclick = null;
+}
+
+function ensurePackageBaronAuth(locale) {
+    if (!baronPackageAuthPromise) {
+        document.documentElement.setAttribute('data-baron-page-mode', 'landing');
+        const currentPath = window.location.pathname;
+        const loginRequested = new URL(window.location.href).searchParams.get('login') === '1';
+
+        baronPackageAuthPromise = import(getBaronRootPrefix() + '/assets/js/baron-sso-auth.js?v=20260716-logout1')
+            .then((module) => module.ensureBaronSsoAuth({
+                locale,
+                publicPaths: [currentPath],
+                forceAuth: loginRequested,
+            }))
+            .catch((error) => {
+                console.error('Failed to initialize BARON SSO on package page.', error);
+                return { status: 'failed', error };
+            });
+    }
+
+    return baronPackageAuthPromise;
 }
 
 function normalizeBaronIncludeHtml(html) {
@@ -1669,11 +1727,14 @@ function updateBaronBreadcrumb(header, currentFile) {
     mapList.innerHTML = `<li>${categoryTitle}</li><li class="on">${currentTitle}</li>`;
 }
 
-function setupBaronHeaderBrand() {
+async function setupBaronHeaderBrand() {
     const header = document.querySelector('header.js__header');
     if (!header) {
         return;
     }
+
+    await ensurePackageBaronAuth('ko');
+    const isAuthenticated = Boolean(window.BARON_SSO_SESSION);
 
     const currentFile = (window.location.pathname.split('/').pop() || 'index.html').split('?')[0];
     const rootPrefix = getBaronRootPrefix();
@@ -1685,8 +1746,9 @@ function setupBaronHeaderBrand() {
     document.querySelectorAll('.popup_sitemap').forEach((popup) => popup.remove());
 
     loadBaronInclude(rootPrefix + '/_include/header.html', '#header', function () {
-        loadBaronInclude(rootPrefix + '/_include/nav.html', '#header .corp .nav', function () {
-            loadBaronInclude(rootPrefix + '/_include/nav.html', '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
+        const navIncludePath = isAuthenticated ? '/_include/nav.html' : '/_include/nav-public.html';
+        loadBaronInclude(rootPrefix + navIncludePath, '#header .corp .nav', function () {
+            loadBaronInclude(rootPrefix + navIncludePath, '#header .popup_wrap.sitemap .popup_contents_wrap nav', function () {
                 const languageLinks = header.querySelectorAll('.language a');
                 if (languageLinks.length >= 2) {
                     languageLinks[0].setAttribute('href', `${rootPrefix}/ko/tova/${currentFile}`);
@@ -1697,6 +1759,7 @@ function setupBaronHeaderBrand() {
 
                 activateBaronHeaderLink(header, currentFile);
                 updateBaronBreadcrumb(header, currentFile);
+                configurePackageHeaderActions(header, 'ko', isAuthenticated);
                 setupBaronHeaderInteractions(header);
             });
         });
@@ -1896,7 +1959,7 @@ function injectBaronFooterStyles(locale) {
             max-width: none;
             display: flex;
             justify-content: center;
-            gap: 84px;
+            gap: 54px;
         }
         footer#footer.baron-footer nav ol li.depth1 {
             display: flex;
@@ -2297,18 +2360,21 @@ function getBaronFooterMarkup(locale) {
     `;
 }
 
-function setupBaronFooterBrand() {
+async function setupBaronFooterBrand() {
     const footer = document.querySelector('footer#footer');
     if (!footer) {
         return;
     }
 
+    await ensurePackageBaronAuth('ko');
+
     const rootPrefix = getBaronRootPrefix();
+    const isAuthenticated = Boolean(window.BARON_SSO_SESSION);
     injectBaronFooterStyles('ko');
     footer.className = 'baron-footer';
 
     loadBaronInclude(rootPrefix + '/_include/footer.html', '#footer', function () {
-        loadBaronInclude(rootPrefix + '/_include/nav.html', '#footer .nav', function () {
+        loadBaronInclude(rootPrefix + (isAuthenticated ? '/_include/nav.html' : '/_include/nav-public.html'), '#footer .nav', function () {
             const depth3Menus = footer.querySelectorAll('.nav ol li.has_depth3 > .depth3');
             depth3Menus.forEach((menu) => {
                 menu.style.display = 'none';
