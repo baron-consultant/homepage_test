@@ -6,8 +6,8 @@ workers_dev = false
 [vars]
 # Required auth settings.
 # AUTH_REDIRECT_URI is optional in code, but keeping it explicit avoids redirect mismatch mistakes.
-AUTH_REDIRECT_URI = "https://test.baroncs.co.kr/auth/callback"
-AUTH_POST_LOGOUT_REDIRECT_URI = "https://test.baroncs.co.kr/"
+AUTH_REDIRECT_URI = "https://baroncs.co.kr/auth/callback"
+AUTH_POST_LOGOUT_REDIRECT_URI = "https://baroncs.co.kr/"
 AUTH_SCOPE = "openid profile email"
 
 # Session/cookie settings.
