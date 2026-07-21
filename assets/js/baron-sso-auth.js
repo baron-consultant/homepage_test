@@ -1,6 +1,7 @@
 import baseConfig from "./baron-sso-config.js?v=20260721-test1";
 
 const STORAGE_KEY = "baron_sso_session";
+const PENDING_LOGIN_KEY = "baron_sso_pending_login";
 const STATE_KEY = "baron_sso_state";
 const VERIFIER_KEY = "baron_sso_code_verifier";
 const RETURN_TO_KEY = "baron_sso_return_to";
@@ -442,12 +443,54 @@ function savePendingLogin(state, verifier, returnTo) {
   sessionStorage.setItem(STATE_KEY, state);
   sessionStorage.setItem(VERIFIER_KEY, verifier);
   sessionStorage.setItem(RETURN_TO_KEY, returnTo);
+  localStorage.setItem(PENDING_LOGIN_KEY, JSON.stringify({ state, verifier, returnTo }));
 }
 
 function clearPendingLogin() {
   sessionStorage.removeItem(STATE_KEY);
   sessionStorage.removeItem(VERIFIER_KEY);
   sessionStorage.removeItem(RETURN_TO_KEY);
+  localStorage.removeItem(PENDING_LOGIN_KEY);
+}
+
+function loadPendingLogin() {
+  const state = sessionStorage.getItem(STATE_KEY);
+  const verifier = sessionStorage.getItem(VERIFIER_KEY);
+  const returnTo = sessionStorage.getItem(RETURN_TO_KEY);
+
+  if (state && verifier) {
+    return {
+      state,
+      verifier,
+      returnTo,
+    };
+  }
+
+  const raw = localStorage.getItem(PENDING_LOGIN_KEY);
+
+  if (!raw) {
+    return null;
+  }
+
+  try {
+    const pendingLogin = JSON.parse(raw);
+
+    if (!pendingLogin?.state || !pendingLogin?.verifier) {
+      localStorage.removeItem(PENDING_LOGIN_KEY);
+      return null;
+    }
+
+    sessionStorage.setItem(STATE_KEY, pendingLogin.state);
+    sessionStorage.setItem(VERIFIER_KEY, pendingLogin.verifier);
+    if (pendingLogin.returnTo) {
+      sessionStorage.setItem(RETURN_TO_KEY, pendingLogin.returnTo);
+    }
+
+    return pendingLogin;
+  } catch {
+    localStorage.removeItem(PENDING_LOGIN_KEY);
+    return null;
+  }
 }
 
 function markForceLogin() {
@@ -620,9 +663,10 @@ async function handleCallback(config) {
     return false;
   }
 
-  const expectedState = sessionStorage.getItem(STATE_KEY);
-  const verifier = sessionStorage.getItem(VERIFIER_KEY);
-  const returnTo = sessionStorage.getItem(RETURN_TO_KEY) || buildRedirectUri(config);
+  const pendingLogin = loadPendingLogin();
+  const expectedState = pendingLogin?.state || null;
+  const verifier = pendingLogin?.verifier || null;
+  const returnTo = pendingLogin?.returnTo || buildRedirectUri(config);
 
   if (!expectedState || !verifier || expectedState !== state) {
     clearPendingLogin();
