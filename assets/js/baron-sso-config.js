@@ -5,13 +5,16 @@ const rootPrefix = appPathSegments.length && !rootMarkerSegments.includes(appPat
   ? `/${appPathSegments[0]}`
   : "";
 const appOrigin = currentUrl.origin;
-const isProductionHost = currentUrl.hostname === "baroncs.co.kr";
-const defaultRedirectUri = isProductionHost
+const productionClientHosts = new Set(["baroncs.co.kr", "www.baroncs.co.kr", "test.baroncs.co.kr"]);
+const fixedProductionRedirectHosts = new Set(["baroncs.co.kr", "www.baroncs.co.kr"]);
+const usesProductionClient = productionClientHosts.has(currentUrl.hostname);
+const usesFixedProductionRedirect = fixedProductionRedirectHosts.has(currentUrl.hostname);
+const defaultRedirectUri = usesFixedProductionRedirect
   ? "https://baroncs.co.kr/callback.html"
   : `${appOrigin}${rootPrefix}/callback.html`;
-const defaultPostLogoutRedirectUri = isProductionHost
+const defaultPostLogoutRedirectUri = usesFixedProductionRedirect
   ? "https://baroncs.co.kr/"
-  : `${rootPrefix}/`;
+  : `${appOrigin}${rootPrefix}/`;
 
 const productionConfig = {
   clientId: "b5821f81-da7a-4778-ba97-7742e4ff4c39",
@@ -31,7 +34,7 @@ const stagingConfig = {
   scope: "openid tenants profile email",
 };
 
-const activeConfig = isProductionHost ? productionConfig : stagingConfig;
+const activeConfig = usesProductionClient ? productionConfig : stagingConfig;
 
 export default {
   enabled: true,

@@ -1,4 +1,4 @@
-import baseConfig from "./baron-sso-config.js";
+import baseConfig from "./baron-sso-config.js?v=20260721-test1";
 
 const STORAGE_KEY = "baron_sso_session";
 const STATE_KEY = "baron_sso_state";
