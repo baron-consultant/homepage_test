@@ -1,4 +1,4 @@
-import { ensureBaronSsoAuth } from "../baron-sso-auth.js?v=20260721-test2";
+import { ensureBaronSsoAuth } from "../baron-sso-auth.js?v=20260721-test3";
 
 const pathSegments = location.pathname.split('/').filter(Boolean);
 const rootMarkerSegments = ['ko', 'en', 'callback', 'assets', 'protected', 'public', 'recruit'];

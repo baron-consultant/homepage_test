@@ -1,4 +1,4 @@
-import baseConfig from "./baron-sso-config.js?v=20260721-test1";
+import baseConfig from "./baron-sso-config.js?v=20260721-test3";
 
 const STORAGE_KEY = "baron_sso_session";
 const PENDING_LOGIN_KEY = "baron_sso_pending_login";
@@ -439,17 +439,21 @@ async function createCodeChallenge(verifier) {
   return base64UrlEncode(sha256Fallback(verifier));
 }
 
-function savePendingLogin(state, verifier, returnTo) {
+function savePendingLogin(state, verifier, returnTo, redirectUri) {
   sessionStorage.setItem(STATE_KEY, state);
   sessionStorage.setItem(VERIFIER_KEY, verifier);
   sessionStorage.setItem(RETURN_TO_KEY, returnTo);
-  localStorage.setItem(PENDING_LOGIN_KEY, JSON.stringify({ state, verifier, returnTo }));
+  if (redirectUri) {
+    sessionStorage.setItem(`${PENDING_LOGIN_KEY}_redirect_uri`, redirectUri);
+  }
+  localStorage.setItem(PENDING_LOGIN_KEY, JSON.stringify({ state, verifier, returnTo, redirectUri }));
 }
 
 function clearPendingLogin() {
   sessionStorage.removeItem(STATE_KEY);
   sessionStorage.removeItem(VERIFIER_KEY);
   sessionStorage.removeItem(RETURN_TO_KEY);
+  sessionStorage.removeItem(`${PENDING_LOGIN_KEY}_redirect_uri`);
   localStorage.removeItem(PENDING_LOGIN_KEY);
 }
 
@@ -457,12 +461,14 @@ function loadPendingLogin() {
   const state = sessionStorage.getItem(STATE_KEY);
   const verifier = sessionStorage.getItem(VERIFIER_KEY);
   const returnTo = sessionStorage.getItem(RETURN_TO_KEY);
+  const redirectUri = sessionStorage.getItem(`${PENDING_LOGIN_KEY}_redirect_uri`);
 
   if (state && verifier) {
     return {
       state,
       verifier,
       returnTo,
+      redirectUri,
     };
   }
 
@@ -484,6 +490,9 @@ function loadPendingLogin() {
     sessionStorage.setItem(VERIFIER_KEY, pendingLogin.verifier);
     if (pendingLogin.returnTo) {
       sessionStorage.setItem(RETURN_TO_KEY, pendingLogin.returnTo);
+    }
+    if (pendingLogin.redirectUri) {
+      sessionStorage.setItem(`${PENDING_LOGIN_KEY}_redirect_uri`, pendingLogin.redirectUri);
     }
 
     return pendingLogin;
@@ -625,12 +634,14 @@ function isAuthorized(config, profile) {
 }
 
 async function exchangeCode(config, code, verifier) {
+  const pendingLogin = loadPendingLogin();
+  const redirectUri = pendingLogin?.redirectUri || buildRedirectUri(config);
   const body = new URLSearchParams({
     grant_type: "authorization_code",
     client_id: config.clientId,
     code,
     code_verifier: verifier,
-    redirect_uri: buildRedirectUri(config),
+    redirect_uri: redirectUri,
   });
 
   Object.entries(config.extraTokenParams).forEach(([key, value]) => {
@@ -718,14 +729,15 @@ async function startLogin(config) {
   const state = createRandomString(48);
   const challenge = await createCodeChallenge(verifier);
   const returnTo = buildReturnToUrl();
+  const redirectUri = buildRedirectUri(config);
   const shouldForceLogin = consumeForceLogin();
 
-  savePendingLogin(state, verifier, returnTo);
+  savePendingLogin(state, verifier, returnTo, redirectUri);
 
   const authorizeUrl = new URL(config.authorizeUrl);
   authorizeUrl.searchParams.set("response_type", "code");
   authorizeUrl.searchParams.set("client_id", config.clientId);
-  authorizeUrl.searchParams.set("redirect_uri", buildRedirectUri(config));
+  authorizeUrl.searchParams.set("redirect_uri", redirectUri);
   authorizeUrl.searchParams.set("scope", config.scope);
   authorizeUrl.searchParams.set("state", state);
   authorizeUrl.searchParams.set("code_challenge", challenge);
