@@ -49,6 +49,25 @@ body {
   overflow: hidden;
 }
 
+html[data-baron-auth-state="authenticated"] body {
+  min-height: 100vh;
+}
+
+html[data-baron-auth-state="authenticated"] .wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+html[data-baron-auth-state="authenticated"] .wrap .container {
+  flex: 1 0 auto;
+}
+
+html[data-baron-auth-state="authenticated"] footer {
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
 .wrap {
   width: 100%;
   /* min-width: 1920px;*/
