@@ -56,7 +56,7 @@
       const currentPath = window.location.pathname;
       const loginRequested = new URL(window.location.href).searchParams.get('login') === '1';
 
-      baronPackageAuthPromise = import(`./baron-sso-auth.js?v=20260721-test1`)
+      baronPackageAuthPromise = import(`./baron-sso-auth.js?v=20260721-test2`)
         .then(function (module) {
           return module.ensureBaronSsoAuth({
             locale: locale,

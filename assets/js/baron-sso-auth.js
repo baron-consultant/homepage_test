@@ -648,7 +648,22 @@ async function exchangeCode(config, code, verifier) {
   });
 
   if (!response.ok) {
-    throw new Error(`Token request failed: ${response.status}`);
+    let errorDetail = "";
+
+    try {
+      const responseText = await response.text();
+      if (responseText) {
+        errorDetail = responseText;
+      }
+    } catch {
+      errorDetail = "";
+    }
+
+    const errorMessage = errorDetail
+      ? `Token request failed: ${response.status} ${errorDetail}`
+      : `Token request failed: ${response.status}`;
+
+    throw new Error(errorMessage);
   }
 
   return response.json();
