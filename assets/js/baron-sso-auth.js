@@ -1,5 +1,3 @@
-import baseConfig from "./baron-sso-config.js?v=20260721-test3";
-
 const STORAGE_KEY = "baron_sso_session";
 const PENDING_LOGIN_KEY = "baron_sso_pending_login";
 const STATE_KEY = "baron_sso_state";
@@ -42,7 +40,9 @@ const messages = {
   },
 };
 
-function mergeConfig(overrides = {}) {
+async function mergeConfig(overrides = {}) {
+  const module = await import("./baron-sso-config.js?v=20260721-worker2");
+  const baseConfig = module.default || {};
   const windowConfig = window.BARON_SSO_CONFIG || {};
   const config = {
     ...baseConfig,
@@ -98,6 +98,22 @@ function isLocalEnvironment() {
 function getMessage(config, key) {
   const localeMessages = messages[config.locale] || messages.ko;
   return localeMessages[key];
+}
+
+function getWorkerManagedAuth() {
+  const workerAuth = window.BARON_WORKER_AUTH;
+  if (!workerAuth || workerAuth.mode !== "worker") {
+    return null;
+  }
+
+  return workerAuth;
+}
+
+function attachWorkerManagedLogout(workerAuth) {
+  window.baronSsoLogout = () => {
+    const logoutUrl = workerAuth?.logoutUrl || "/auth/logout";
+    window.location.assign(logoutUrl);
+  };
 }
 
 function installStyles() {
@@ -816,9 +832,33 @@ function attachLogout(config) {
 }
 
 export async function ensureBaronSsoAuth(overrides = {}) {
-  const config = mergeConfig(overrides);
   const currentUrl = new URL(window.location.href);
   const hasCallbackParams = currentUrl.searchParams.has("code") || currentUrl.searchParams.has("state");
+  const workerAuth = getWorkerManagedAuth();
+
+  if (workerAuth) {
+    attachWorkerManagedLogout(workerAuth);
+
+    if (workerAuth.authenticated) {
+      const session = {
+        workerManaged: true,
+        profile: workerAuth.profile || {},
+        expiresAt: Number.MAX_SAFE_INTEGER,
+      };
+      window.BARON_SSO_SESSION = session;
+      hideOverlay();
+      return { status: "worker-authenticated", session };
+    }
+
+    if (config.forceAuth || !publicPath) {
+      window.location.assign(workerAuth.loginUrl || "/auth/login");
+      return { status: "worker-redirecting" };
+    }
+
+    return { status: "public" };
+  }
+
+  const config = await mergeConfig(overrides);
   const publicPath = isPublicPath(config);
 
   if (!config.enabled) {

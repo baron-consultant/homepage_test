@@ -3,6 +3,43 @@ main = "src/index.js"
 compatibility_date = "2026-07-20"
 workers_dev = false
 
+[vars]
+# Required auth settings.
+# AUTH_REDIRECT_URI is optional in code, but keeping it explicit avoids redirect mismatch mistakes.
+AUTH_REDIRECT_URI = "https://test.baroncs.co.kr/auth/callback"
+AUTH_POST_LOGOUT_REDIRECT_URI = "https://test.baroncs.co.kr/"
+AUTH_SCOPE = "openid profile email"
+
+# Session/cookie settings.
+SESSION_COOKIE_NAME = "baron_worker_session"
+OAUTH_COOKIE_NAME = "baron_worker_oauth"
+SESSION_TTL_SECONDS = "3600"
+
+# Anonymous access policy.
+PUBLIC_EXACT_PATHS = "/,/ko/index.html,/en/index.html,/ko/sv_sw_kngil.html,/en/sv_sw_kngil.html"
+PUBLIC_PREFIXES = "/ko/egbim/,/ko/tova/,/ko/gaia/,/en/egbim/,/en/tova/,/en/gaia/,/ko/pr_,/en/pr_"
+PROTECTED_PREFIXES = "/ko/,/en/,/_include/,/assets/,/recruit/,/portfolio/"
+INTERNAL_ONLY_PREFIXES = "/protected/"
+
+# Optional authorization filters. Leave empty unless access must be restricted further.
+# ALLOWED_EMAIL_DOMAINS = "baroncs.co.kr"
+# ALLOWED_EMAILS = "user1@baroncs.co.kr,user2@baroncs.co.kr"
+# REQUIRED_GROUPS = "group-a,group-b"
+# GROUP_CLAIM = "groups"
+
+# Secret values should stay in the Cloudflare dashboard or via `wrangler secret put`.
+# Required secrets:
+# - AUTH_AUTHORIZE_URL
+# - AUTH_CLIENT_ID
+# - AUTH_TOKEN_URL
+# - AUTH_USERINFO_URL
+# - SESSION_SECRET
+# Optional secret:
+# - AUTH_CLIENT_SECRET
+
+# Currently unused by src/index.js. Keep only for reference if root mapping is added later.
+# PUBLIC_ROOT_KEY = "ko/index.html"
+
 [[r2_buckets]]
 binding = "SITE_BUCKET"
 bucket_name = "baron-hompage-test"
