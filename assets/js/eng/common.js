@@ -202,9 +202,12 @@ $(function () {
       loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', function () {
         normalizeSiteLinks(document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav'));
         trimPublicNav(document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav'));
+        mobileMenu();
       });
     } else {
-      loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav');
+      loadHTML(`${includeBase}/nav_recruit.html?v=${includeVersion}`, '.popup_wrap.sitemap .popup_contents_wrap nav', function () {
+        mobileMenu();
+      });
     }
   }
 
@@ -246,7 +249,6 @@ $(function () {
       trimPublicNav(document.querySelector('#footer .nav'));
     });
   });
-  mobileMenu();
 });
 
 // ?�� TITLE 관??SCRIPT
