@@ -386,8 +386,14 @@ function matchesPublicEntry(currentPath, entry) {
 }
 
 function buildWorkerLoginUrl(url) {
-  const returnTo = `${url.pathname}${url.search}`;
+  const returnTo = buildSafeReturnTo(url);
   return `/auth/login?returnTo=${encodeURIComponent(returnTo)}`;
+}
+
+function buildSafeReturnTo(url) {
+  const returnUrl = new URL(url.toString());
+  returnUrl.searchParams.delete('login');
+  return `${returnUrl.pathname}${returnUrl.search}`;
 }
 
 async function readSession(request, config) {
@@ -567,7 +573,7 @@ function injectWorkerBootstrap(html, session, url) {
     authenticated: Boolean(session),
     profile: sanitizeProfile(session?.profile || null),
     loginUrl: buildWorkerLoginUrl(url),
-    logoutUrl: `/auth/logout?returnTo=${encodeURIComponent(`${url.pathname}${url.search}`)}`,
+    logoutUrl: `/auth/logout?returnTo=${encodeURIComponent(buildSafeReturnTo(url))}`,
   };
 
   const script = `<script>window.BARON_WORKER_AUTH=${JSON.stringify(bootstrap).replace(/</g, '\\u003c')};</script>`;
