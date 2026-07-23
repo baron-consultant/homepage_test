@@ -275,6 +275,11 @@ header .header_inner nav ol {
   width: 100%;
   height: 100%;
 }
+
+/* 로그인 시 메뉴가 8개로 늘어나는 것에 대응 (피그마 기준 40px, 좁은 화면에서는 축소) */
+html[data-baron-auth-state="authenticated"] header .header_inner nav ol {
+  gap: clamp(24px, 2.2vw, 40px);
+}
 header .header_inner nav ol li.depth1 {
   height: 100%;
   min-width: 60px;
@@ -843,6 +848,68 @@ header .sitemap nav ol li.depth1:hover {
   opacity: 1;
 }
 
+/* 로그인 시 사이트맵 메뉴가 8개로 늘어나는 것에 대응: 8개 행이 스크롤 없이 화면 높이에 꽉 차도록 비율(fr) 배분 + 전체 폭 구분선 */
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol {
+  grid-auto-rows: unset;
+  grid-template-rows: repeat(3, 1fr) 1.7fr 1.7fr repeat(3, 1fr);
+  align-content: stretch;
+  height: 100%;
+  padding: 12px 0;
+}
+
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 {
+  height: 100%;
+  padding: 0;
+  border-bottom: 1px solid #eee;
+}
+
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1:last-child {
+  border-bottom: none;
+}
+
+/* 8개 메뉴 기준 폰트 크기 축소 */
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 ul.depth2 {
+  border-bottom: none;
+  font-size: 18px;
+}
+
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 span {
+  font-size: 26px;
+}
+
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 span em {
+  font-size: 18px;
+}
+
+/* EG-BIM/TOVA/GAIA, KNGIL 하위 항목: 3열, 줄바꿈 없이 한 줄로 */
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3,
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 ul.depth3 {
+  grid-template-columns: repeat(3, minmax(max-content, 1fr));
+  column-gap: 16px;
+  font-size: 16px;
+}
+
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li a,
+html[data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 ul.depth3 li a {
+  white-space: nowrap;
+}
+
+/* 영문 사이트맵 전용 보정: 영문판 nav.html은 Service S/W 항목이 없어 7개뿐이라
+   행 개수/순서가 한글판과 다름 (Package S/W만 그룹형이라 4번째만 넓게 배분).
+   "Digital Transformation" 등 긴 제목이 줄바꿈되지 않도록 왼쪽 칸도 넓힘. */
+html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol {
+  grid-template-rows: repeat(3, 1fr) 1.7fr repeat(3, 1fr);
+}
+
+html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 {
+  grid-template-columns: 320px 1fr;
+}
+
+html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 span {
+  font-size: 22px;
+  white-space: nowrap;
+}
+
 /* --- 오픈형 메뉴 */
 /* --- 버튼형 메뉴 */
 /* --- 사이트맵 */
@@ -1182,6 +1249,68 @@ footer .footer_inner .footer_info .copyright {
   font-size: 14px;
   letter-spacing: 0;
 }
+
+/* 로그인 시 메뉴가 8개로 늘어나면서 풋터 구조 변경: nav를 전체 폭 상단 행으로,
+   footer_info(로고·주소·연락처·저작권·Family Site)를 구분선 아래 한 줄 하단 바로 재배치 */
+html[data-baron-auth-state="authenticated"] footer .footer_inner {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 32px;
+  padding: 40px 160px 0;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner nav {
+  order: 1;
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info {
+  order: 2;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex: none;
+  width: 100%;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info .home {
+  width: 150px;
+  height: 22px;
+  margin: 0 16px 0 0;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info > span:first-of-type {
+  margin-top: 0;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_contact {
+  display: contents;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_contact span::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  margin-right: 16px;
+  vertical-align: middle;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info .copyright {
+  margin-top: 0;
+  margin-left: auto;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner .family_wrap {
+  position: static;
+  margin-left: 16px;
+}
+
 footer .btn_top {
   position: fixed;
   bottom: 80px;
