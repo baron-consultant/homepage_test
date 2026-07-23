@@ -3,41 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
     <title>Document</title>
     <!-- ASSETS -->
-    <link rel="stylesheet" href="../assets/css/reset.css" />
-    <link rel="stylesheet" href="../assets/css/font.css" />
-    <link rel="stylesheet" href="../assets/css/lib/aos.min.css" />
-    <link rel="stylesheet" href="../assets/css/lib/lenis.min.css" />
-    <script src="../assets/js/lib/aos.min.js"></script>
-    <script src="../assets/js/lib/lenis.min.js"></script>
-    <script src="../assets/js/lib/jquery-3.6.1.min.js"></script>
-    <script src="../assets/js/lib/gsap.min.js"></script>
-    <script src="../assets/js/lib/scrolltrigger.min.js"></script>
-    <script src="../assets/js/lib/scrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/font.css" />
+    <link rel="stylesheet" href="/assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="/assets/css/lib/lenis.min.css" />
+    <script src="/assets/js/lib/aos.min.js"></script>
+    <script src="/assets/js/lib/lenis.min.js"></script>
+    <script src="/assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="/assets/js/lib/gsap.min.js"></script>
+    <script src="/assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="/assets/js/lib/scrollToPlugin.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
     <!-- CSS / JS -->
-    <link rel="stylesheet" href="../assets/css/layout.css" />
-    <link rel="stylesheet" href="../assets/css/common.css" />
-    <link rel="stylesheet" href="../assets/css/sevice.css" />
-    <script type="module" src="../assets/js/common.js?v=20260623-4"></script>
-    <script src="../assets/js/sv.js"></script>
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/common.css" />
+    <link rel="stylesheet" href="/assets/css/sevice.css" />
+    <script type="module" src="/assets/js/common.js"></script>
+    <script src="/assets/js/sv.js"></script>
   </head>
   <body>
     <div class="wrap">
       <header id="header"></header>
       <ul class="map_list"></ul>
-      <div class="container sv solution single">
+      <div class="container sv solution">
+        <div class="bg"></div>
+        <!-- S : intro -->
+        <section class="intro">
+          <div class="txt_box" data-aos="fade-down" data-aos-duration="1000">
+            <p class="eng_txt">
+              Easy, Fast and Low-cost Customized <br class="m_br" />Civil
+              Engineering Solution
+            </p>
+            <p class="main_txt">
+              쉽고, 빠르고, <br class="m_br" />경제적인 맞춤형
+              <br class="m_br" />엔지니어링 솔루션
+            </p>
+            <p class="sub_txt">
+              인프라 시설 전 생애주기의 디지털전환을 <br class="m_br" />지원하기
+              위하여 <br class="pc_br" />건설 전문 지식과 노하우에 기반한
+              <br class="m_br" />토탈솔루션을 제공합니다.
+            </p>
+          </div>
+          <div class="scroll_box" style="display: none;">
+            <span>Scroll</span>
+            <div></div>
+          </div>
+        </section>
+
         <section class="left design">
           <div class="objs_wrap">
             <video
-              src="../assets/img/sv/solution_design_obj.mp4"
+              src="/assets/img/sv/solution_design_obj.mp4"
               playsinline
               autoplay
               muted
             ></video>
             <img
-              src="../assets/img/sv/solution_design_obj_point.png"
+              src="/assets/img/sv/solution_design_obj_point.png"
               class="point"
             />
             <div class="objs_line_1">
@@ -97,6 +122,169 @@
               </button>
             </div>
           </div>
+        </section>
+        <section class="right construction">
+          <div class="objs_wrap">
+            <div class="ani"></div>
+            <img
+              src="/assets/img/sv/solution_construction_obj_point.png"
+              class="point"
+            />
+            <div class="objs_line_2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="743"
+                height="890"
+                viewBox="0 0 743 890"
+                fill="none"
+              >
+                <path
+                  d="M747.323 2C616.465 104.749 386.65 142.888 291.802 166.306C147.638 201.899 -0.709426 293.976 1.5489 460.297C5.96126 619.316 187.894 724.384 314.91 743.633C409.656 757.992 620.506 809.906 747.323 902V895.892"
+                  stroke="white"
+                  stroke-width="3"
+                />
+                <defs>
+                  <linearGradient
+                    id="lineGradient2"
+                    x1="372"
+                    y1="2"
+                    x2="372"
+                    y2="888"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0.1" stop-color="white" stop-opacity="0" />
+                    <stop offset="0.3" stop-color="#00F2FF" />
+                    <stop offset="0.7" stop-color="#1500FF" />
+                    <stop offset="0.9" stop-color="white" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="sub_inner">
+            <div
+              class="txt_box dark"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
+              <p class="eng_txt">Construction Solution</p>
+              <p class="main_txt">시공 솔루션</p>
+            </div>
+            <div class="con_txt">
+              <p>
+                <b
+                  >실시간 협업과 효율적 사업관리를 통하여 정확한 의사결정을
+                  지원합니다.</b
+                >
+                <br />모든 건설정보를 통합관리할 수 있는 플랫폼을 기반으로 현장
+                데이터를 <br class="pc_br" />실시간 공유 및 검증하고, VR·AR
+                기반의 다자간 협업 시스템과 실감형 영상을
+                <br class="pc_br" />통하여 빠르고 정확한 의사결정과 공정의
+                효율성 및 시공 안전성을 극대화합니다.
+              </p>
+              <button class="btn_more" data-value="construction_more">
+                자세히 보기
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="left op">
+          <div class="objs_wrap">
+            <div class="ani"></div>
+            <img src="/assets/img/sv/solution_op_obj_point.png" class="point" />
+            <div class="objs_line_3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="743"
+                height="890"
+                viewBox="0 0 743 890"
+                fill="none"
+              >
+                <path
+                  d="M747.323 2C616.465 104.749 386.65 142.888 291.802 166.306C147.638 201.899 -0.709426 293.976 1.5489 460.297C5.96126 619.316 187.894 724.384 314.91 743.633C409.656 757.992 620.506 809.906 747.323 902V895.892"
+                  stroke="white"
+                  stroke-width="3"
+                />
+                <defs>
+                  <linearGradient
+                    id="lineGradient2"
+                    x1="372"
+                    y1="2"
+                    x2="372"
+                    y2="888"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0.1" stop-color="white" stop-opacity="0" />
+                    <stop offset="0.3" stop-color="#00F2FF" />
+                    <stop offset="0.7" stop-color="#1500FF" />
+                    <stop offset="0.9" stop-color="white" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="sub_inner">
+            <div
+              class="txt_box dark"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
+              <p class="eng_txt">Operation & Maintenance Solution</p>
+              <p class="main_txt">운영 및 유지·관리 솔루션</p>
+            </div>
+            <div class="con_txt">
+              <p>
+                <b
+                  >디지털트윈 모델을 기반으로 선제적인 인프라 유지·관리를
+                  지원합니다.</b
+                >
+                <br />인프라 시설의 디지털트윈 모델을 구현하여 시설물의 현황
+                데이터를 <br class="pc_br" />수집·모니터링하고, 각종
+                시뮬레이션을 제공함으로써 시설 상태의 점검,
+                <br class="pc_br" />위험요소의 선제적 예측, 효과적 유지·관리를
+                통해 인프라 시설의 안전을 <br class="pc_br" />극대화하고,
+                시설물의 가치와 수명을 장기적으로 향상시킵니다.
+              </p>
+              <button class="btn_more" data-value="op_more">자세히 보기</button>
+            </div>
+          </div>
+        </section>
+        <section class="end">
+          <p>
+            인프라 건설산업 전 생애주기에 걸친 <br /><em
+              >‘Total Solution’으로 디지털전환(D/X)을 실현</em
+            >을 <br class="m_br" />통해 건설산업의 본질을 혁신하며,
+            <br />지속가능한 미래의 건설 산업으로 안내합니다.
+          </p>
+          <div class="cir_wrap">
+            <div class="objs_wrap">
+              <img src="/assets/img/sv/solution_end_obj.png" />
+              <div class="ani"></div>
+            </div>
+            <ul class="cir_txt">
+              <li>
+                <b>설계 솔루션</b>고효율 초고품질의 <br class="pc_br" />디지털
+                BIM 성과물 제작을 지원합니다.
+              </li>
+              <li>
+                <b>시공 솔루션</b>통합건설정보를 기반으로 <br />실시간 협업과
+                의사결정 환경을 <br class="m_br" />제공하여
+                <br class="pc_br" />효율적이고 안전한 <br class="m_br" />시공을
+                지원합니다.
+              </li>
+              <li>
+                <b>운영 및 유지·관리 솔루션</b>디지털트윈 모델을 기반으로
+                <br />선제적인 인프라 유지·관리를 <br class="m_br" />지원합니다.
+              </li>
+            </ul>
+          </div>
+          <ul class="keyword">
+            <li>Easy Like Breath <br /><b>쉬운이해</b></li>
+            <li>Convenient Intuition <br /><b>직관적 사용성</b></li>
+            <li>Ultra High Quality <br /><b>초고품질</b></li>
+            <li>Super Low Cost <br /><b>극저비용</b></li>
+            <li>As Fast As Lightning <br /><b>초단축</b></li>
+          </ul>
         </section>
       </div>
       <footer id="footer"></footer>

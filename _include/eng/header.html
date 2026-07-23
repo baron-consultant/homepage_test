@@ -1,20 +1,38 @@
 <!--영문화-->
 <style>
-  header .logo_box a.logo{mask-image: url(../assets/img/eng/logo_c.svg);}
+  /* header .logo_box a.logo{mask-image: url(/assets/img/eng/logo_c.svg);} */
   header .header_inner nav{flex:1 1 auto;min-width:0;}
   header .header_inner .header_R{display:flex;align-items:center;margin-left:auto;}
-  header .header_inner .header_R .language{display:inline-flex;align-items:center;flex-wrap:nowrap;flex-shrink:0;min-width:84px;padding-right:24px;white-space:nowrap;}
+  header .header_inner .header_R .language{display:inline-flex;align-items:baseline;flex-wrap:nowrap;flex-shrink:0;min-width:84px;padding-right:24px;white-space:nowrap;}
   header .header_inner .header_R .language a{display:inline-flex;align-items:center;flex:0 0 auto;white-space:nowrap;}
-  header .header_inner .header_login{display:none;align-items:center;justify-content:center;min-width:124px;height:36px;margin-right:12px;padding:0 14px;border-radius:999px;background:linear-gradient(135deg, rgba(70, 179, 255, 0.95), rgba(16, 26, 41, 0.95));color:#fff;font-size:13px;font-weight:700;white-space:nowrap;}
+
+  header .header_inner .header_login{position:relative;display:none;align-items:center;justify-content:center;margin-right:12px;}
   html[data-baron-page-mode="landing"] header .header_inner .header_login,
   html[data-baron-page-mode="public-info"] header .header_inner .header_login,
   html[data-baron-auth-state="authenticated"] header .header_inner .header_login{display:inline-flex;}
-  @media (max-width: 768px){header .header_inner .header_login{min-width:64px;height:32px;margin-right:6px;padding:0 10px;font-size:12px;}}
+
+  header .header_inner .header_login_trigger{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;border:none;border-radius:50%;background:linear-gradient(135deg, rgba(70, 179, 255, 0.95), rgba(16, 26, 41, 0.95));cursor:pointer;transition:filter 0.2s ease;}
+  header .header_inner .header_login:hover .header_login_trigger,
+  header .header_inner .header_login:focus-within .header_login_trigger{filter:brightness(1.12);}
+  header .header_inner .header_login_trigger img{width:18px;height:18px;}
+
+  header .header_inner .header_login_menu{position:absolute;top:100%;left:50%;margin-top:12px;transform:translateX(-50%) translateY(4px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 0.2s ease, transform 0.2s ease;z-index:20;}
+  header .header_inner .header_login:hover .header_login_menu,
+  header .header_inner .header_login:focus-within .header_login_menu{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0);}
+  header .header_inner .header_login_menu::before{content:"";position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:7px solid #ffffff;}
+  header .header_inner .header_login_link{display:block;white-space:nowrap;background:#ffffff;color:#111111;font-size:13px;font-weight:700;padding:10px 22px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,0.18);text-align:center;}
+
+  @media (max-width: 768px){
+    header .header_inner .header_login{margin-right:6px;}
+    header .header_inner .header_login_trigger{width:32px;height:32px;}
+    header .header_inner .header_login_trigger img{width:16px;height:16px;}
+  }
+
   header .header_inner nav ol li.depth1 span,
   header .header_inner nav ol li.depth1 span em,
   header .header_inner nav ol li.depth1 ul.depth2 li a,
   header .header_inner nav ol li.depth1 ul.depth2 li ul.depth3 li a{word-break:keep-all;overflow-wrap:normal;white-space:normal;}
-  header .header_inner.corp nav ol li.depth1 > span{justify-content:flex-end;padding-bottom:14px;}
+  header .sitemap nav ol li.depth1 ul.depth2 li.has_depth3 ul.depth3{display:none;}
 </style>
 
 <!-- CORP -->
@@ -22,7 +40,7 @@
   <div class="logo_box">
     <!-- a = 홈페이지 로고 -->
     <!-- a의 이미지는은 style.css에서 제어하세요 -->
-    <a class="logo" href="../en/index.html">Baron Consultants</a>
+    <a class="logo" href="/en/index.html">Baron Consultants</a>
   </div>
 
   <!-- 오픈메뉴 경우 -->
@@ -31,25 +49,32 @@
   <!-- 버튼형 경우 -->
     <div class="header_R">
         <div class="language">
-            <a href="../ko/index.html">KR</a>
+            <a href="/ko/index.html">KR</a>
           <a href="#" class="on">EN</a>
         </div>
 
-        <a class="header_login" href="../en/br_future.html">LOGIN</a>
+        <div class="header_login">
+          <button type="button" class="header_login_trigger" aria-label="LOGIN">
+            <img src="/assets/img/ico_user.svg" alt="" />
+          </button>
+          <div class="header_login_menu">
+            <a class="header_login_link" href="../en/br_future.html">LOGIN</a>
+          </div>
+        </div>
 
         <button class="btn_menu" data-value="sitemap">
             <div></div>
             <div></div>
             <div></div>
         </button>
-    </div> 
+    </div>
 </div>
 
 <div class="popup_wrap sitemap">
   <div class="popup_contents_wrap" data-lenis-prevent-wheel>
     <div class="popup_header">
       <div class="logo_box">
-        <a class="logo" href="../en/index.html">Baron Consultants</a>
+        <a class="logo" href="/en/index.html">Baron Consultants</a>
       </div>
       <button class="btn_close"><i class="close"></i></button>
     </div>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEDBRC8DL5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EEDBRC8DL5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+    <title>구매하기</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css" />
+    <link rel="stylesheet" href="../../assets/css/font.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="../../assets/js/lib/aos.min.js"></script>
+    <script src="../../assets/js/lib/lenis.min.js"></script>
+    <script src="../../assets/js/lib/gsap.min.js"></script>
+    <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+    <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header id="header"></header>
+      <ul class="map_list"></ul>
+
+      <!-- floating_menu -->
+      <div class="floating-menu">
+        <div class="floating-kngil">
+          <a class="item-service" href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+            <i class="ico-logo">
+              <img src="./img/logo_kngil.svg" alt="KNGIL">
+            </i>
+            <span>서비스<br>바로가기</span>
+          </a>
+          <a class="item-guide" href="javascript:void(0);" data-guide-open>
+            <i class="ico-guide"></i>
+            <span>사용가이드</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- floating_top_btn : 스크롤 최상단일 때만 노출되는 상단 가로형 버튼 -->
+      <div class="floating-top-btn">
+        <a href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+          <img src="./img/logo_kngil.svg" alt="KNGIL" class="logo">
+          <span>서비스 바로가기</span>
+        </a>
+      </div>
+
+      <!-- guide_modal : 사용가이드 레이어 팝업 -->
+      <div class="guide-modal" id="guideModal" aria-hidden="true">
+        <div class="guide-modal-dim" data-guide-close></div>
+        <div class="guide-modal-panel" role="dialog" aria-modal="true" aria-label="KNGIL 사용가이드">
+          <div class="guide-modal-tabs">
+            <button type="button" class="guide-tab active" data-guide-tab="video">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M10.5 9.2L15 12L10.5 14.8V9.2Z" fill="currentColor"/>
+              </svg>
+              <span>전체 흐름 보기 (영상)</span>
+            </button>
+            <button type="button" class="guide-tab" data-guide-tab="pdf">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 2.5H14L18 6.5V20.5C18 21.0523 17.5523 21.5 17 21.5H6C5.44772 21.5 5 21.0523 5 20.5V3.5C5 2.94772 5.44772 2.5 6 2.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M14 2.5V6.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M8 13H15M8 16.5H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span>핵심 내용 보기 (문서)</span>
+            </button>
+            <button type="button" class="guide-modal-close" data-guide-close aria-label="닫기">
+              <i class="ico-close"></i>
+            </button>
+          </div>
+          <div class="guide-modal-body">
+            <div class="guide-panel guide-panel-video active" data-guide-panel="video">
+              <video class="guide-video" playsinline preload="metadata" poster="./img/video/kngil_guide_poster.jpg">
+                <source src="./img/video/kngil_guide.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="video-center-play" aria-label="재생">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11.25" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.85)" stroke-width="1.2"/>
+                  <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="#ffffff"/>
+                </svg>
+              </button>
+              <div class="video-controls">
+                <button type="button" class="video-btn video-play-toggle" aria-label="재생">
+                  <svg class="ico-play" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 5.5L18 12L7 18.5V5.5Z" fill="currentColor"/>
+                  </svg>
+                  <svg class="ico-pause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                    <rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                  </svg>
+                </button>
+                <span class="video-time video-time-current">0:00</span>
+                <input type="range" class="video-seek" min="0" max="100" value="0" step="0.1" aria-label="재생 위치">
+                <span class="video-time video-time-duration">0:00</span>
+                <button type="button" class="video-btn video-mute-toggle" aria-label="음소거">
+                  <svg class="ico-volume" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15.5 8.5C16.5 9.5 17 10.7 17 12C17 13.3 16.5 14.5 15.5 15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="ico-mute" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15 9L19 15M19 9L15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button type="button" class="video-btn video-fullscreen-toggle" aria-label="전체화면">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M9 4.5H4.5V9M15 4.5H19.5V9M4.5 15V19.5H9M19.5 15V19.5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="guide-panel guide-panel-pdf" data-guide-panel="pdf">
+              <iframe class="guide-pdf" title="KNGIL 사용가이드 문서" src=""></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        /* 수정된 스크립트 부분 */
+        async function openKngilMapApp(userId) {
+            // 1. 함수 진입 확인용 (가장 먼저 실행되어야 함)
+            console.log("함수 호출 시작 - 전달된 ID:", userId);
+            // alert("함수 호출됨: " + userId); // 브라우저에서 알림이 뜨는지 확인하세요.
+
+            if (!userId || userId === "") {
+                console.error("사용자 ID가 없습니다.");
+            login();
+                //alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+                return;
+            }
+
+            // 2. 로그 기록 API 호출
+            try {
+                console.log("로그 기록 시도 중...");
+                const logRes = await fetch('/kngil/bbs/log_service_access.php');
+                const logData = await logRes.json();
+                console.log("서버 응답:", logData);
+            } catch (e) {
+                console.warn("로그 기록 실패(무시하고 진행):", e);
+            }
+
+            // 3. 앱 오픈 로직
+            var appUrl = (userId === "dev01") 
+                ? '/kngil_app_khg/sys/controller/location/Location_controller.php' 
+                : '/kngil_app/sys/controller/location/Location_controller.php';
+
+            const popupName = 'kngilAppPopup';
+            const width = 1400;
+            const height = 900;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            
+            const win = window.open('', popupName, `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+
+            if (!win) {
+                alert("팝업 차단 설정이 되어 있습니다. 팝업을 허용해 주세요.");
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = appUrl;
+            form.target = popupName;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ActionMode';
+            input.value = 'SCREEN_01';
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            console.log("폼 전송 완료");
+        }
+      </script>
+      <!-- //floating_menu -->
+
+      <!-- container -->
+      <div class="container buy">
+        <section class="sub-header">
+          <div class="page-title">
+            <h2 data-aos="fade-down" data-aos-duration="1000">구매하기</h2>
+            <p class="sub-txt">KNGIL 구매문의 및 제품 안내</p>
+          </div>
+        </section>
+        <section class="contents-wrap full">
+          <div class="inner">
+            <h3 class="cont-tit"><span class="logo-c">KNGIL</span>로 <strong>기초조사 업무의 효율성</strong>을 높여보세요</h3>
+            <div class="cont-wrapper">
+              <div class="cont-left">
+
+                <ul class="cont-list feature-list">
+                  <li class="feature-item">
+                    <div class="feature-item-inner">
+                      <div class="feature-icon">
+                        <i class="ico-natural"></i>
+                      </div>
+                      <div class="feature-decoration"></div>
+                    </div>
+                    <dl>
+                      <dt class="feature-title">
+                        자연조건 <br class="mo-only">사회특성
+                      </dt>
+                      <dd class="feature-desc">항목별 현황 분석<br class="pc-only"> 프로그램</dd>
+                    </dl>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-item-inner">
+                      <div class="feature-icon">
+                        <i class="ico-gis"></i>
+                      </div>
+                      <div class="feature-decoration"></div>
+                    </div>
+
+                    <dl>
+                      <dt class="feature-title">GIS 기반</dt>
+                      <dd class="feature-desc">지형/공간 정보<br class="pc-only"> 분석 환경</dd>
+                    </dl>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-item-inner">
+                      <div class="feature-icon">
+                        <i class="ico-data"></i>
+                      </div>
+                      <div class="feature-decoration"></div>
+                    </div>
+
+                    <dl>
+                      <dt class="feature-title">데이터 <br class="mo-only">항목 다량</dt>
+                      <dd class="feature-desc">도시계획, 상하수도 분야<br> 설계 기초자료 제공</dd>
+                    </dl>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-item-inner">
+                      <div class="feature-icon">
+                        <i class="ico-coordinate"></i>
+                      </div>
+                      <div class="feature-decoration"></div>
+                    </div>
+                    <dl>
+                      <dt class="feature-title">다양한 <br class="mo-only">좌표계 지원</dt>
+                      <dd class="feature-desc">좌표(Bessel, GRS80)<br> 시각화 및 손쉬운 전환</dd>
+                    </dl>
+                  </li>
+                  <li class="feature-item">
+                    <div class="feature-item-inner">
+                      <div class="feature-icon">
+                        <i class="ico-standard"></i>
+                      </div>
+                      <div class="feature-decoration"></div>
+                    </div>
+                    <dl>
+                      <dt class="feature-title">최신 기준 <br class="mo-only">설정</dt>
+                      <dd class="feature-desc">추정사업비, 비작업일수<br> 관련 기준/지침 업데이트</dd>
+                    </dl>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="cont-right">
+                <div class="contact-area">
+                  <div class="tit-box">
+                    <h4 class="tit">구매 상담</h4>
+                    <p class="sub-text">KNGIL 담당자에게 직접 문의하기</p>
+                  </div>
+                  <ul class="contact-info">
+                    <li class="tel">
+                      <i></i>
+                      <strong>02-6285-7755</strong>
+                    </li>
+                    <li class="mail">
+                      <i></i>
+                      <strong>baroncs@baroncs.co.kr</strong>
+                    </li>
+                  </ul>
+                  <dl class="cs-info">
+                    <dt>고객지원 운영 시간</dt>
+                    <dd>
+                      <p>평일 09:00 ~ 18:00</p>
+                      <span>※ 주말 및 공휴일 휴무 </span>
+                      <span>※ 기타 사항은 Q&A로 문의하세요.</span>
+                    </dd>
+                  </dl>
+
+                </div>
+                <div class="btn-wrap">
+                  <a href="https://kngil.com/kngil/bbs/qa_list.php" class="btn-contact">
+                    <i class="ico-contact"></i>
+                    KNGIL 구매문의
+                  </a>
+                  <a href="./download/KNGIL_leaflet.pdf" download class="btn-brochure">
+                    <i class="ico-brochure"></i>
+                    브로슈어
+                  </a>
+                </div>
+                <p class="info-msg" style="display:none;">
+                  <i class="ico-alert"></i>
+                  <span>라이선스 중복 시 <strong>이용이 제한</strong>될 수 있습니다.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- // container -->
+
+      <footer id="footer"></footer>
+    </div>
+    <script src="./js/floating-menu.js"></script>
+  </body>
+</html>

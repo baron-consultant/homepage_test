@@ -88,73 +88,74 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 });
 
-// 고정 슬라이드
-document.addEventListener('DOMContentLoaded', function() {
+// 고정 슬라이드 (GSAP ScrollTrigger 마이그레이션 및 Pin 고정 추가)
+$(function() {
+    gsap.registerPlugin(ScrollTrigger);
+
     const route = document.querySelector('.route');
+    if (!route) return;
+
+    const fixElement = route.querySelector('.fix');
     const sections = route.querySelectorAll('#sec1, #sec2, #sec3');
-    const tabs = route.querySelectorAll('.tabs li');
     const subs = route.querySelectorAll('.subs li');
     const imgs = route.querySelectorAll('.imgs li');
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '20px',
-        threshold: 0.5
-    };
+    // 1. .fix 요소를 .route 스크롤 트랙 동안 화면 상단에 단단히 고정 (Pin)
+    ScrollTrigger.create({
+        trigger: route,
+        start: "top top",
+        end: "bottom bottom",
+        pin: fixElement,
+        pinSpacing: false, // 겹치며 스크롤되도록 설정
+        invalidateOnRefresh: true
+    });
 
-    const observerCallback = (entries) => {
-        entries.filter(entry => entry.isIntersecting).forEach(entry => {
-            const id = entry.target.id;
-            [tabs, subs, imgs].forEach(group => 
-                group.forEach((el, index) => 
-                    el.classList.toggle('on', id === `sec${index + 1}`)
-                )
-            );
+    function activateSlide(index) {
+        [subs, imgs].forEach(group => {
+            group.forEach((el, i) => {
+                el.classList.toggle('on', i === index);
+            });
         });
-    };
+    }
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach(section => observer.observe(section));
+    sections.forEach((section, index) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 50%",
+            end: "bottom 50%",
+            onEnter: () => activateSlide(index),
+            onEnterBack: () => activateSlide(index)
+        });
+    });
 });
 
 
-// 듀얼모니터 시퀀스 애니메이션
+// 듀얼모니터 시퀀스 애니메이션 (GSAP v3 ScrollTrigger 마이그레이션)
 $(function(){
+    gsap.registerPlugin(ScrollTrigger);
 
-// define images
-var images = Array();
+    var images = Array();
+    for (let i = 1; i < 105; i++) {
+        images.push(`img/com_img/eng/comp_${i}.png`);
+    }
 
-for (let i = 1; i < 105; i++) {
-    // images.push(`../img/com_img/eng/comp_${i}.png`); 한글 시퀀스
-    images.push(`../img/com_img/eng/comp_${i}.png`); // 영문 시퀀스
-}
+    var obj = {curImg: 0};
 
-	// TweenMax can tween any property of any object. We use this object to cycle through the array
-	var obj = {curImg: 0};
-
-	// create tween
-	var tween = TweenMax.to(obj, 1,
-		{
-			curImg: images.length - 1,	// animate propery curImg to number of images
-			roundProps: "curImg",				// only integers so it can be used as an array index
-					// repeat 3 times
-			immediateRender: true,			// load first image automatically
-			ease: Linear.easeNone,			// show every image the same ammount of time
-			onUpdate: function () {
-			  $("#myimg").attr("src", images[obj.curImg]); // set the image source
-			}
-		}
-	);
-
-	// init controller
-	var controller = new ScrollMagic.Controller();
-
-	// build scene
-	var scene = new ScrollMagic.Scene({triggerElement: "#dualm", duration: 2500, triggerHook: 0})
-					.setTween(tween)
-					.setPin('#dualm')
-					//.addIndicators() // add indicators (requires plugin)
-					.addTo(controller);
-
+    gsap.to(obj, {
+        curImg: images.length - 1,
+        roundProps: "curImg",
+        immediateRender: true,
+        ease: "none",
+        onUpdate: function () {
+            $("#myimg").attr("src", images[obj.curImg]);
+        },
+        scrollTrigger: {
+            trigger: "#dualm",
+            start: "top top",
+            end: "+=2500",
+            pin: true,
+            scrub: true,
+            invalidateOnRefresh: true
+        }
+    });
 });
-

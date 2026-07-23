@@ -1,36 +1,38 @@
-<!--영문화-->
+﻿<!--영문화-->
 <style>
-footer .footer_inner .footer_info .home{background-image: url(../assets/img/eng/logo_w.svg);}
+footer .footer_inner .footer_info .home{background-image: url(/assets/img/eng/logo_w.svg);}
 footer .footer_inner .footer_info span{font-size: 15px;}
+/* footer .footer_inner nav ol li.depth1:last-child{display:none;} */
 </style>
 <div class="footer_inner">
-  <nav class="nav"></nav>
-  <div class="family_wrap">
-    <div class="family_btn"><span>Family Site</span><i></i></div>
-    <ul class="family_list">
-      <li><a href="http://www.hanmaceng.co.kr" target="_blank">hanmac</a></li>
-      <li><a href="https://www.samaneng.co.kr/" target="_blank">saman</a></li>
-      <li><a href="http://www.jangheon.co.kr/" target="_blank">jangheon</a></li>
-      <li><a href="http://jangheon.com/" target="_blank">(주)장헌</a></li>
-      <li><a href="http://www.pre-cast.co.kr/" target="_blank">PTC</a></li>
-      <li>
-        <a href="http://www.hallasanup.com/" target="_blank">hallasanup</a>
-      </li>
-    </ul>
-  </div>
-  <hr />
   <div class="footer_info">
     <!-- h1 로고영역은 style.css에서 제어 -->
     <div class="logo">
-      <a class="home" href="../en/index.html">Baron Consultants</a>
+      <a class="home" href="/en/index.html">Baron Consultants</a>
     </div>
 
     <span><em>Address.</em>554, Ogeum-ro, Songpa-gu, Seoul, Republic of Korea</span>
     <span><em>Tel.</em>02-2141-7434</span>
     <span><em>Mail.</em>baroncs@baroncs.co.kr</span>
     <span><em>CEO.</em>Jang Jong Chan</span>
-    <span><em>© Baron Consultants Co,.Ltd All Rights Reserved.</em></span>
+    <span class="copyright"><em>© Baron Consultants Co,.Ltd All Rights Reserved.</em></span>
+
+    <div class="family_wrap">
+      <div class="family_btn"><span>Family Site</span><i></i></div>
+      <ul class="family_list">
+        <li><a href="http://www.hanmaceng.co.kr" target="_blank">hanmac</a></li>
+        <li><a href="https://www.samaneng.co.kr/" target="_blank">saman</a></li>
+        <li><a href="http://www.jangheon.co.kr/" target="_blank">jangheon</a></li>
+        <li><a href="http://jangheon.com/" target="_blank">jangheon Inc.</a></li>
+        <li><a href="http://www.pre-cast.co.kr/" target="_blank">PTC</a></li>
+        <li>
+          <a href="http://www.hallasanup.com/" target="_blank">hallasanup</a>
+        </li>
+      </ul>
+    </div>
   </div>
+
+  <nav class="nav"></nav>
 </div>
 
 <!-- TOP버튼 -->
@@ -107,31 +109,5 @@ footer .footer_inner .footer_info span{font-size: 15px;}
       }
     });
 
-    // FOOTER - 소프트웨어 항목 토글 (TOVA, EGBIM, GAIA)
-    // Event delegation을 사용해 나중에 로드되는 요소에도 적용
-    $(document).on("click", "footer .nav ol li.has_depth3 > a", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-
-      const currentItem = $(this).closest("li.has_depth3");
-      const depth3 = $(this).next(".depth3");
-      const isOpen = currentItem.hasClass("is-open");
-      
-      // 다른 소프트웨어 항목 닫기
-      $("footer .nav ol li.has_depth3").removeClass("is-open");
-      $("footer .nav ol li.has_depth3 > .depth3").stop(true, true).slideUp(200);
-      
-      // 현재 항목 토글
-      if (!isOpen) {
-        currentItem.addClass("is-open");
-        depth3.stop(true, true).slideDown(200);
-      }
-
-      return false;
-    });
-
-    // 초기 상태: 모든 depth3 숨김
-    $("footer .nav ol li.has_depth3 > .depth3").hide();
   });
 </script>

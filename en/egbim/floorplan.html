@@ -1,9 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-STZ2R5Q7HG"></script>
   <script>
@@ -18,27 +19,37 @@
   </script>
   
     <title>Drawing Management</title>
-<link rel="stylesheet" href="css/reset.css" />
-  <link rel="stylesheet" href="css/font.css" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" type="text/css" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
-  <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
-  <script type="text/javascript" src="js/jquery.mousewheel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
+<link rel="stylesheet" href="../../assets/css/reset.css" />
+  <link rel="stylesheet" href="../../assets/css/font.css" />
+      <link rel="stylesheet" href="../../assets/css/layout.css" />
+<link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+  <script src="../../assets/js/lib/aos.min.js"></script>
+  <script src="../../assets/js/lib/lenis.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+  <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+  <script src="../../assets/js/lib/gsap.min.js"></script>
+  <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+  <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
 
-  <script type="text/javascript" src="js/common.js?v=20260713a"></script>
-<script type="text/javascript" src="js/floorplan.js"></script>
+  <script type="module" src="../../assets/js/eng/common.js?v=20260623-4"></script>
+  
+  <script type="text/javascript" src="js/floorplan.js"></script>
 </head>
 
 <body>
   <!-- "js__"????嶺뚮??ｆ뤃???β뼯爰귨㎘?????????紐꾪닓 only ???嶺???熬곣뫗逾?濚?????????????딅젩. -->
   <!-- XXXX js__?鶯ㅺ동??????css ?????????궰??? XXXX -->
-  <div class="wrapper">
+  <div class="wrap">
+    <header id="header"></header>
+    <ul class="map_list"></ul>
+    <!-- floating_menu : Guide -->
+    <div class="floating_guide_only">
+      <a href="https://baron-consultant.github.io/eg-bim_guide/help/" target="_blank" rel="noopener noreferrer">
+        <i></i>
+        <span>Guide</span>
+      </a>
+    </div>
     <!-- HEADER -->
     
     <!-- //Header -->
@@ -97,7 +108,7 @@
         </div>
 
       </section>
-      <section class="key find layout_fix_left">
+      <section class="key find layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">Drawing Search &<br> <em>Information<br class="brk"> Viewing</em></span>
@@ -193,7 +204,7 @@
           </div>
         </div>
       </section>
-      <section class="key info layout_fix_left">
+      <section class="key info layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">Drawing Information<br> <em>Selection &<br class="brk"> Editing</em></span>
@@ -258,7 +269,7 @@
           </div>
         </div>
       </section>
-      <section class="key print layout_fix_left">
+      <section class="key print layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">Plot Option Settings &<br> <em>Batch<br class="brk"> Plotting</em></span>
@@ -330,16 +341,11 @@
   <script>
   AOS.init();
 
-  const lenis = new Lenis()
-  lenis.on('scroll', (e) => {
-    //console.log(e)
-  })
-  lenis.on('scroll', ScrollTrigger.update)
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000)
-  })
-  gsap.ticker.lagSmoothing(0)
+  /* Local Lenis disabled for global integration */
   </script>
+    <footer id="footer"></footer>
+    </div>
 </body>
 </html>
+
 

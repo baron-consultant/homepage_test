@@ -2378,6 +2378,7 @@ body:has(.br) {
     padding: 20px 16px;
     border-right: 1px solid #eee;
     gap: 16px;
+    height: 100%;
   }
   .br.tech section.sub4 .benefits li span {
     font-size: clamp(14px, 3.8888vw, 16px);

@@ -65,85 +65,105 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
     }
     
-    ScrollTrigger.create({
-        trigger: key1Sections[0],
-        start: "top 30%",
-        // markers: true,
-        onEnter: () => key1UpdateTit(0),
-        onLeaveBack: () => key1UpdateTit(0)
-    });
+    if (key1Sections[0]) {
+        ScrollTrigger.create({
+            trigger: key1Sections[0],
+            start: "top 30%",
+            // markers: true,
+            onEnter: () => key1UpdateTit(0),
+            onLeaveBack: () => key1UpdateTit(0)
+        });
+    }
     
-    ScrollTrigger.create({
-        trigger: key1Sections[1],
-        start: "center 70%",
-        // markers: true,
-        onEnter: () => key1UpdateTit(1),
-        onLeaveBack: () => key1UpdateTit(1)
-    });
+    if (key1Sections[1]) {
+        ScrollTrigger.create({
+            trigger: key1Sections[1],
+            start: "center 70%",
+            // markers: true,
+            onEnter: () => key1UpdateTit(1),
+            onLeaveBack: () => key1UpdateTit(1)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key1Sections[2],
-        start: "bottom bottom",
-        // markers: true,
-        onEnter: () => key1UpdateTit(2),
-        onLeaveBack: () => key1UpdateTit(2)
-    });
+    if (key1Sections[2]) {
+        ScrollTrigger.create({
+            trigger: key1Sections[2],
+            start: "bottom bottom",
+            // markers: true,
+            onEnter: () => key1UpdateTit(2),
+            onLeaveBack: () => key1UpdateTit(2)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key2Sections[0],
-        start: "top 30%",
-        // markers: true,
-        onEnter: () => key2UpdateTit(0),
-        onLeaveBack: () => key2UpdateTit(0)
-    });
+    if (key2Sections[0]) {
+        ScrollTrigger.create({
+            trigger: key2Sections[0],
+            start: "top 30%",
+            // markers: true,
+            onEnter: () => key2UpdateTit(0),
+            onLeaveBack: () => key2UpdateTit(0)
+        });
+    }
     
-    ScrollTrigger.create({
-        trigger: key2Sections[1],
-        start: "center 70%",
-        // markers: true,
-        onEnter: () => key2UpdateTit(1),
-        onLeaveBack: () => key2UpdateTit(1)
-    });
+    if (key2Sections[1]) {
+        ScrollTrigger.create({
+            trigger: key2Sections[1],
+            start: "center 70%",
+            // markers: true,
+            onEnter: () => key2UpdateTit(1),
+            onLeaveBack: () => key2UpdateTit(1)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key2Sections[2],
-        start: "bottom bottom",
-        // markers: true,
-        onEnter: () => key2UpdateTit(2),
-        onLeaveBack: () => key2UpdateTit(2)
-    });
+    if (key2Sections[2]) {
+        ScrollTrigger.create({
+            trigger: key2Sections[2],
+            start: "bottom bottom",
+            // markers: true,
+            onEnter: () => key2UpdateTit(2),
+            onLeaveBack: () => key2UpdateTit(2)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key2Sections[3],
-        start: "bottom bottom",
-        // markers: true,
-        onEnter: () => key2UpdateTit(3),
-        onLeaveBack: () => key2UpdateTit(3)
-    });
+    if (key2Sections[3]) {
+        ScrollTrigger.create({
+            trigger: key2Sections[3],
+            start: "bottom bottom",
+            // markers: true,
+            onEnter: () => key2UpdateTit(3),
+            onLeaveBack: () => key2UpdateTit(3)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key3Sections[0],
-        start: "top 30%",
-        // markers: true,
-        onEnter: () => key3UpdateTit(0),
-        onLeaveBack: () => key3UpdateTit(0)
-    });
+    if (key3Sections[0]) {
+        ScrollTrigger.create({
+            trigger: key3Sections[0],
+            start: "top 30%",
+            // markers: true,
+            onEnter: () => key3UpdateTit(0),
+            onLeaveBack: () => key3UpdateTit(0)
+        });
+    }
     
-    ScrollTrigger.create({
-        trigger: key3Sections[1],
-        start: "center 70%",
-        // markers: true,
-        onEnter: () => key3UpdateTit(1),
-        onLeaveBack: () => key3UpdateTit(1)
-    });
+    if (key3Sections[1]) {
+        ScrollTrigger.create({
+            trigger: key3Sections[1],
+            start: "center 70%",
+            // markers: true,
+            onEnter: () => key3UpdateTit(1),
+            onLeaveBack: () => key3UpdateTit(1)
+        });
+    }
 
-    ScrollTrigger.create({
-        trigger: key3Sections[2],
-        start: "bottom bottom",
-        // markers: true,
-        onEnter: () => key3UpdateTit(2),
-        onLeaveBack: () => key3UpdateTit(2)
-    });
+    if (key3Sections[2]) {
+        ScrollTrigger.create({
+            trigger: key3Sections[2],
+            start: "bottom bottom",
+            // markers: true,
+            onEnter: () => key3UpdateTit(2),
+            onLeaveBack: () => key3UpdateTit(2)
+        });
+    }
     // ++++++++++++++++++ S: TODO 진슬 추가_ 클릭시에도 메뉴 불 나오게
     $('.js__fixLeft_tit > li').each(function(index, val){
       val.addEventListener("click", () => {

@@ -291,7 +291,11 @@ i.gaia_obj.w {
   }
 }
 
-/* 공통적용 - 헤더 header */
+/* ==========================================================================
+   헤더, 푸터, 플로팅 메뉴 공통화로 인한 로컬 스타일 비활성화 (layout.css에서 공통 관리)
+   ==========================================================================
+
+/* 공통적용 - 헤더 header
 header {
   width: 100%;
   height: 6.25rem;
@@ -306,7 +310,7 @@ header {
   z-index: 1000;
   background: linear-gradient(180deg, #00000033, transparent);
 }
-header.is-scrolled:not(:has(.sitemap.open)) {
+header.is-scrolled:not(:has(.disabled-local-sitemap.open)) {
   background: rgba(255, 255, 255, 0.7);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -439,7 +443,7 @@ header .menu_ham a div:nth-child(3) {
   bottom: .4375rem;
 }
 
-/* 공통적용 - 플로팅메뉴 floating_menu */
+/* 공통적용 - 플로팅메뉴 floating_menu
 .floating_menu {
   position: fixed;
   top: 7.5rem;
@@ -509,8 +513,7 @@ header .menu_ham a div:nth-child(3) {
   color: var(--color-accent);
 }
 
-/* 공통적용 - 푸터 footer */
-.brk {
+/* 공통적용 - 푸터 footer 
   display: none;
 }
 footer {
@@ -519,7 +522,6 @@ footer {
   padding: 1rem 3.75rem;
   box-sizing: border-box;
   color: #fff;
-  /*height: 14.375rem;*/
 }
 footer.footer_on {
   display: block;
@@ -529,7 +531,6 @@ footer.footer_on {
 }
 footer .footer_wrap {
   width: 100%;
-  /* height: 100%;*/
   display: flex;
   justify-content: space-between;
   position: relative;
@@ -759,7 +760,7 @@ footer .address em {
     opacity: 0;
     display: none;
   }
-}
+}*/
 .btn_top {
   position: fixed;
   bottom: 3.75rem;
@@ -829,9 +830,10 @@ footer .address em {
 .btn_top.topbtn_on {
   transition: opacity 0.3s;
   opacity: 1;
-}
+} 
 
 /* 공통적용 - 인트로 intro */
+
 .intro {
   display: flex;
   flex-direction: column;
@@ -1058,6 +1060,10 @@ footer .address em {
   position: absolute;
   top: 0;
   left: 0;
+}
+/* Fullscreen intro screen: footer stays hidden here (added for shared loader integration) */
+.wrapper:has(.main) #footer {
+  display: none;
 }
 .intro_wrap {
   position: absolute;
@@ -1709,7 +1715,7 @@ footer .address em {
   width: 100%;
   height: 100%;
   background: linear-gradient(#00000033 0%, #000000ee 100%);
-  z-index: -1;
+  z-index: 1;
 }
 .value .features .f_wrap::after {
   position: absolute;
@@ -1721,15 +1727,17 @@ footer .address em {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  z-index: -2;
+  z-index: 0;
   transition: 0.5s;
 }
 .value .features .f_wrap i {
   width: 3rem;
   height: 3rem;
+  z-index: 2;
 }
 .value .features .f_wrap .sub_tit {
   color: #fff;
+  z-index: 2;
 }
 .value .features .f_wrap .sub_text {
   width: 100%;
@@ -1738,6 +1746,7 @@ footer .address em {
   text-align: left;
   line-height: 2rem;
   word-break: keep-all;
+  z-index: 2;
 }
 .value .features .data::after {
   background-image: url(../img/value_feature_data_bg.jpg);
@@ -3615,7 +3624,7 @@ footer .address em {
 }
 .results .route {
   width: 100%;
-  height: 100%;
+  height: auto;
   position: relative;
 }
 .results .route div {
@@ -5936,7 +5945,6 @@ footer .address em {
   display: inline-block;
   width: 2rem;
   aspect-ratio: 1/1;
-  margin-left: 1.5rem;
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -6050,7 +6058,7 @@ footer .address em {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 3rem 1.5rem 1.5rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6891,7 +6899,7 @@ footer .address em {
 }
 
 /* 사이트맵 */
-.popup_sitemap {
+.disabled-local-popup_sitemap {
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -6904,21 +6912,21 @@ footer .address em {
   overflow: hidden;
   background-color: #111;
 }
-.popup_sitemap header .menu_my {
+.disabled-local-popup_sitemap header .menu_my {
   display: none;
 }
-.popup_sitemap header .btn_map_close {
+.disabled-local-popup_sitemap header .btn_map_close {
   background: none;
   border: none;
   z-index: 1;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(1) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(1) {
   animation: btn-close-bar1 0.5s ease both;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(2) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(2) {
   animation: btn-close-bar2 0.5s ease both;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(3) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(3) {
   animation: btn-close-bar3 0.5s ease both;
 }
 @keyframes btn-close-bar1 {
@@ -6947,7 +6955,7 @@ footer .address em {
     transform: rotate(-45deg);
   }
 }
-.sitemap {
+.disabled-local-sitemap {
   width: 100%;
   height: 100%;
   background-color: #111;
@@ -6967,7 +6975,7 @@ footer .address em {
     pointer-events: auto;
   }
 }
-.sitemap div[class*="bg_line"] {
+.disabled-local-sitemap div[class*="bg_line"] {
   position: relative;
   width: .0625rem;
   height: 100%;
@@ -6976,11 +6984,11 @@ footer .address em {
   animation-timing-function: ease-out;
   animation-fill-mode: both;
 }
-.sitemap .bg_line1,
-.sitemap .bg_line3 {
+.disabled-local-sitemap .bg_line1,
+.disabled-local-sitemap .bg_line3 {
   animation-name: slideDown;
 }
-.sitemap .bg_line2 {
+.disabled-local-sitemap .bg_line2 {
   animation-name: slideup;
 }
 @keyframes slideDown {
@@ -7003,7 +7011,7 @@ footer .address em {
     opacity: 20%;
   }
 }
-.sitemap div[class*="menu"] {
+.disabled-local-sitemap div[class*="menu"] {
   background-size: cover;
   background-position: center;
   position: relative;
@@ -7013,8 +7021,8 @@ footer .address em {
   width: calc(100% / 4);
   z-index: 1;
 }
-.sitemap div[class*="menu"]::before,
-.sitemap div[class*="menu"]:after {
+.disabled-local-sitemap div[class*="menu"]::before,
+.disabled-local-sitemap div[class*="menu"]:after {
   content: "";
   position: absolute;
   top: 0;
@@ -7022,12 +7030,12 @@ footer .address em {
   width: 100%;
   height: 100%;
 }
-.sitemap div[class*="menu"]::before {
+.disabled-local-sitemap div[class*="menu"]::before {
   background-color: #00000077;
   transition: 0.5s ease;
   z-index: -1;
 }
-.sitemap div[class*="menu"]:after {
+.disabled-local-sitemap div[class*="menu"]:after {
   background-color: #111;
   z-index: 1;
   animation: slideRight 0.5s ease-in forwards;
@@ -7041,7 +7049,7 @@ footer .address em {
     transform: translateX(100%);
   }
 }
-.sitemap div[class*="menu"] a {
+.disabled-local-sitemap div[class*="menu"] a {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7057,10 +7065,10 @@ footer .address em {
   white-space: nowrap;
   transform-origin: left;
 }
-.sitemap div[class*="menu"] a span {
+.disabled-local-sitemap div[class*="menu"] a span {
   position: relative;
 }
-.sitemap div[class*="menu"] a span:after {
+.disabled-local-sitemap div[class*="menu"] a span:after {
   position: absolute;
   top: -6.25rem;
   left: 0rem;
@@ -7072,47 +7080,47 @@ footer .address em {
   font-size: 5rem;
   display: none;
 }
-.sitemap div[class*="menu"] a .sub_text {
+.disabled-local-sitemap div[class*="menu"] a .sub_text {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5rem;
   height: 6.25rem;
 }
-.sitemap div[class*="menu"] a em {
+.disabled-local-sitemap div[class*="menu"] a em {
   font-weight: 700;
   color: var(--color-accent);
 }
-/* .sitemap .menu1 a span {display: block; width: 15rem; height: 12.5rem; position: relative; background-image: url(../img/gaia_w.svg); background-repeat: no-repeat; background-position: center;}  */
-/* .sitemap .menu1 a span::after { content: "Value of"; top: 0 !important;}  */
-/* .sitemap .menu2 a span:after { content: "Key \A Features"; white-space: pre; }  */
-/* .sitemap .menu3 a span:after { content: "Geologic \A Survey \A Results"; white-space: pre; }  */
-/* .sitemap .menu4 a span:after { content: "Further \A GAIA"; white-space: pre; }  */
-.sitemap .menu1 {
+/* .disabled-local-sitemap .menu1 a span {display: block; width: 15rem; height: 12.5rem; position: relative; background-image: url(../img/gaia_w.svg); background-repeat: no-repeat; background-position: center;}  */
+/* .disabled-local-sitemap .menu1 a span::after { content: "Value of"; top: 0 !important;}  */
+/* .disabled-local-sitemap .menu2 a span:after { content: "Key \A Features"; white-space: pre; }  */
+/* .disabled-local-sitemap .menu3 a span:after { content: "Geologic \A Survey \A Results"; white-space: pre; }  */
+/* .disabled-local-sitemap .menu4 a span:after { content: "Further \A GAIA"; white-space: pre; }  */
+.disabled-local-sitemap .menu1 {
   background-image: url(../img/sitemap_menu01.jpg);
 }
-.sitemap .menu2 {
+.disabled-local-sitemap .menu2 {
   background-image: url(../img/sitemap_menu02.jpg);
 }
-.sitemap .menu3 {
+.disabled-local-sitemap .menu3 {
   background-image: url(../img/sitemap_menu03.jpg);
 }
-.sitemap .menu4 {
+.disabled-local-sitemap .menu4 {
   background-image: url(../img/sitemap_menu04.jpg);
 }
-.sitemap div[class*="menu"]:hover {
+.disabled-local-sitemap div[class*="menu"]:hover {
   width: 60%;
 }
-.sitemap div[class*="menu"]:hover::before {
+.disabled-local-sitemap div[class*="menu"]:hover::before {
   display: none;
 }
-.sitemap div[class*="menu"]:hover a {
+.disabled-local-sitemap div[class*="menu"]:hover a {
   opacity: 1;
   transform: scale(1.3);
 }
-.sitemap div[class*="menu"]:hover a span::after {
+.disabled-local-sitemap div[class*="menu"]:hover a span::after {
   display: initial;
 }
-/* .sitemap .menu1:hover a span {transform: translateX(8.75rem);} */
+/* .disabled-local-sitemap .menu1:hover a span {transform: translateX(8.75rem);} */
 
 /*
 888b     d888 8888888888 8888888b. 8888888        d8888       .d88888b.  888     888 8888888888 8888888b. Y88b   d88P 
@@ -7276,11 +7284,11 @@ footer .address em {
     width: 5.625rem;
     height: 6.25rem;
   }
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     padding-left: 1.125rem;
     font-size: 3rem;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 3.75rem;
     top: -5rem;
   }
@@ -7646,16 +7654,16 @@ footer .address em {
   .popup_in:has(.privacy) .btn_close {
     top: -2.75rem;
   }
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     font-size: 2.625rem;
   }
-  .sitemap div[class*="menu"] a .sub_text {
+  .disabled-local-sitemap div[class*="menu"] a .sub_text {
     line-height: 140% !important;
   }
-  .sitemap div[class*="menu"] a .sub_text br.brk {
+  .disabled-local-sitemap div[class*="menu"] a .sub_text br.brk {
     display: initial;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     width: 12.5rem;
   }
   .intro .top {
@@ -8204,25 +8212,25 @@ footer .address em {
     top: -2.9375rem;
     right: -0.125rem;
   }
-  .sitemap {
+  .disabled-local-sitemap {
     flex-direction: column;
     padding: 0;
   }
-  .sitemap div[class*="bg_line"] {
+  .disabled-local-sitemap div[class*="bg_line"] {
     display: none;
   }
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     padding: 0;
     text-align: center;
   }
-  .sitemap div[class*="menu"] {
+  .disabled-local-sitemap div[class*="menu"] {
     width: 100%;
     height: 100%;
   }
-  .sitemap div[class*="menu"] a span {
+  .disabled-local-sitemap div[class*="menu"] a span {
     font-size: 2.375rem;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 3.75rem;
     top: -1.25rem;
     left: 1.25rem;
@@ -8230,26 +8238,26 @@ footer .address em {
     opacity: 0.1;
     display: initial;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     width: 100%;
     height: 3.5rem;
     background-size: 7.1875rem;
   }
-  /* .sitemap .menu1 a span::after { content: "Value of GAIA"; transform: initial;}  */
-  /* .sitemap .menu2 a span:after { content: "Key Features";}  */
-  /* .sitemap .menu3 a span:after { content: "Geologic Survey \A Results";}  */
-  /* .sitemap .menu4 a span:after { content: "Further GAIA";}  */
-  .sitemap div[class*="menu"] a .sub_text {
+  /* .disabled-local-sitemap .menu1 a span::after { content: "Value of GAIA"; transform: initial;}  */
+  /* .disabled-local-sitemap .menu2 a span:after { content: "Key Features";}  */
+  /* .disabled-local-sitemap .menu3 a span:after { content: "Geologic Survey \A Results";}  */
+  /* .disabled-local-sitemap .menu4 a span:after { content: "Further GAIA";}  */
+  .disabled-local-sitemap div[class*="menu"] a .sub_text {
     display: none;
   }
-  .sitemap div[class*="menu"]:hover {
+  .disabled-local-sitemap div[class*="menu"]:hover {
     width: 100%;
   }
-  .sitemap div[class*="menu"]:hover a {
+  .disabled-local-sitemap div[class*="menu"]:hover a {
     opacity: 1;
     transform: scale(1);
   }
-  .sitemap .menu1:hover a span {
+  .disabled-local-sitemap .menu1:hover a span {
     transform: initial;
   }
   .intro {
@@ -8375,7 +8383,6 @@ footer .address em {
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: -2;
   }
   .value .feature_bg::after {
     position: absolute;
@@ -8891,7 +8898,7 @@ footer .address em {
     font-size: .875rem;
   }
   .popup_contents_wrap {
-    padding: 3rem 1rem 1.5rem !important;
+    padding: 0 !important;
     justify-content: flex-start;
     position: relative;
   }
@@ -10190,7 +10197,7 @@ footer .address em {
 @media (max-width: 48rem) {
   footer {
     height: initial;
-    padding: 2.5rem 2rem;
+    padding: 0;
   }
   footer * {
     font-size: .875rem !important;
@@ -10265,11 +10272,11 @@ footer .address em {
   .mypage .my_qna tbody tr td:nth-child(2) {
     display: none;
   }
-  .sitemap {
+  .disabled-local-sitemap {
     gap: .5rem;
   }
 
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 2.8125rem;
     line-height: 104%;
     bottom: 1.25rem;
@@ -10743,21 +10750,21 @@ footer .address em {
   header .language{
     padding-right: 0;
   }
-  .popup_sitemap header h1 {
+  .disabled-local-popup_sitemap header h1 {
     visibility: hidden;
   }
-  .sitemap div[class*="menu"] a span {
+  .disabled-local-sitemap div[class*="menu"] a span {
     font-size: 1.75rem;
     line-height: 120%;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     display: none;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     background-size: 5.4375rem;
   }
   .popup_contents_wrap {
-    padding-top: 2rem !important;
+    padding-top: 0 !important;
   }
   .popup_contents_wrap table th {
     font-size: .875rem;

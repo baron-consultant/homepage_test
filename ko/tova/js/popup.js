@@ -1,4 +1,9 @@
 window.onload = function() {
+    $.ajax({
+        url: "some_api_endpoint",
+        success: function(response) {
+        },
+        complete: function() {
 
             // 팝업 닫기버튼
             $(document).ready(function() {
@@ -194,4 +199,6 @@ window.onload = function() {
                     $('.content.pri').removeClass('show').addClass('hide');
                 });
             });
+        }
+    });
 };

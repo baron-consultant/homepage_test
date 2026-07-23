@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 
 
@@ -18,10 +18,12 @@
   </script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
   <title>GAIA</title>
-  <link rel="stylesheet" href="./css/reset.css" />
-  <link rel="stylesheet" href="./css/font.css" />
-  <link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/reset.css" />
+  <link rel="stylesheet" href="../../assets/css/font.css" />
+      <link rel="stylesheet" href="../../assets/css/layout.css" />
+<link rel="stylesheet" href="./css/style.css" />
 
   <meta property="og:title" content="GAIA">
   <meta property="og:description" content="스마트 건설 플랫폼 GAIA">
@@ -32,30 +34,28 @@
   <!-- SEO Meta Tags -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
   <meta name="description" content="지반정보 시추조사 프로그램" />
   <meta name="keywords" content="시추공, 위치정보, 도로선형 정보, 지반정보, 시추주상도, 암반구간, 절리형상, 성과품 자동생성, gaia, k-gaia, 가이아, 삼안, 한맥, 바론컨설턴트" />
   <meta name="naver-site-verification" content="df53cd37c9a36be907a939041e767321bec7b1d4" />
 
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" type="text/css" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
-  <script type="text/javascript" src="./js/jquery-3.6.1.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+  <script src="../../assets/js/lib/aos.min.js"></script>
+  <script src="../../assets/js/lib/lenis.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+  <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
   <script type="text/javascript" src="./js/jquery.mousewheel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-  <script src="../../assets/js/egbim-baron-shell.js?v=20260713a"></script>
-  <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    window.initProductBaronShell?.('gaia', 'ko');
-  });
-  </script>
+  <script src="../../assets/js/lib/gsap.min.js"></script>
+  <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+  <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+  <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
   <script type="text/javascript" src="./js/index.js"></script>
 </head>
 
 <body>
+  <ul class="map_list"></ul>
   <div class="wrapper">
+  <header id="header"></header>
 <div class="main_mask">
       <!-- main -->
       <div class="main">
@@ -102,19 +102,12 @@
           </span></div>
       </div>
     </div>
+    <footer id="footer"></footer>
   </div>
   <script>
   AOS.init();
 
-  const lenis = new Lenis()
-  lenis.on('scroll', (e) => {
-    // console.log(e)
-  })
-  lenis.on('scroll', ScrollTrigger.update)
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000)
-  })
-  gsap.ticker.lagSmoothing(0)
+  /* Local Lenis disabled for global integration */
   </script>
 </body>
 

@@ -138,7 +138,7 @@ i.close::before {
   overscroll-behavior: contain; /* 바운스 효과 제한 */
 }
 .popup_wrap img {
-  padding: 80px 0;
+  padding: 40px 0;
   width: 60%;
   max-width: 920px;
   min-width: 600px;

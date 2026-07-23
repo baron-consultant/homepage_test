@@ -3,25 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
     <title>Document</title>
     <!-- ASSETS -->
-    <link rel="stylesheet" href="../assets/css/reset.css" />
-    <link rel="stylesheet" href="../assets/css/font.css" />
-    <link rel="stylesheet" href="../assets/css/lib/aos.min.css" />
-    <link rel="stylesheet" href="../assets/css/lib/lenis.min.css" />
-    <script src="../assets/js/lib/aos.min.js"></script>
-    <script src="../assets/js/lib/lenis.min.js"></script>
-    <script src="../assets/js/lib/jquery-3.6.1.min.js"></script>
-    <script src="../assets/js/lib/gsap.min.js"></script>
-    <script src="../assets/js/lib/scrolltrigger.min.js"></script>
-    <script src="../assets/js/lib/scrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/reset.css" />
+    <link rel="stylesheet" href="/assets/css/font.css" />
+    <link rel="stylesheet" href="/assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="/assets/css/lib/lenis.min.css" />
+    <script src="/assets/js/lib/aos.min.js"></script>
+    <script src="/assets/js/lib/lenis.min.js"></script>
+    <script src="/assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="/assets/js/lib/gsap.min.js"></script>
+    <script src="/assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="/assets/js/lib/scrollToPlugin.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
     <!-- CSS / JS -->
-    <link rel="stylesheet" href="../assets/css/layout.css" />
-    <link rel="stylesheet" href="../assets/css/eng/common.css" />
-    <link rel="stylesheet" href="../assets/css/eng/sevice.css" />
-    <script type="module" src="../assets/js/eng/common.js?v=20260623-4"></script>
-    <script src="../assets/js/eng/sv.js"></script>
+    <link rel="stylesheet" href="/assets/css/layout.css" />
+    <link rel="stylesheet" href="/assets/css/eng/common.css" />
+    <link rel="stylesheet" href="/assets/css/eng/sevice.css" />
+    <script type="module" src="/assets/js/eng/common.js"></script>
+    <script src="/assets/js/eng/sv.js"></script>
 
     <!--영문화 css-->
     <style>
@@ -46,17 +47,40 @@
     <div class="wrap">
       <header id="header"></header>
       <ul class="map_list"></ul>
-      <div class="container sv solution single">
+      <div class="container sv solution">
+        <div class="bg"></div>
+        <!-- S : intro -->
+        <section class="intro">
+          <div class="txt_box" data-aos="fade-down" data-aos-duration="1000">
+            <p class="eng_txt">
+              Easy, Fast and Low-cost Customized <br class="m_br" />Civil
+              Engineering Solution
+            </p>
+            <p class="main_txt">
+              Easy, Fast and Low-cost Customized<br>
+Civil Engineering Solution
+            </p>
+            <p class="sub_txt">
+              To support the Digital Transformation across the entire lifecycle of infrastructure facilities, <br>
+we provide a total solution based on specialized construction knowledge and know-how.
+            </p>
+          </div>
+          <div class="scroll_box" style="display: none;">
+            <span>Scroll</span>
+            <div></div>
+          </div>
+        </section>
+
         <section class="left design">
           <div class="objs_wrap">
             <video
-              src="../assets/img/sv/solution_design_obj.mp4"
+              src="/assets/img/sv/solution_design_obj.mp4"
               playsinline
               autoplay
               muted
             ></video>
             <img
-              src="../assets/img/sv/eng/solution_design_obj_point.png"
+              src="/assets/img/sv/eng/solution_design_obj_point.png"
               class="point"
             />
             <div class="objs_line_1">
@@ -116,6 +140,166 @@
               </button>
             </div>
           </div>
+        </section>
+        <section class="right construction">
+          <div class="objs_wrap">
+            <div class="ani"></div>
+            <img
+              src="/assets/img/sv/solution_construction_obj_point.png"
+              class="point"
+            />
+            <div class="objs_line_2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="743"
+                height="890"
+                viewBox="0 0 743 890"
+                fill="none"
+              >
+                <path
+                  d="M747.323 2C616.465 104.749 386.65 142.888 291.802 166.306C147.638 201.899 -0.709426 293.976 1.5489 460.297C5.96126 619.316 187.894 724.384 314.91 743.633C409.656 757.992 620.506 809.906 747.323 902V895.892"
+                  stroke="white"
+                  stroke-width="3"
+                />
+                <defs>
+                  <linearGradient
+                    id="lineGradient2"
+                    x1="372"
+                    y1="2"
+                    x2="372"
+                    y2="888"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0.1" stop-color="white" stop-opacity="0" />
+                    <stop offset="0.3" stop-color="#00F2FF" />
+                    <stop offset="0.7" stop-color="#1500FF" />
+                    <stop offset="0.9" stop-color="white" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="sub_inner">
+            <div
+              class="txt_box dark"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
+              <p class="main_txt">Construction Solution</p>
+            </div>
+            <div class="con_txt">
+              <p>
+                <b
+                  >We support accurate decision-making through real-time collaboration and efficient project management.</b
+                >
+              </p>
+              <p>
+                Based on a platform capable of integrated management of all construction information, we share and verify field data in real time, and maximize fast, accurate decision-making, process efficiency, and construction safety through VR/AR-based multi-party collaboration systems and immersive visuals.
+              </p>
+              <button class="btn_more" data-value="construction_more">
+                Detail View
+              </button>
+            </div>
+          </div>
+        </section>
+        <section class="left op">
+          <div class="objs_wrap">
+            <div class="ani"></div>
+            <img src="/assets/img/sv/solution_op_obj_point.png" class="point" />
+            <div class="objs_line_3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="743"
+                height="890"
+                viewBox="0 0 743 890"
+                fill="none"
+              >
+                <path
+                  d="M747.323 2C616.465 104.749 386.65 142.888 291.802 166.306C147.638 201.899 -0.709426 293.976 1.5489 460.297C5.96126 619.316 187.894 724.384 314.91 743.633C409.656 757.992 620.506 809.906 747.323 902V895.892"
+                  stroke="white"
+                  stroke-width="3"
+                />
+                <defs>
+                  <linearGradient
+                    id="lineGradient2"
+                    x1="372"
+                    y1="2"
+                    x2="372"
+                    y2="888"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop offset="0.1" stop-color="white" stop-opacity="0" />
+                    <stop offset="0.3" stop-color="#00F2FF" />
+                    <stop offset="0.7" stop-color="#1500FF" />
+                    <stop offset="0.9" stop-color="white" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <div class="sub_inner">
+            <div
+              class="txt_box dark"
+              data-aos="fade-down"
+              data-aos-duration="1000"
+            >
+              <p class="main_txt">Operation &<br>Maintenance Solution</p>
+            </div>
+            <div class="con_txt">
+              <p>
+                <b
+                  >We support proactive infrastructure maintenance and <br  class="pc_br">management based on the Digital Twin model.</b
+                >
+              </p>
+              <p>
+                By implementing a Digital Twin model of infrastructure facilities, <br class="pc_br">
+                collecting and monitoring the facility's status data, and providing  <br class="pc_br">
+                various simulations, we maximize the safety of infrastructure and  <br class="pc_br">
+                enhance the asset's value and lifespan in the long term through  <br class="pc_br">
+                facility condition checks, proactive prediction of risks, and  <br class="pc_br">
+                effective maintenance management.
+              </p>
+              <button class="btn_more" data-value="op_more">Detail View</button>
+            </div>
+          </div>
+        </section>
+        <section class="end">
+          <p>
+            <em>By realizing Digital Transformation (D/X) with a 'Total Solution'</em> <br>
+            spanning the entire lifecycle of the infrastructure construction industry,<br>
+we innovate the essence of the construction industry and guide it toward a sustainable future.
+          </p>
+          <div class="cir_wrap">
+            <div class="objs_wrap">
+              <img src="/assets/img/sv/eng/solution_end_obj.png" />
+              <div class="ani"></div>
+            </div>
+            <ul class="cir_txt">
+              <li>
+                <b>Design Solution</b>We support the creation of high-efficiency,<br/>ultra-high-quality digital BIM deliverables
+              </li>
+              <li>
+                <b>Construction Solution</b>
+                By providing a real-time collaboration and <br class="pc_br">
+                decision-making environment based on  <br class="pc_br">
+                integrated construction information,  <br class="pc_br">
+                we support efficient and safe construction.
+              </li>
+              <li>
+                <b>Operation &<br>
+Maintenance Solution</b>
+                    We support proactive infrastructure maintenance and <br class="pc_br">
+                    management based on the Digital Twin model
+              </li>
+            </ul>
+          </div>
+          <ul class="keyword">
+            <li>Easy Like Breath <br /><b>Easy to Understand</b></li>
+            <li>Convenient Intuition <br /><b>Intuitive Usability</b></li>
+            <li>Ultra High Quality <br /><b>High Quality</b></li>
+            <li>Super Low Cost <br /><b>Low Cost</b></li>
+            <li>As Fast As Lightning <br /><b>Super Short</b></li>
+          </ul>
         </section>
       </div>
       <footer id="footer"></footer>

@@ -1,5 +1,12 @@
 import { ensureBaronSsoAuth } from "./baron-sso-auth.js?v=20260721-worker2";
 
+// --window-inner-height: 실제 뷰포트 높이를 CSS 변수로 반영 (모바일 100vh 이슈 대응, kngil 레이아웃에서 사용)
+function updateWindowInnerHeight() {
+  document.documentElement.style.setProperty("--window-inner-height", window.innerHeight + "px");
+}
+updateWindowInnerHeight();
+window.addEventListener("resize", updateWindowInnerHeight);
+
 const pathSegments = location.pathname.split('/').filter(Boolean);
 const rootMarkerSegments = ['ko', 'en', 'callback', 'assets', 'protected', 'public', 'recruit'];
 const rootPrefix = pathSegments.length && !rootMarkerSegments.includes(pathSegments[0]) ? `/${pathSegments[0]}` : '';
@@ -25,6 +32,8 @@ const publicPagePaths = [
   `${rootPrefix}/en/sv_sw_kngil.html`,
   `${rootPrefix}/ko/pr_`,
   `${rootPrefix}/en/pr_`,
+  `${rootPrefix}/ko/gaia`,
+  `${rootPrefix}/en/gaia`,
 ];
 const normalizedLandingPagePaths = landingPagePaths.map(normalizePath);
 const isLandingPage = normalizedLandingPagePaths.includes(currentPath);
@@ -58,16 +67,10 @@ const isAnonymousPublicPage = Boolean(isPublicInfoPage && !isAuthenticated);
 
 document.documentElement.dataset.baronAuthState = isAuthenticated ? 'authenticated' : 'anonymous';
 
-// ?�� AJAX 관??SCRIPT
+// ── AJAX 관련 SCRIPT
 $(function () {
   const includeVersion = '20260623-3';
   const navIncludeFile = isAnonymousPublicPage ? 'nav-public.html' : 'nav.html';
-
-  // EGBIM은 4-level 깊이 (/ko/egbim/)
-  // TOVA/GAIA는 3-level 깊이 (/ko/tova/, /ko/gaia/)
-  const isEgbim = location.pathname.includes('/egbim/');
-  const isTovOrGaia = location.pathname.includes('/tova/') || location.pathname.includes('/gaia/');
-
   const includeBase = `${rootPrefix}/_include`;
 
   $.ajaxSetup({ cache: false });
@@ -82,7 +85,7 @@ $(function () {
         if (typeof callback === "function") callback();
       },
       error: function (xhr, status, error) {
-        console.error(`??Failed to load ${url}:`, error || status);
+        console.error(`Failed to load ${url}:`, error || status);
         if (typeof callback === "function") callback();
       },
     });
@@ -113,45 +116,116 @@ $(function () {
     });
   }
 
-  // ?��nav ?�결
+  // nav 연결 (depth3 지원)
   function connectNavToMapList() {
-    const currentPath = location.pathname.split("/").pop();
+    const currentPathname = location.pathname; // 전체 경로로 비교 (egbim/tova/gaia value.html 구분)
     const navLinks = document.querySelectorAll(
       "header .corp nav ol li.depth1 ul.depth2 li a"
     );
 
+    let matchedLink = null;
+
     navLinks.forEach((link) => {
-      const href = link.getAttribute("href").split("/").pop();
-      if (href === currentPath) {
-        const mapList = document.querySelector(".map_list");
-        if (mapList) {
-          const targetTitle = link.textContent.trim();
-          const categoryTitle = link
-            .closest(".depth1")
-            ?.querySelector("span")
-            ?.textContent.trim();
-          const subTitle = link
-            .closest(".depth1")
-            ?.querySelector("em")
-            ?.textContent.trim();
-          const mainTitle = categoryTitle.replace(subTitle, "");
-          mapList.innerHTML = "";
-          link.closest(".depth1").classList.add("active");
-          const liHome = document.createElement("li");
-          liHome.innerHTML = '<i class="home"></i>';
+      const href = link.getAttribute("href"); // 절대경로 그대로 사용
+      if (href === currentPathname || currentPathname.endsWith(href)) {
+        if (matchedLink && matchedLink.closest('.depth3')) {
+          return;
+        }
+        if (!matchedLink || link.closest('.depth3')) {
+          matchedLink = link;
+        }
+      }
+    });
 
-          const liCategory = document.createElement("li");
-          liCategory.textContent = mainTitle || "";
+    if (matchedLink) {
+      const mapList = document.querySelector(".map_list");
+      if (mapList) {
+        mapList.innerHTML = "";
+        matchedLink.closest(".depth1").classList.add("active");
 
+        const hasDepth3 = matchedLink.closest("li.has_depth3");
+        if (hasDepth3) {
+          matchedLink.closest(".depth1").querySelectorAll("li.has_depth3").forEach(el => {
+            el.classList.remove("active");
+          });
+          hasDepth3.classList.add("active");
+        }
+
+        const liHome = document.createElement("li");
+        liHome.innerHTML = '<i class="home"></i>';
+        mapList.appendChild(liHome);
+
+        const categoryTitle = matchedLink
+          .closest(".depth1")
+          ?.querySelector("span")
+          ?.textContent.trim();
+        const subTitle = matchedLink
+          .closest(".depth1")
+          ?.querySelector("em")
+          ?.textContent.trim();
+        const mainTitle = categoryTitle.replace(subTitle, "").trim();
+
+        const liCategory = document.createElement("li");
+        liCategory.textContent = mainTitle || "";
+        mapList.appendChild(liCategory);
+
+        const depth3El = matchedLink.closest('.depth3');
+        if (depth3El) {
+          const depth2Link = matchedLink.closest('.has_depth3')?.querySelector('a');
+          const depth2Title = depth2Link ? depth2Link.textContent.trim() : "";
+          const liDepth2 = document.createElement("li");
+          liDepth2.textContent = depth2Title;
+          mapList.appendChild(liDepth2);
+
+          const targetTitle = matchedLink.textContent.trim();
           const liOn = document.createElement("li");
           liOn.classList.add("on");
           liOn.textContent = targetTitle || "";
-
-          mapList.appendChild(liHome);
-          mapList.appendChild(liCategory);
+          mapList.appendChild(liOn);
+        } else {
+          const targetTitle = matchedLink.textContent.trim();
+          const liOn = document.createElement("li");
+          liOn.classList.add("on");
+          liOn.textContent = targetTitle || "";
           mapList.appendChild(liOn);
         }
       }
+    }
+  }
+
+  // PC GNB 패키지 S/W / 서비스 S/W 3depth 탭 전환 기능
+  // 드롭다운이 여러 개(패키지 S/W, 서비스 S/W 등) 존재할 수 있으므로 각각 독립적으로 스코프 처리
+  function initPackageSWTab() {
+    $('.package_sw_dropdown').each(function () {
+      const $dropdown = $(this);
+      const $menuItems = $dropdown.find('> li.has_depth3');
+      if (!$menuItems.length) return;
+
+      // 1depth 메뉴 호버 시 드롭다운이 열리면 첫 번째 항목 기본 활성화
+      $dropdown.closest('.depth1').on('mouseenter', function () {
+        if (!$menuItems.filter('.active').length) {
+          $menuItems.removeClass('active');
+          $menuItems.first().addClass('active');
+        }
+      });
+
+      // 2depth 메뉴 호버 시 active 클래스 전환
+      $menuItems.on('mouseenter', function () {
+        $menuItems.removeClass('active');
+        $(this).addClass('active');
+      });
+    });
+  }
+
+  function trimPopupDepth3Nav() {
+    const popupNav = document.querySelector('.popup_wrap.sitemap .popup_contents_wrap nav');
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll('li.has_depth3 > .depth3').forEach((depth3) => {
+      depth3.remove();
     });
   }
 
@@ -167,7 +241,12 @@ $(function () {
       const shouldKeep = allowedLabels.some((allowedLabel) => label.includes(allowedLabel));
 
       if (!shouldKeep) {
-        item.remove();
+        // li는 유지하고 링크만 비워 sitemap 팝업의 :nth-child 기반 3depth 스타일 위치를 보존한다.
+        item.classList.add('menu_hidden');
+        const depth2 = item.querySelector(':scope > ul.depth2');
+        if (depth2) {
+          depth2.innerHTML = '';
+        }
       }
     });
   }
@@ -177,16 +256,17 @@ $(function () {
       return;
     }
 
-    const loginButton = root.querySelector('.header_login');
-    if (!loginButton) {
+    const loginWrap = root.querySelector('.header_login');
+    const loginLink = root.querySelector('.header_login_link');
+    if (!loginWrap || !loginLink) {
       return;
     }
 
     if (isAuthenticated) {
-      loginButton.hidden = false;
-      loginButton.textContent = '로그아웃';
-      loginButton.href = '#';
-      loginButton.onclick = (event) => {
+      loginWrap.hidden = false;
+      loginLink.textContent = '로그아웃';
+      loginLink.href = '#';
+      loginLink.onclick = (event) => {
         event.preventDefault();
         window.baronSsoLogout?.();
       };
@@ -194,14 +274,14 @@ $(function () {
     }
 
     if (!isPublicInfoPage) {
-      loginButton.hidden = true;
+      loginWrap.hidden = true;
       return;
     }
 
-    loginButton.hidden = false;
-    loginButton.textContent = '로그인';
-    loginButton.href = `${location.pathname}?login=1`;
-    loginButton.onclick = null;
+    loginWrap.hidden = false;
+    loginLink.textContent = '로그인';
+    loginLink.href = `${location.pathname}?login=1`;
+    loginLink.onclick = null;
   }
 
   function loadSitemapNav() {
@@ -224,6 +304,7 @@ $(function () {
       loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#header .corp .nav', function () {
         normalizeSiteLinks(document.querySelector('#header .corp .nav'));
         connectNavToMapList();
+        initPackageSWTab();
         trimPublicNav(document.querySelector('#header .corp .nav'));
       });
       configureHeaderActions(document.querySelector('#header'));
@@ -252,14 +333,13 @@ $(function () {
     normalizeSiteLinks(document.querySelector('#footer'));
     loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#footer .nav', function () {
       normalizeSiteLinks(document.querySelector('#footer .nav'));
-      $("#footer .nav ol li.has_depth3 > .depth3").hide();
       trimPublicNav(document.querySelector('#footer .nav'));
     });
   });
 });
 
-// ?�� TITLE 관??SCRIPT
-// ?��  S: title ?�일?�기
+// ── TITLE 관련 SCRIPT
+// ── S: title 다일링기
 
 $(function () {
   const currentPath = location.pathname;
@@ -271,9 +351,9 @@ $(function () {
   }
 });
 
-// E : title ?�일?�기
+// E : title 다일링기
 
-// ?�� S : header ?�기�?
+// ── S : header 숨기기
 $(function () {
   const showNav = gsap
     .from("#header, #header_recruit", {
@@ -293,20 +373,41 @@ $(function () {
     })
     .progress(1);
 
+  let showMapList = null;
+  const headerNavMM = gsap.matchMedia();
+  headerNavMM.add("(max-width: 1400px)", () => {
+    showMapList = gsap
+      .from(".map_list", {
+        y: -40,
+        autoAlpha: 0,
+        paused: true,
+        duration: 0.2,
+      })
+      .progress(1);
+    return () => {
+      showMapList = null;
+    };
+  });
+
   ScrollTrigger.create({
     start: "top top",
     end: 99999,
     onUpdate: (self) => {
       if (lenis && lenis.isStopped) return;
-      self.direction === -1 ? showNav.play() : showNav.reverse();
+      if (self.direction === -1) {
+        showNav.play();
+        showMapList && showMapList.play();
+      } else {
+        showNav.reverse();
+        showMapList && showMapList.reverse();
+      }
     },
   });
 });
-// E : header ?�기�?
+// E : header 숨기기
 
-// ?�� POPUP SCRIPT
-// ?��S : ?�업 ?�기
-// ?��S : ?�업 ?�기
+// ── POPUP SCRIPT
+// ── S : 팝업 열기
 $(function () {
   $(document).on("click", "button", function () {
     const button = this;
@@ -314,7 +415,7 @@ $(function () {
     const popup = document.querySelector(`.popup_wrap.${value}`);
 
     if (popup) {
-      // ?�재 ?�크�??�치 ?�??
+      // 현재 스크롤 위치 저장
       const scrollY = window.scrollY;
       document.body.setAttribute("data-scroll-lock", scrollY);
 
@@ -324,15 +425,15 @@ $(function () {
       document.body.style.left = "0";
       document.body.style.right = "0";
 
-      // Lenis ?�전 중�?
+      // Lenis 일시 중단
       if (lenis) {
         lenis.destroy();
       }
 
-      // ?�업 ?�시
+      // 팝업 표시
       popup.style.display = "block";
 
-      // ?�업 ?��? ?�치 ?�크�?강제 ?�성??
+      // 팝업 내부 스크롤 강제 활성화
       const popupContents = popup.querySelector(".popup_contents_wrap");
       if (popupContents) {
         popupContents.removeAttribute("data-lenis-prevent-wheel");
@@ -345,7 +446,7 @@ $(function () {
           touch-action: pan-y !important;
         `;
 
-        // ?�치 ?�벤??강제 ?�용
+        // 터치 이벤트 강제 허용
         popupContents.addEventListener(
           "touchstart",
           function (e) {
@@ -365,14 +466,14 @@ $(function () {
     }
   });
 });
-// E : ?�업 ?�기
+// E : 팝업 열기
 
-// ?��S : ?�업 ?�기
+// ── S : 팝업 닫기
 $(function () {
   $(document).on("click", function (e) {
     const $target = $(e.target);
 
-    // ?��?�기 버튼 ?�릭 ??
+    // 닫기 버튼 클릭 시
     if ($target.closest(".btn_close").length) {
       const $popupWrap = $target.closest(".popup_wrap");
       if ($popupWrap.length) {
@@ -382,7 +483,7 @@ $(function () {
       return;
     }
 
-    // ?��popup_contents_wrap ?�릭 ?�도 ?�함?�서 ?�기
+    // popup_contents_wrap 클릭 자체가 배경 클릭인 경우 닫기
     const $popupContents = $target.closest(".popup_contents_wrap");
     if ($popupContents.length && $target.is(".popup_contents_wrap")) {
       const $popupWrap = $target.closest(".popup_wrap");
@@ -393,9 +494,9 @@ $(function () {
     }
   });
 
-  // ?��?�업 ?�힐 ??body ?�크�??�성??
+  // 팝업 닫힐 때 body 스크롤 복원
   function enableBodyScroll() {
-    // body ?�크�??�치 복원
+    // body 스크롤 위치 복원
     const scrollY = document.body.style.top;
     document.body.style.position = "";
     document.body.style.top = "";
@@ -403,16 +504,16 @@ $(function () {
     window.scrollTo({
       top: parseInt(scrollY || "0") * -1,
       left: 0,
-      behavior: "instant", // ?�는 'auto'
+      behavior: "instant", // 또는 'auto'
     });
 
-    // Lenis ?�시??
+    // Lenis 재시작
     handleStartLenis();
   }
 });
-// E : ?�업 ?�기
+// E : 팝업 닫기
 
-// ?��S : map list ?�직이�? /* 250604추�??�� */
+// ── S : map list 움직이기 /* 250604추가 */
 let lastScrollY = window.scrollY;
 const stickyBox = document.querySelector(".map_list");
 
@@ -420,23 +521,23 @@ window.addEventListener("scroll", () => {
   const currentScrollY = window.scrollY;
   const width = window.innerWidth;
   if (width > 1440) {
-    //250604 추�?
+    //250604 추가
     if (stickyBox != null) {
       if (currentScrollY > lastScrollY) {
-        // ?�래�??�크롤할 ??
+        // 아래로 스크롤할 때
         stickyBox.style.top = "24px";
       } else {
-        // ?�로 ?�크롤할 ??
+        // 위로 스크롤할 때
         stickyBox.style.top = "124px";
       }
     }
   } else {
     if (stickyBox != null) {
       if (currentScrollY > lastScrollY) {
-        // ?�래�??�크롤할 ??
+        // 아래로 스크롤할 때
         stickyBox.style.top = "24px";
       } else {
-        // ?�로 ?�크롤할 ??
+        // 위로 스크롤할 때
         stickyBox.style.top = "74px";
       }
     }
@@ -444,15 +545,15 @@ window.addEventListener("scroll", () => {
 
   lastScrollY = currentScrollY;
 });
-// E : map list ?�직이�?
+// E : map list 움직이기
 
-// ?�� SCROLL SCRIPT
-// ?��AOS
+// ── SCROLL SCRIPT
+// ── AOS
 if (window.AOS && typeof window.AOS.init === "function") {
   window.AOS.init();
 }
 
-// ?��Lenis
+// ── Lenis
 
 let lenis;
 let lenisTickerCallback;
@@ -473,9 +574,15 @@ function handleStartLenis() {
   }
 
   lenis = new Lenis({
-    lerp: 0.1, // ?�크롤의 부?�러???�도
+    lerp: 0.1, // 스크롤의 부드러운 정도
     smoothWheel: true,
     smoothTouch: false,
+  });
+
+  lenis.on('scroll', () => {
+    if (window.ScrollTrigger) {
+      window.ScrollTrigger.update();
+    }
   });
 
   lenisTickerCallback = (time) => {
@@ -490,7 +597,7 @@ handleStartLenis();
 
 export default lenis;
 
-// ?�� 로드 UI fallback ?�제
+// ── 로드 UI fallback 해제
 function releaseLoadingUI() {
   document.documentElement.classList.remove("loading");
   document.body.classList.remove("loading", "is-loading");
@@ -532,7 +639,20 @@ function mobileMenu() {
         return;
       }
 
-      if (!item.classList.contains("active")) {
+      const isActive = item.classList.contains("active");
+
+      // 다른 모든 활성화된 메뉴 닫기 (아코디언 동작)
+      mNav.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+          const otherDepth2 = otherItem.querySelector(":scope > .depth2");
+          if (otherDepth2) {
+            otherDepth2.style.maxHeight = null;
+          }
+        }
+      });
+
+      if (!isActive) {
         item.classList.add("active");
         depth2.style.maxHeight = depth2.scrollHeight + "px";
       } else {

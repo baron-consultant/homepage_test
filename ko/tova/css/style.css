@@ -38,6 +38,7 @@ html {
   width: 100%;
   margin: 0 auto;
   flex: 1;
+  padding-top: 92px;
 }
 section:not(.intro, .full_screen) {
   max-width: 1920px;
@@ -289,8 +290,11 @@ i.tova_obj.w {
   }
 }
 
+/* ==========================================================================
+   헤더, 푸터, 플로팅 메뉴 공통화로 인한 로컬 스타일 비활성화 (layout.css에서 공통 관리)
+   ==========================================================================
 /* 공통적용 - 헤더 header */
-header {
+/* header {
   width: 100%;
   height: 100px;
   padding: 0 48px;
@@ -307,7 +311,7 @@ header {
   backdrop-filter: blur(10px);
   color: #000;
 }
-header.is-scrolled:not(:has(.sitemap.open)) {
+header.is-scrolled:not(:has(.disabled-local-sitemap.open)) {
   background: rgba(255, 255, 255, 0.96);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -446,9 +450,9 @@ header .menu_ham a div:nth-child(2) {
 }
 header .menu_ham a div:nth-child(3) {
   bottom: 7px;
-}
+} */
 
-/* 공통적용 - 플로팅메뉴 floating_menu */
+
 .floating_menu {
   position: fixed;
   top: 120px;
@@ -501,7 +505,7 @@ header .menu_ham a div:nth-child(3) {
   background-image: url(../img/ico_floating_buy.svg);
 }
 
-/* 공통적용 - 푸터 footer */
+/* 
 footer {
   width: 100%;
   background: #14100c;
@@ -747,7 +751,7 @@ footer .address em.tel {
     opacity: 0;
     display: none;
   }
-}
+} */
 .btn_top {
   position: fixed;
   bottom: 60px;
@@ -925,6 +929,7 @@ footer .address em.tel {
   pointer-events: none;
   z-index: 100;
   transition: opacity 0.2s;
+  display: none;
 }
 .mouse_mark span {
   position: relative;
@@ -1595,7 +1600,6 @@ footer .address em.tel {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: -1;
 }
 .value .system_bg::after {
   position: absolute;
@@ -1932,8 +1936,10 @@ footer .address em.tel {
 .value .screen .btn_show .arrow::before {
   transform: rotate(-45deg);
 }
-.value .screen .btn_show:hover {
-  z-index: 10;
+@media (hover: hover) {
+  .value .screen .btn_show:hover {
+    z-index: 10;
+  }
 }
 .value .screen .btn_show.on {
   z-index: 10;
@@ -2539,7 +2545,6 @@ footer .address em.tel {
 }
 .primary .key .left .mid_tit {
   width: calc(100vw - 200px);
-  max-width: 1720px;
   height: 500px;
   transform: translateY(-320px);
   opacity: 1;
@@ -2940,7 +2945,6 @@ footer .address em.tel {
   background-image: url(../img/primary_02.png);
   left: calc(176px - 12px);
   width: calc(100vw - 176px);
-  max-width: 1744px;
 }
 .primary .pub .left .mid_tit span {
   left: 24px !important;
@@ -3640,6 +3644,8 @@ footer .address em.tel {
   background-image: url(../img/road_proportionality_bg.jpg);
   background-repeat: no-repeat;
   background-position: top center;
+  background-size:cover;
+  max-width: 100%;
 }
 .road .proportionality .mid_tit {
   text-align: center;
@@ -3733,409 +3739,91 @@ footer .address em.tel {
 /* --------------------------------- */
 /* 대중교통 public */
 /* --------------------------------- */
-.public .sub_text {
-  text-align: justify;
-  line-height: 1.4em;
-}
-.public .intro .top {
-  background-image: url(../img/public_intro_bg.jpg);
-}
-.public .intro .condition {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.public .intro .condition .diagram_wrap {
-  width: 300px;
-  aspect-ratio: 1/1;
-  margin: 240px auto 120px;
-  position: relative;
-}
-.public .intro .condition .diagram_wrap .dia_circles_wrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-}
-.public
-  .intro
-  .condition
-  .diagram_wrap
-  .dia_circles_wrap
-  .circle_dots
-  .dot:nth-child(1) {
-  top: 0;
-  left: calc(50% - 4px);
-}
-.public
-  .intro
-  .condition
-  .diagram_wrap
-  .dia_circles_wrap
-  .circle_dots
-  .dot:nth-child(2) {
-  top: initial;
-  bottom: 23%;
-  left: calc(6% - 4px);
-}
-.public
-  .intro
-  .condition
-  .diagram_wrap
-  .dia_circles_wrap
-  .circle_dots
-  .dot:nth-child(3) {
-  top: initial;
-  bottom: 23%;
-  right: calc(6% - 4px);
-}
-.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots.move {
-  animation-name: dot-rotate3;
-}
+.public .sub_text{text-align: justify; line-height: 1.4em;}
+.public .intro .top {background-image: url(../img/public_intro_bg.jpg);}
+.public .intro .condition {margin: 0 auto; text-align: center;}
+.public .intro .condition .diagram_wrap {display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 40px;margin: 60px 0;}
+.public .intro .condition .diagram_wrap .dia_element_bottom{display: flex; gap: 300px; position: absolute; bottom: 17px;}
+.public .intro .condition .diagram_wrap .dia_element {width: 300px;}
+.public .intro .condition .diagram_wrap .dia_element .line {width: 40px; height: 1px;}
+.public .intro .condition .diagram_wrap .dia_element i {width: 54px; height: 54px; background-position: center; background-size: contain; background-repeat: no-repeat;}
+.public .intro .condition .diagram_wrap .dia_element {gap: 12px; align-items: center;}
+.public .intro .condition .diagram_wrap .dia_element .dia_tit {font-size: 18px; line-height: 24px;}
+.public .intro .condition .diagram_wrap .dia_element02 .dia_tit{ text-align: right; white-space: nowrap;}
+.public .intro .condition .diagram_wrap .dia_element03 .dia_tit{text-align: left; white-space: nowrap;}
+.public .intro .condition .diagram_wrap .dia_element01 i {background-image: url(../img/ico_dia_bus.svg);}
+.public .intro .condition .diagram_wrap .dia_element02 i {background-image: url(../img/ico_dia_subway.svg);}
+.public .intro .condition .diagram_wrap .dia_element03 i {background-image: url(../img/ico_dia_trans.svg);}
+.public .intro .condition .diagram_wrap .dia_element02{display: flex; flex-direction: row-reverse; justify-content: flex-start;}
+.public .intro .condition .diagram_wrap .dia_element03{display: flex; flex-direction: row;justify-content: flex-start;}
+.public .intro .condition .diagram_wrap .dia_element01 .line {transform: rotate(90deg); top: calc(100% + 20px);}
+.public .intro .condition .diagram_wrap .dia_element02 .line {transform: rotate(-45deg); bottom: 100%; left: 100%;}
+.public .intro .condition .diagram_wrap .dia_element03 .line {transform: rotate(45deg); bottom: 100%; right: 100%;}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots .dot:nth-child(1) {top:0%; left: calc(50% - 4px); transform: translateY(-50%);}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots .dot:nth-child(2) {top:75%; left: 16px; transform: translateY(-50%) rotate(120deg);}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots .dot:nth-child(3) {top:75%; right: 16px; transform: translateY(-50%) rotate(240deg);}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots.move {animation-name: dot-rotate3;}
 @keyframes dot-rotate3 {
-  0% {
-    transform: rotate(0deg);
-  }
-  35% {
-    transform: rotate(120deg);
-  }
-  70% {
-    transform: rotate(240deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {transform: rotate(0deg);}         
+    35% {transform: rotate(120deg);}
+    70% {transform: rotate(240deg);}
+    100% {transform: rotate(360deg);}
 }
-.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_core {
-  line-height: 95%;
-}
-.public
-  .intro
-  .condition
-  .diagram_wrap
-  .dia_circles_wrap
-  .circle_core
-  span:first-child {
-  font-size: 20px;
-  font-weight: 400;
-}
-.public .intro .condition .diagram_wrap .dia_element {
-  position: absolute;
-  width: max-content;
-  gap: 12px;
-}
-.public .intro .condition .diagram_wrap .dia_element i {
-  width: 54px;
-  aspect-ratio: 1/1;
-  background-position: center;
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.public .intro .condition .diagram_wrap .dia_element .line {
-  width: 1px;
-  height: 70px;
-}
-.public .intro .condition .diagram_wrap .e01 {
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.public .intro .condition .diagram_wrap .e02 {
-  top: 82.5%;
-  right: 117%;
-  flex-direction: row-reverse;
-  text-align: right;
-}
-.public .intro .condition .diagram_wrap .e03 {
-  top: 82.5%;
-  left: 116%;
-  flex-direction: row;
-  text-align: left;
-}
-.public .intro .condition .diagram_wrap .e01 i {
-  background-image: url(../img/ico_dia_bus.svg);
-}
-.public .intro .condition .diagram_wrap .e02 i {
-  background-image: url(../img/ico_dia_subway.svg);
-}
-.public .intro .condition .diagram_wrap .e03 i {
-  background-image: url(../img/ico_dia_trans.svg);
-}
-.public .intro .condition .diagram_wrap .e01 .line {
-  top: 110%;
-}
-.public .intro .condition .diagram_wrap .e02 .line {
-  bottom: 50%;
-  left: 114%;
-  transform: rotate(60deg);
-}
-.public .intro .condition .diagram_wrap .e03 .line {
-  bottom: 50%;
-  right: 120%;
-  transform: rotate(-60deg);
-}
-.public .intro .condition p {
-  font-size: 20px;
-}
-.public .intro .condition::before {
-  position: absolute;
-  bottom: 25px;
-  right: 32px;
-  content: "Public\A Transport";
-  font-size: 120px;
-  opacity: 0.03;
-  text-align: right;
-  font-weight: 900;
-  white-space: pre;
-  line-height: 0.8em;
-  letter-spacing: -0.04em;
-}
-.public .route {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.public .route div {
-  width: 100%;
-  height: 100vh;
-  font-size: 30px;
-}
-.public .route #sec1 {
-  position: absolute;
-  top: 0;
-}
-.public .route .fix {
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: 1fr 1.8fr;
-  grid-template-rows: 1fr 3fr;
-  max-width: 1460px;
-  margin: 0 auto;
-  padding: 16vh 80px;
-  row-gap: 40px;
-  column-gap: 60px;
-}
-.public .route .tabs {
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  align-self: flex-end;
-}
-.public .route .tabs li {
-  width: 136px;
-  height: 52px;
-}
-.public .route .tabs li a {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  color: #777;
-  border-radius: 4px;
-  background: #fafafa;
-  border: 1px solid #00000011;
-  font-size: 16px;
-  cursor: pointer;
-}
-.public .route .tabs li i {
-  display: none;
-  width: 16px;
-  height: 16px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 0.5;
-}
-.public .route .tabs li:nth-child(1) i {
-  background-image: url(../img/ico_slide_bus.svg);
-}
-.public .route .tabs li:nth-child(2) i {
-  background-image: url(../img/ico_slide_subway.svg);
-}
-.public .route .tabs li:nth-child(3) i {
-  background-image: url(../img/ico_slide_trans.svg);
-}
-.public .route .tabs li:hover a {
-  background-color: #f5f5f5;
-  color: #000;
-}
-.public .route .tabs li.on a {
-  background-color: var(--color-primary);
-  color: #000;
-  font-weight: 700;
-}
-.public .route .tabs li.on i {
-  opacity: 1;
-}
-.public .route .subs {
-  grid-area: 2/1;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-.public .route .subs li .sub_tit {
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 20px;
-  margin-bottom: 15px;
-}
-.public .route .subs li .mid_tit {
-  font-size: 42px;
-}
-.public .route .subs li .sub_text {
-  margin-top: 32px;
-}
-.public .route .subs li {
-  display: none;
-}
-.public .route .subs li.on {
-  display: initial;
-}
-.public .route .imgs {
-  grid-row: span 2;
-  width: 100%;
-  height: 100%;
-  max-height: 520px;
-  align-self: center;
-  display: flex;
-  gap: 16px;
-}
-.public .route .imgs li {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-radius: 8px;
-  opacity: 0.3;
-  cursor: pointer;
-}
-.public .route .imgs li a {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-.public .route .imgs li:nth-child(1) {
-  background-image: url("../img/slide_img_bus.png");
-}
-.public .route .imgs li:nth-child(2) {
-  background-image: url("../img/slide_img_subway.png");
-}
-.public .route .imgs li:nth-child(3) {
-  background-image: url("../img/slide_img_trans.png");
-}
-.public .route .imgs li:hover {
-  opacity: 1;
-}
-.public .route .imgs li.on {
-  width: 300%;
-  opacity: 1;
-  transition: 1s ease;
-}
-.public .process .left {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 24px;
-  min-width: 560px;
-  height: 100vh;
-  padding: 0;
-  padding-left: 150px;
-}
-.public .process .left .bg:nth-child(1) {
-  background: linear-gradient(#00000055 0, #000000cc 100%),
-    url(../img/public_od_bg.png);
-  background-size: cover;
-}
-.public .process .left .bg:nth-child(2) {
-  background: linear-gradient(#00000099 0, #000000dd 100%),
-    url(../img/public_pay_bg.png);
-  background-size: cover;
-}
-.public .process .left .bg:nth-child(3) {
-  background: linear-gradient(#00000099 0, #000000dd 100%),
-    url(../img/public_station_bg.png);
-  background-size: cover;
-}
-.public .process .left .bg.on {
-  transform: scale(1.05);
-}
-.public .process .left .mid_tit {
-  transform: scale(0.7) translate(-47%, 0%);
-  display: block;
-  font-size: 42px;
-  white-space: nowrap;
-  cursor: pointer;
-}
-.public .process .left .mid_tit .num {
-  display: none;
-}
-.public .process .left .mid_tit.on {
-  transform: initial;
-  text-indent: -66px;
-}
-.public .process .left .mid_tit:hover em,
-.public .process .left .mid_tit.on em {
-  font-weight: 700;
-  color: var(--color-primary);
-}
-.public .process .left .mid_tit.on .num {
-  display: initial;
-  font-weight: 300;
-  margin-right: 8px;
-  position: relative;
-}
-.public .process .left .mid_tit.on .num::after {
-  position: absolute;
-  content: "";
-  width: 8px;
-  height: 8px;
-  top: 50%;
-  left: -24px;
-  transform: translateY(-50%);
-  background-color: #fff;
-  border-radius: 50%;
-}
-.public .process .left .mid_tit.on .num::before {
-  position: absolute;
-  content: "";
-  top: 50%;
-  right: calc(100% + 24px);
-  width: 240px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent 50%, #fff 100%);
-}
-.public .process .right {
-  padding: 200px 200px 100px 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 200px;
-}
-.public .process .right .sub_tit {
-  display: flex;
-  flex-direction: column;
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-.public .process .right .sub_tit object {
-  width: 48px;
-  margin-bottom: 20px;
-}
-.public .process .right .sub_text {
-  margin-bottom: 48px;
-}
-.public .process .right div > object {
-  width: 100%;
-  max-height: 520px;
-}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_core {line-height: 95%;}
+.public .intro .condition .diagram_wrap .dia_circles_wrap .circle_core span:first-child {font-size: 20px; font-weight: 400;}
+.public .intro .condition p {font-size: 20px;}
+.public .intro .condition::before {position: absolute; bottom: 25px; right: 32px; content: "Public\A Transport"; font-size: 120px; opacity: 0.03; text-align: right; font-weight: 900; white-space: pre; line-height: 0.8em; letter-spacing: -0.04em;}
+.public .route {width: 100%; height: 100%; position: relative; max-width: 100%;}
+.public .route div {width: 100%; height: 100vh; font-size: 30px;}
+.public .route #sec1 {position: absolute; top: 0;}
+.public .route .fix {position: sticky; top: 0; left: 0; z-index: 1; display: grid; grid-template-columns: 1fr 1.8fr; grid-template-rows: 1fr 3fr; padding: 160px 200px; row-gap: 40px; column-gap: 60px;}
+.public .route .tabs {width: 100%; display: flex; gap: 8px; align-items: center; align-self: flex-end;}
+.public .route .tabs li {width: 136px; height: 52px;}
+.public .route .tabs li a {width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; gap: 4px;  color: #777; border-radius: 4px; background: #fafafa; border: 1px solid #00000011; font-size: 16px;}
+.public .route .tabs li i {width: 16px; height: 16px; background-position: center; background-repeat: no-repeat; background-size: contain; opacity: 0.5;}
+.public .route .tabs li:nth-child(1) i {background-image: url(../img/ico_slide_bus.svg);}
+.public .route .tabs li:nth-child(2) i {background-image: url(../img/ico_slide_subway.svg);}
+.public .route .tabs li:nth-child(3) i {background-image: url(../img/ico_slide_trans.svg);}
+.public .route .tabs li:hover a {background-color: #f5f5f5; color: #000;}
+.public .route .tabs li.on a {background-color: var(--color-primary); color: #000; font-weight: 700;}
+.public .route .tabs li.on i {opacity: 1;}
+.public .route .subs {grid-area: 2/1; width: 100%; height: 100%;}
+.public .route .subs li .sub_tit {font-size: 18px; font-weight: 500;}
+.public .route .subs li .mid_tit {font-size: 42px;} 
+.public .route .subs li .sub_text {margin-top: 32px;}
+.public .route .subs li {display: none;}
+.public .route .subs li.on {display: initial;}
+.public .route .imgs {grid-row: span 2; width: 100%; height: 100%; display: flex; gap: 16px;}
+.public .route .imgs li {width: 100%; height: 100%; background-position: center; background-size: cover; background-repeat: no-repeat; border-radius: 8px; opacity: 0.3;}
+.public .route .imgs li a {display: block; width: 100%; height: 100%;}
+.public .route .imgs li:nth-child(1) {background-image: url('../img/slide_img_bus.png');}
+.public .route .imgs li:nth-child(2) {background-image: url('../img/slide_img_subway.png');}
+.public .route .imgs li:nth-child(3) {background-image: url('../img/slide_img_trans.png');}
+.public .route .imgs li:hover {opacity: 1;}
+.public .route .imgs li.on {width: 300%; opacity: 1; transition: 1s ease; }
+.public .process .left{display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 700px; padding: 0; padding-left: 300px; height:100vh}
+.public .process .left .bg:nth-child(1) {background: linear-gradient(#00000055 0, #000000cc 100%), url(../img/public_od_bg.webp); background-size: cover;}
+.public .process .left .bg:nth-child(2) {background: linear-gradient(#00000099 0, #000000dd 100%), url(../img/public_pay_bg.webp); background-size: cover;}
+.public .process .left .bg:nth-child(3) {background: linear-gradient(#00000099 0, #000000dd 100%), url(../img/public_station_bg.webp); background-size: cover;}
+.public .process .left .bg {opacity: 0; will-change: opacity, transform; transition: opacity 0.6s ease;}
+.public .process .left .bg.on {opacity: 1; transform: scale(1.05);}
+.public .process .left .mid_tit {transform: scale(0.7) translate(-47%, 0%); position: relative; display: block; font-size: 42px;}
+.public .process .left .mid_tit .num {display: none; font-weight: 300; margin-right: 8px;}
+.public .process .left .mid_tit::after {position: absolute; content: "●"; top: 24px; left: -32px; font-size: 8px; display: none;}
+.public .process .left .mid_tit::before {position: absolute; content: ""; top: 30px; left: -123%; width: 100%; height: 1px; background:linear-gradient(90deg, transparent 50%, #fff 100%); display: none;}
+.public .process .left .mid_tit.on {transform: initial; text-indent: -66px;}
+.public .process .left .mid_tit.on em{font-weight: 700; color: var(--color-primary);}
+.public .process .left .mid_tit.on .num {display: initial;}
+.public .process .left .mid_tit.on::after,
+.public .process .left .mid_tit.on::before {display: initial;}
+.public .process .right {padding: 200px 200px 100px 60px; display: flex; flex-direction: column; gap: 240px;}
+.public .process .right .sub_tit {display: flex; flex-direction: column; font-size: 28px; margin-bottom: 20px;}
+.public .process .right .sub_tit img {width: 48px; margin-bottom: 20px;}
+.public .process .right .sub_tit object{width: 48px; margin-bottom: 20px;}
+.public .process .right .sub_text {margin-bottom: 32px;}
+.public .process .right .sub_figs {width: 100%; height: 560px; position: relative;}
+.public .process .right .sub_figs img {width: 100%;}
+
 
 /* --------------------------------- */
 /* FAQ 그누보드 */
@@ -4980,16 +4668,6 @@ footer .address em.tel {
   top: 0;
   left: 0;
 }
-.popup_wrap::before {
-  content: "";
-  background: #000000aa;
-  display: block;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-}
 .popup_wrap i {
   display: inline-block;
   width: 32px;
@@ -5104,7 +4782,7 @@ footer .address em.tel {
   width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding: 48px 24px 24px;
+  padding: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -5935,7 +5613,7 @@ footer .address em.tel {
 }
 
 /* 사이트맵 */
-.popup_sitemap {
+.disabled-local-popup_sitemap {
   position: fixed;
   width: 100%;
   height: 100vh;
@@ -5948,21 +5626,21 @@ footer .address em.tel {
   overflow: hidden;
   background-color: #111;
 }
-.popup_sitemap header .menu_my {
+.disabled-local-popup_sitemap header .menu_my {
   display: none;
 }
-.popup_sitemap header .btn_map_close {
+.disabled-local-popup_sitemap header .btn_map_close {
   background: none;
   border: none;
   z-index: 1;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(1) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(1) {
   animation: btn-close-bar1 0.5s ease both;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(2) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(2) {
   animation: btn-close-bar2 0.5s ease both;
 }
-.popup_sitemap header .btn_map_close a div:nth-child(3) {
+.disabled-local-popup_sitemap header .btn_map_close a div:nth-child(3) {
   animation: btn-close-bar3 0.5s ease both;
 }
 @keyframes btn-close-bar1 {
@@ -5991,7 +5669,7 @@ footer .address em.tel {
     transform: rotate(-45deg);
   }
 }
-.sitemap {
+.disabled-local-sitemap {
   width: 100%;
   height: 100%;
   background-color: #111;
@@ -6011,7 +5689,7 @@ footer .address em.tel {
     pointer-events: auto;
   }
 }
-.sitemap div[class*="bg_line"] {
+.disabled-local-sitemap div[class*="bg_line"] {
   position: relative;
   width: 1px;
   height: 100%;
@@ -6020,11 +5698,11 @@ footer .address em.tel {
   animation-timing-function: ease-out;
   animation-fill-mode: both;
 }
-.sitemap .bg_line1,
-.sitemap .bg_line3 {
+.disabled-local-sitemap .bg_line1,
+.disabled-local-sitemap .bg_line3 {
   animation-name: slideDown;
 }
-.sitemap .bg_line2 {
+.disabled-local-sitemap .bg_line2 {
   animation-name: slideup;
 }
 @keyframes slideDown {
@@ -6047,7 +5725,7 @@ footer .address em.tel {
     opacity: 20%;
   }
 }
-.sitemap div[class*="menu"] {
+.disabled-local-sitemap div[class*="menu"] {
   background-size: cover;
   background-position: center;
   position: relative;
@@ -6057,8 +5735,8 @@ footer .address em.tel {
   width: calc(100% / 4);
   z-index: 1;
 }
-.sitemap div[class*="menu"]::before,
-.sitemap div[class*="menu"]:after {
+.disabled-local-sitemap div[class*="menu"]::before,
+.disabled-local-sitemap div[class*="menu"]:after {
   content: "";
   position: absolute;
   top: 0;
@@ -6066,12 +5744,12 @@ footer .address em.tel {
   width: 100%;
   height: 100%;
 }
-.sitemap div[class*="menu"]::before {
+.disabled-local-sitemap div[class*="menu"]::before {
   background-color: #00000077;
   transition: 0.5s ease;
   z-index: -1;
 }
-.sitemap div[class*="menu"]:after {
+.disabled-local-sitemap div[class*="menu"]:after {
   background-color: #111;
   z-index: 1;
   animation: slideRight 0.5s ease-in forwards;
@@ -6085,7 +5763,7 @@ footer .address em.tel {
     transform: translateX(100%);
   }
 }
-.sitemap div[class*="menu"] a {
+.disabled-local-sitemap div[class*="menu"] a {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6101,10 +5779,10 @@ footer .address em.tel {
   white-space: nowrap;
   transform-origin: left;
 }
-.sitemap div[class*="menu"] a span {
+.disabled-local-sitemap div[class*="menu"] a span {
   position: relative;
 }
-.sitemap div[class*="menu"] a span:after {
+.disabled-local-sitemap div[class*="menu"] a span:after {
   position: absolute;
   top: -100px;
   left: 0px;
@@ -6116,17 +5794,17 @@ footer .address em.tel {
   font-size: 80px;
   display: none;
 }
-.sitemap div[class*="menu"] a .sub_text {
+.disabled-local-sitemap div[class*="menu"] a .sub_text {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   height: 100px;
 }
-.sitemap div[class*="menu"] a em {
+.disabled-local-sitemap div[class*="menu"] a em {
   font-weight: 700;
   color: var(--color-primary);
 }
-.sitemap .menu1 a span {
+.disabled-local-sitemap .menu1 a span {
   display: block;
   width: 240px;
   height: 200px;
@@ -6135,36 +5813,36 @@ footer .address em.tel {
   background-repeat: no-repeat;
   background-position: center;
 }
-/* .sitemap .menu1 a span::after { content: "\AValue of"; transform: translate(-110px, 110px);} 
-.sitemap .menu2 a span:after { content: "Key \A Features"; white-space: pre; } 
-.sitemap .menu3 a span:after { content: "Road \A Analysis"; white-space: pre; } 
-.sitemap .menu4 a span:after { content: "Public \A Transport"; white-space: pre; }  */
-.sitemap .menu1 {
+/* .disabled-local-sitemap .menu1 a span::after { content: "\AValue of"; transform: translate(-110px, 110px);} 
+.disabled-local-sitemap .menu2 a span:after { content: "Key \A Features"; white-space: pre; } 
+.disabled-local-sitemap .menu3 a span:after { content: "Road \A Analysis"; white-space: pre; } 
+.disabled-local-sitemap .menu4 a span:after { content: "Public \A Transport"; white-space: pre; }  */
+.disabled-local-sitemap .menu1 {
   background-image: url(../img/sitemap_menu01.jpg);
 }
-.sitemap .menu2 {
+.disabled-local-sitemap .menu2 {
   background-image: url(../img/sitemap_menu02.jpg);
 }
-.sitemap .menu3 {
+.disabled-local-sitemap .menu3 {
   background-image: url(../img/sitemap_menu03.jpg);
 }
-.sitemap .menu4 {
+.disabled-local-sitemap .menu4 {
   background-image: url(../img/sitemap_menu04.jpg);
 }
-.sitemap div[class*="menu"]:hover {
+.disabled-local-sitemap div[class*="menu"]:hover {
   width: 60%;
 }
-.sitemap div[class*="menu"]:hover::before {
+.disabled-local-sitemap div[class*="menu"]:hover::before {
   display: none;
 }
-.sitemap div[class*="menu"]:hover a {
+.disabled-local-sitemap div[class*="menu"]:hover a {
   opacity: 1;
   transform: scale(1.3);
 }
-.sitemap div[class*="menu"]:hover a span::after {
+.disabled-local-sitemap div[class*="menu"]:hover a span::after {
   display: initial;
 }
-.sitemap .menu1:hover a span {
+.disabled-local-sitemap .menu1:hover a span {
   transform: translateX(140px);
 }
 
@@ -6176,11 +5854,11 @@ footer .address em.tel {
     display: none;
   }
 
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     padding-left: 18px;
     font-size: 48px;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 60px;
     top: -80px;
   }
@@ -6356,6 +6034,9 @@ footer .address em.tel {
 }
 
 @media (max-width: 1400px) {
+  .container {
+    padding-top: 50px;
+  }
   footer .comp_contact {
     width: initial;
     min-width: 30%;
@@ -6464,16 +6145,16 @@ footer .address em.tel {
   .popup_in:has(.privacy) .btn_close {
     top: -44px;
   }
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     font-size: 42px;
   }
-  .sitemap div[class*="menu"] a .sub_text {
+  .disabled-local-sitemap div[class*="menu"] a .sub_text {
     line-height: 140% !important;
   }
-  .sitemap div[class*="menu"] a .sub_text br.brk {
+  .disabled-local-sitemap div[class*="menu"] a .sub_text br.brk {
     display: initial;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     width: 200px;
   }
 
@@ -6640,6 +6321,13 @@ footer .address em.tel {
     height: initial;
   }
 
+  .public .route .fix {
+    padding: 0;
+    padding-top: 80px;
+    grid-template-columns: initial;
+    grid-template-rows: max-content 1fr 1.6fr;
+  }
+
   .public .process .left {
     min-width: 380px;
     padding-left: 120px;
@@ -6673,6 +6361,7 @@ footer .address em.tel {
   }
   .buy .contents_wrap .download_area {
     grid-template-columns: 2fr 1fr 1fr;
+    align-items: end;
   }
   .buy .contents_wrap .download_area .mid_tit {
     grid-column: 1;
@@ -6704,7 +6393,7 @@ footer .address em.tel {
 @media (max-width: 1200px) {
   header {
     height: 48px;
-    padding: 0 8px 0 16px;
+    padding: 0;
   }
   header h1 a {
     height: 20px;
@@ -6807,25 +6496,25 @@ footer .address em.tel {
     right: -2px;
   }
 
-  .sitemap {
+  .disabled-local-sitemap {
     flex-direction: column;
     padding: 0;
   }
-  .sitemap div[class*="bg_line"] {
+  .disabled-local-sitemap div[class*="bg_line"] {
     display: none;
   }
-  .sitemap div[class*="menu"] a {
+  .disabled-local-sitemap div[class*="menu"] a {
     padding: 0;
     text-align: center;
   }
-  .sitemap div[class*="menu"] {
+  .disabled-local-sitemap div[class*="menu"] {
     width: 100%;
     height: 100%;
   }
-  .sitemap div[class*="menu"] a span {
+  .disabled-local-sitemap div[class*="menu"] a span {
     font-size: 38px;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 60px;
     top: -20px;
     left: 20px;
@@ -6833,35 +6522,35 @@ footer .address em.tel {
     opacity: 0.1;
     display: initial;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     width: 100%;
     height: 56px;
     background-size: 160px;
   }
-  .sitemap .menu1 a span::after {
+  .disabled-local-sitemap .menu1 a span::after {
     content: "Value of TOVA";
     transform: initial;
   }
-  .sitemap .menu2 a span:after {
+  .disabled-local-sitemap .menu2 a span:after {
     content: "Key Features";
   }
-  .sitemap .menu3 a span:after {
+  .disabled-local-sitemap .menu3 a span:after {
     content: "Road Analysis";
   }
-  .sitemap .menu4 a span:after {
+  .disabled-local-sitemap .menu4 a span:after {
     content: "Public Transport";
   }
-  .sitemap div[class*="menu"] a .sub_text {
+  .disabled-local-sitemap div[class*="menu"] a .sub_text {
     display: none;
   }
-  .sitemap div[class*="menu"]:hover {
+  .disabled-local-sitemap div[class*="menu"]:hover {
     width: 100%;
   }
-  .sitemap div[class*="menu"]:hover a {
+  .disabled-local-sitemap div[class*="menu"]:hover a {
     opacity: 1;
     transform: scale(1);
   }
-  .sitemap .menu1:hover a span {
+  .disabled-local-sitemap .menu1:hover a span {
     transform: initial;
   }
 
@@ -6907,7 +6596,6 @@ footer .address em.tel {
     width: 100%;
     position: sticky;
     top: 0;
-    z-index: -2;
   }
   .value .feature_bg::after {
     position: absolute;
@@ -7220,7 +6908,7 @@ footer .address em.tel {
     font-size: 14px;
   }
   .popup_contents_wrap {
-    padding: 48px 16px 24px !important;
+    padding: 0 !important;
     justify-content: flex-start;
     position: relative;
   }
@@ -7961,13 +7649,6 @@ footer .address em.tel {
   .road .conclusion i.tova {
     margin-left: 8px;
   }
-
-  .public .route .fix {
-    padding: 0;
-    padding-top: 80px;
-    grid-template-columns: initial;
-    grid-template-rows: max-content 1fr 1.6fr;
-  }
   .public .route .tabs,
   .public .route .subs {
     padding: 0 64px;
@@ -8024,8 +7705,13 @@ footer .address em.tel {
     padding-bottom: 120px;
     gap: 64px;
   }
+  .public .process .right .sub_figs{
+    height: auto;
+  }
+
   .public .process .right > div {
     padding: 0 64px;
+    padding-top: 80px;
   }
   .public .process .right .mid_tit.m {
     position: sticky;
@@ -8033,13 +7719,16 @@ footer .address em.tel {
     left: 0;
     display: flex !important;
     width: 100%;
-    height: 100px;
     box-shadow: 0 8px 8px #00000011;
     align-items: flex-end;
-    padding: 0 0 12px 64px;
+    padding: 12px 0 12px 64px;
     font-size: 30px;
     font-weight: 700;
     background-color: #fff;
+    transition: top 0.2s ease-out;
+  }
+  body:has(header.open) .public .process .right .mid_tit.m {
+    top: 48px;
   }
   .public .process .right .mid_tit.m .num {
     margin-right: 8px;
@@ -8097,7 +7786,7 @@ footer .address em.tel {
 @media (max-width: 768px) {
   footer {
     height: initial;
-    padding: 40px 32px;
+    padding: 0;
   }
   footer * {
     font-size: 14px !important;
@@ -8178,10 +7867,10 @@ footer .address em.tel {
   .mypage .my_qna tbody tr td:nth-child(2) {
     display: none;
   }
-  .sitemap {
+  .disabled-local-sitemap {
     gap: 8px;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     font-size: 48px;
     bottom: -55px;
   }
@@ -8360,6 +8049,108 @@ footer .address em.tel {
   .public .intro .condition .diagram_wrap {
     width: 200px;
     margin: 160px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+    padding-bottom: 70px;
+  }
+  .public .intro .condition .diagram_wrap .dia_element_top {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .public .intro .condition .diagram_wrap .dia_element_bottom {
+    display: flex;
+    gap: 110px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    justify-content: center;
+  }
+  .public .intro .condition .diagram_wrap .dia_element {
+    width: 130px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .public .intro .condition .diagram_wrap .dia_element .dia_tit {
+    font-size: 13px;
+    line-height: 16px;
+  }
+  .public .intro .condition .diagram_wrap .dia_element i {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+  .public .intro .condition .diagram_wrap .dia_element02 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  .public .intro .condition .diagram_wrap .dia_element02 .dia_tit {
+    text-align: right;
+    white-space: normal;
+  }
+
+  .public .intro .condition .diagram_wrap .dia_element02 .dia_tit br{
+    display: none;
+  }
+
+  .public .intro .condition .diagram_wrap .dia_element03 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .public .intro .condition .diagram_wrap .dia_element03 .dia_tit {
+    text-align: left;
+    white-space: normal;
+  }
+  .public .intro .condition .diagram_wrap .dia_element .line {
+    display: block;
+    width: 25px;
+    height: 1px;
+  }
+  .public .intro .condition .diagram_wrap .dia_element01 .line {
+    transform: rotate(90deg);
+    top: calc(100% + 20px);
+    left: calc(50% - 12.5px);
+  }
+  .public .intro .condition .diagram_wrap .dia_element02 .line {
+    transform: rotate(-45deg);
+    bottom: 105%;
+    left: 90%;
+  }
+  .public .intro .condition .diagram_wrap .dia_element03 .line {
+    transform: rotate(45deg);
+    bottom: 110%;
+    right: 90%;
+  }
+
+  .public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots .dot:nth-child(2){
+    top: 91%;
+    left: 36px;
+  }
+  .public .intro .condition .diagram_wrap .dia_circles_wrap .circle_dots .dot:nth-child(3){
+    top: 90%;
+    right: 34px;
+  }
+
+
+  .public .intro .condition .diagram_wrap .dia_circles_wrap {
+    width: 180px;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+    position: relative;
+    top: initial;
+    left: initial;
+    transform: none;
   }
   .public .intro .condition .diagram_wrap .dia_circles_wrap .circle_core {
     font-size: 24px;
@@ -8372,29 +8163,6 @@ footer .address em.tel {
     .circle_core
     span:first-child {
     font-size: 14px;
-  }
-  .public .intro .condition .diagram_wrap .dia_element {
-    flex-direction: column;
-  }
-  .public .intro .condition .diagram_wrap .e02 {
-    align-items: flex-start;
-    text-align: left;
-    top: 90%;
-    right: 61%;
-  }
-  .public .intro .condition .diagram_wrap .e03 {
-    align-items: flex-end;
-    text-align: right;
-    top: 90%;
-    left: 84%;
-  }
-  .public .intro .condition .diagram_wrap .e02 .line {
-    bottom: 90%;
-    left: 50%;
-  }
-  .public .intro .condition .diagram_wrap .e03 .line {
-    bottom: 90%;
-    right: 75%;
   }
   .public .intro .condition p {
     font-size: 18px;
@@ -8412,6 +8180,7 @@ footer .address em.tel {
   }
   .public .process .right > div {
     padding: 0 48px;
+    padding-top: 48px;
   }
   .public .process .right .mid_tit.m {
     padding-left: 48px;
@@ -8488,21 +8257,21 @@ footer .address em.tel {
     padding-right: 0;
   }
 
-  .popup_sitemap header h1 {
+  .disabled-local-popup_sitemap header h1 {
     visibility: hidden;
   }
-  .sitemap div[class*="menu"] a span {
+  .disabled-local-sitemap div[class*="menu"] a span {
     font-size: 28px;
   }
-  .sitemap div[class*="menu"] a span:after {
+  .disabled-local-sitemap div[class*="menu"] a span:after {
     display: none;
   }
-  .sitemap .menu1 a span {
+  .disabled-local-sitemap .menu1 a span {
     background-size: 120px;
   }
 
   .popup_contents_wrap {
-    padding-top: 32px !important;
+    padding-top: 0 !important;
   }
   .popup_contents_wrap table th {
     font-size: 14px;
@@ -9044,20 +8813,14 @@ footer .address em.tel {
     font-size: 16px;
   }
   .public .intro .condition .diagram_wrap {
-    margin: 140px auto;
+    margin: 40px auto 100px;
   }
   .public .intro .condition .diagram_wrap .dia_element i {
     width: 36px;
+    height: 36px;
   }
   .public .intro .condition .diagram_wrap .dia_element .dia_tit {
     font-size: 14px;
-  }
-  .public .intro .condition .diagram_wrap .e02 {
-    top: 87%;
-  }
-  .public .intro .condition .diagram_wrap .e03 {
-    top: 87%;
-    left: 81%;
   }
   .public .route .fix {
     padding-top: 64px;
@@ -9102,11 +8865,11 @@ footer .address em.tel {
   }
   .public .process .right > div {
     padding: 0 24px;
+    padding-top: 60px;
   }
   .public .process .right .mid_tit.m {
     padding-left: 24px;
     font-size: 22px;
-    height: 88px;
   }
   .public .process .right .sub_tit {
     font-size: 20px;

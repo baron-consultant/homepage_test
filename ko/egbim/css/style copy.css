@@ -70,7 +70,7 @@ i.tova_obj.w {background-image: url(../img/tova_obj_w.svg);}
 
 /* 공통적용 - 헤더 header */
 
-/* header */
+/* header 
 .menu_wrap { display: flex; } 
 .menu_wrap .menu_my, .menu_wrap .menu_ham { padding: 10px; } 
 
@@ -82,7 +82,7 @@ i.tova_obj.w {background-image: url(../img/tova_obj_w.svg);}
 .header .menu_my_list li { width: 68px; text-align: center; font-size: 13px; font-weight: 500; cursor: pointer; } 
 .header .menu_my_list li:hover { background: var( --color-primary); } 
 .header .menu_my_list::before { content:""; background: url(../img/tri_img.svg) no-repeat; background-size: cover; width: 12px; height: 10px; position: absolute; top: -9px; left: calc(50% - 6px); } 
-/* header end */
+header end */
 
 /* floating_menu */
 .floating_menu { position: fixed; top: 122px; right: 62px; z-index: 1000; } 
@@ -96,7 +96,7 @@ i.tova_obj.w {background-image: url(../img/tova_obj_w.svg);}
 .floating_menu li.floating_buy::after { background: var( --color-primary); } 
 /* floating_menu end */
 
-/* 공통적용 - 푸터 footer */
+/* 공통적용 - 푸터 footer 
 footer { width: 100%; background: #14100C; padding: 66px 80px 60px 66px; box-sizing: border-box; color: #fff; opacity: 0; } 
 .main_wrap footer {position: absolute; bottom: 0; z-index: 100;} 
 
@@ -135,7 +135,7 @@ footer { width: 100%; background: #14100C; padding: 66px 80px 60px 66px; box-siz
  0% { bottom:0px; opacity: 1; } 
  100% { bottom:-100px; opacity: 0.0; display: none; } 
  }
-
+*/
 /* 공통적용 - 인트로 intro */
 .intro {display: flex; flex-direction: column; gap: 80px; padding-bottom: 120px; position: relative;}
 .intro::after {position: absolute;  white-space:pre; font-weight: 900; letter-spacing: -0.04em; line-height: 85%;}

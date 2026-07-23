@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEDBRC8DL5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EEDBRC8DL5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+    <title>제공데이터</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css" />
+    <link rel="stylesheet" href="../../assets/css/font.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="../../assets/js/lib/aos.min.js"></script>
+    <script src="../../assets/js/lib/lenis.min.js"></script>
+    <script src="../../assets/js/lib/gsap.min.js"></script>
+    <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+    <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header id="header"></header>
+      <ul class="map_list"></ul>
+
+      <!-- floating_menu -->
+      <div class="floating-menu">
+        <div class="floating-kngil">
+          <a class="item-service" href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+            <i class="ico-logo">
+              <img src="./img/logo_kngil.svg" alt="KNGIL">
+            </i>
+            <span>서비스<br>바로가기</span>
+          </a>
+          <a class="item-guide" href="javascript:void(0);" data-guide-open>
+            <i class="ico-guide"></i>
+            <span>사용가이드</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- floating_top_btn : 스크롤 최상단일 때만 노출되는 상단 가로형 버튼 -->
+      <div class="floating-top-btn">
+        <a href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+          <img src="./img/logo_kngil.svg" alt="KNGIL" class="logo">
+          <span>서비스 바로가기</span>
+        </a>
+      </div>
+
+      <!-- guide_modal : 사용가이드 레이어 팝업 -->
+      <div class="guide-modal" id="guideModal" aria-hidden="true">
+        <div class="guide-modal-dim" data-guide-close></div>
+        <div class="guide-modal-panel" role="dialog" aria-modal="true" aria-label="KNGIL 사용가이드">
+          <div class="guide-modal-tabs">
+            <button type="button" class="guide-tab active" data-guide-tab="video">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M10.5 9.2L15 12L10.5 14.8V9.2Z" fill="currentColor"/>
+              </svg>
+              <span>전체 흐름 보기 (영상)</span>
+            </button>
+            <button type="button" class="guide-tab" data-guide-tab="pdf">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 2.5H14L18 6.5V20.5C18 21.0523 17.5523 21.5 17 21.5H6C5.44772 21.5 5 21.0523 5 20.5V3.5C5 2.94772 5.44772 2.5 6 2.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M14 2.5V6.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M8 13H15M8 16.5H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span>핵심 내용 보기 (문서)</span>
+            </button>
+            <button type="button" class="guide-modal-close" data-guide-close aria-label="닫기">
+              <i class="ico-close"></i>
+            </button>
+          </div>
+          <div class="guide-modal-body">
+            <div class="guide-panel guide-panel-video active" data-guide-panel="video">
+              <video class="guide-video" playsinline preload="metadata" poster="./img/video/kngil_guide_poster.jpg">
+                <source src="./img/video/kngil_guide.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="video-center-play" aria-label="재생">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11.25" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.85)" stroke-width="1.2"/>
+                  <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="#ffffff"/>
+                </svg>
+              </button>
+              <div class="video-controls">
+                <button type="button" class="video-btn video-play-toggle" aria-label="재생">
+                  <svg class="ico-play" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 5.5L18 12L7 18.5V5.5Z" fill="currentColor"/>
+                  </svg>
+                  <svg class="ico-pause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                    <rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                  </svg>
+                </button>
+                <span class="video-time video-time-current">0:00</span>
+                <input type="range" class="video-seek" min="0" max="100" value="0" step="0.1" aria-label="재생 위치">
+                <span class="video-time video-time-duration">0:00</span>
+                <button type="button" class="video-btn video-mute-toggle" aria-label="음소거">
+                  <svg class="ico-volume" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15.5 8.5C16.5 9.5 17 10.7 17 12C17 13.3 16.5 14.5 15.5 15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="ico-mute" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15 9L19 15M19 9L15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button type="button" class="video-btn video-fullscreen-toggle" aria-label="전체화면">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M9 4.5H4.5V9M15 4.5H19.5V9M4.5 15V19.5H9M19.5 15V19.5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="guide-panel guide-panel-pdf" data-guide-panel="pdf">
+              <iframe class="guide-pdf" title="KNGIL 사용가이드 문서" src=""></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        /* 수정된 스크립트 부분 */
+        async function openKngilMapApp(userId) {
+            // 1. 함수 진입 확인용 (가장 먼저 실행되어야 함)
+            console.log("함수 호출 시작 - 전달된 ID:", userId);
+            // alert("함수 호출됨: " + userId); // 브라우저에서 알림이 뜨는지 확인하세요.
+
+            if (!userId || userId === "") {
+                console.error("사용자 ID가 없습니다.");
+            login();
+                //alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+                return;
+            }
+
+            // 2. 로그 기록 API 호출
+            try {
+                console.log("로그 기록 시도 중...");
+                const logRes = await fetch('/kngil/bbs/log_service_access.php');
+                const logData = await logRes.json();
+                console.log("서버 응답:", logData);
+            } catch (e) {
+                console.warn("로그 기록 실패(무시하고 진행):", e);
+            }
+
+            // 3. 앱 오픈 로직
+            var appUrl = (userId === "dev01") 
+                ? '/kngil_app_khg/sys/controller/location/Location_controller.php' 
+                : '/kngil_app/sys/controller/location/Location_controller.php';
+
+            const popupName = 'kngilAppPopup';
+            const width = 1400;
+            const height = 900;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            
+            const win = window.open('', popupName, `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+
+            if (!win) {
+                alert("팝업 차단 설정이 되어 있습니다. 팝업을 허용해 주세요.");
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = appUrl;
+            form.target = popupName;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ActionMode';
+            input.value = 'SCREEN_01';
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            console.log("폼 전송 완료");
+        }
+      </script>
+      <!-- //floating_menu -->
+
+      <!-- Main Container -->
+      <div class="container provided">
+        <!-- Header Section -->
+        <section class="sub-header">
+          <div class="page-title">
+            <h2 data-aos="fade-down" data-aos-duration="1000">제공데이터</h2>
+            <p class="sub-txt">
+              공간정보(SHP), 통계자료,<br>
+              추정사업비, 비작업일수 등 제공
+            </p>
+          </div>
+        </section>
+        
+        <!-- Content Section -->
+        <section class="sub-content">
+          <div class="sub-tit-box">
+            <h3 class="sub-tit">
+              <strong>공간정보 및 통계자료</strong> 등<br>
+              항목별 기초현황 데이터를 다양하게 제공
+            </h3>
+          </div>
+          <div class="data-wrap">
+            <div class="data-inner">
+              <div class="data-core">
+                <div class="core-oval">공공데이터 기반의 <strong>제공데이터</strong></div>
+              </div>
+              <div class="data-provision">
+                <div class="data-bullet-wrap">
+                  <div class="data-bullet" aria-hidden="true"></div>
+                  <div class="data-bullet bullet-2" aria-hidden="true"></div>
+                </div>
+                
+                <div class="data-categories">
+                  <!-- 공간정보 -->
+                  <div class="category-item spatial" aria-labelledby="spatial-title">
+                    <div class="category-images">
+                      <span class="category-line"></span>
+                      <div class="image-item">
+                        <img 
+                          src="./img/provided/img_provided_spatial.png" 
+                          alt="공간정보 데이터 시각화"
+                          width="auto"
+                          height="auto"
+                        >
+                      </div>
+                    </div>
+                    <div class="category-circle">
+                      <div class="category-icon">
+                        <img 
+                          src="./img/ico/ico_map_marker.svg" 
+                          alt="지도 마커 아이콘"
+                          width="auto"
+                          height="auto"
+                        >
+                      </div>
+                      <h3 id="spatial-title" class="category-title">공간정보</h3>
+                    </div>
+                    
+                  </div>
+    
+                  <!-- 통계자료 -->
+                  <div class="category-item statistical" aria-labelledby="statistical-title">
+                    <div class="category-images">
+                      <span class="category-line"></span>
+                      <div class="image-item">
+                        <img 
+                          src="./img/provided/img_provided_stat.png" 
+                          alt="통계자료 데이터 시각화"
+                          width="auto"
+                          height="auto"
+                        >
+                      </div>
+                    </div>
+                    <div class="category-circle">
+                      <div class="category-icon">
+                        <img 
+                          src="./img/ico/ico_chart_3d.svg" 
+                          alt="차트 아이콘"
+                          width="auto"
+                          height="auto"
+                        >
+                      </div>
+                      <h3 id="statistical-title" class="category-title">통계자료</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <article class="data-categories-list">
+              <ul class="fix spatial" aria-label="공간정보 데이터 항목">
+                <li>
+                  <div class="fix-01"><p>행정경계</p></div>
+                  <div class="dot f-01" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-02"><p>건물통합정보</p></div>
+                  <div class="dot f-02" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-03"><p>생태자연</p></div>
+                  <div class="dot f-03" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-04"><p>토지이용계획</p></div>
+                  <div class="dot f-04" aria-hidden="true"></div>
+                </li>
+              </ul>
+              <ul class="fix statistical" aria-label="통계자료 데이터 항목">
+                <li>
+                  <div class="fix-01"><p>인구</p></div>
+                  <div class="dot f-01" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-02"><p>기상</p></div>
+                  <div class="dot f-02" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-03"><p>문화재</p></div>
+                  <div class="dot f-03" aria-hidden="true"></div>
+                </li>
+                <li>
+                  <div class="fix-04"><p>기반시설</p></div>
+                  <div class="dot f-04" aria-hidden="true"></div>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="layout-fix-left process">
+          <nav class="left" data-aos="fade-right" data-aos-duration="1000" aria-label="데이터 분류 네비게이션">
+            <div class="bg js-fixLeft-bg on" aria-hidden="true"></div>
+            <div class="bg js-fixLeft-bg" aria-hidden="true"></div>
+            <ul
+              class="js-fixLeft-tit"
+              role="tablist"
+              aria-label="데이터 분류 목록"
+            >
+              <li class="on" role="tab" aria-selected="true" tabindex="0">
+                <span><strong>01</strong>자연조건</span>
+              </li>
+              <li role="tab" aria-selected="false" tabindex="-1">
+                <span><strong>02</strong>사회특성</span>
+              </li>
+            </ul>
+          </nav>
+          <div class="right js-fixLeft-secs">
+            <section class="natural" aria-labelledby="natural-tit">
+              <h2 id="natural-tit" class="sub-tit">
+                <i class="ico-natural" aria-hidden="true"></i>
+                 자연적 환경 요소인 <strong>지형, 기후, 생태자연</strong> 항목을<br class="pc-only">
+                <strong>자연조건</strong>으로 분류하여 제공
+              </h2>
+              <ul class="cont-list">
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-location" aria-hidden="true"></i>
+                      지역의 개황
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>위치 및 행정구역</li>
+                        <li>지형 및 지세</li>
+                        <li>지진</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_natural_01.png" 
+                            alt="지진발생 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">지진발생</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                </li>
+
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-weather" aria-hidden="true"></i>
+                      기상 및 자연재해
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>기상</li>
+                        <li>풍수해</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_natural_02.png" 
+                            alt="현상일수 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">현상일수</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+
+                </li>
+
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-eco" aria-hidden="true"></i>
+                      생태 및 자연환경
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>생태자연도</li>
+                        <li>국토환경성 평가</li>
+                         <li>임상도</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_natural_03.png" 
+                            alt="국토환경성 평가 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">국토환경성 평가</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                  
+                </li>
+
+               
+              </ul>
+            </section>
+            <section class="social" aria-labelledby="social-tit">
+              <h2 id="social-tit" class="sub-tit">
+                <i class="ico-social" aria-hidden="true"></i>
+                사회적 구조 요소인 <strong>인구, 토지, 건축물, 기반시설, 도시주거</strong> 항목을<br class="pc-only">
+                <strong>사회특성</strong>으로 분류하여 제공
+              </h2>
+              <ul class="cont-list">
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-population"></i>
+                      인구
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>과거인구 추이</li>
+                        <li>행정구역별 인구</li>
+                        <li>연령(5세별) 및 성별 인구</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_social_01.png" 
+                            alt="연령 및 성별 인구 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">연령 및 성별 인구</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                  
+                </li>
+                
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-land" aria-hidden="true"></i>
+                      토지
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>용도지정</li>
+                        <li>보호구역</li>
+                        <li>토지이용</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_social_02.png" 
+                            alt="토지이용(소유자별) 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">토지이용(소유자별)</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                
+                </li>
+                
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-building" aria-hidden="true"></i>
+                      건축물
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>용도/구조/층수/경과연도</li>
+                        <li>연면적/건폐율/용적률</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_social_03.png" 
+                            alt="건축물(용도별) 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">건축물(용도별)</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                </li>
+                
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-society" aria-hidden="true"></i>
+                      사회기반시설
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>교통/공간/유통업무</li>
+                        <li>상수도/하수도</li>
+                        <li>분뇨처리</li>
+                        <li>방재/기타</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_social_04.png" 
+                            alt="상수도(배수지) 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">상수도(배수지)</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                  
+                </li>
+                <li class="cont-item">
+                  <dl>
+                    <dt>
+                      <i class="ico-city" aria-hidden="true"></i>
+                      도시 및 주거환경
+                    </dt>
+                    <dd>
+                      <ul>
+                        <li>지역안전지수</li>
+                        <li>노후/불량 건축물</li>
+                        <li>호수밀도/접도율</li>
+                        <li>토지 형상</li>
+                      </ul>
+                    </dd>
+                    <dd>
+                      <figure class="sub-figs">
+                        <div class="imgs">
+                          <img 
+                            src="./img/provided/img_provided_natural_04.png" 
+                            alt="노후/불량 건축물 데이터 시각화"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <figcaption class="fig-caption">노후/불량 건축물</figcaption>
+                      </figure>
+                    </dd>
+                  </dl>
+                </li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </div>
+      <!-- // Main Container -->
+      
+      <footer id="footer"></footer>
+    </div>
+    <script src="./js/floating-menu.js"></script>
+    <script src="./js/provided.js"></script>
+  </body>
+</html>

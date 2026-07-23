@@ -675,6 +675,7 @@ border: 1px solid var(--color-primary);
   .pr.ci .ci_wrap .objs_wrap2{
     bottom: -120px;
     left: -200px;
+    width: 100%;
   }
 
 }
@@ -782,7 +783,7 @@ border: 1px solid var(--color-primary);
         top: 0;
     }
 
-    .pr.news section.news_main ul.news_list a:first-child li::before{
+    .pr.news section.news_main ul.news_list a:nth-child(2n-1) li::before{
         background-image:linear-gradient(#fff, #fff),linear-gradient(-90deg, #DCDCDC 50%, #DCDCDC00 50%);
     }
 

@@ -69,7 +69,6 @@ const DEFAULT_PUBLIC_PREFIXES = [
   '/recruit/',
   '/portfolio/',
   '/assets/',
-  '/employee_img/',
 ];
 const DEFAULT_PROTECTED_PREFIXES = [
   '/ko/',

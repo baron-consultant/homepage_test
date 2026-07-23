@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", (event) => {
+﻿document.addEventListener("DOMContentLoaded", (event) => {
   // ---------------------------------------------
   // js__fixLeft 오른쪽에 따라 왼쪽 내용 변하기
   // 사용 클래스 : js__fixLeft_tit, js__fixLeft_bg, js__fixLeft_sec
@@ -111,33 +111,46 @@ $(tits).each(function(index, val){
 })
  // ++++++++++++++++++ E: TODO 진슬 추가_ 클릭시에도 메뉴 불 나오게
 });
-// 고정 슬라이드
-document.addEventListener('DOMContentLoaded', function() {
-  const route = document.querySelector('.route');
-  const sections = route.querySelectorAll('#sec1, #sec2, #sec3');
-  const tabs = route.querySelectorAll('.tabs .tabs_li');
-  const subs = route.querySelectorAll('.subs li');
-  const imgs = route.querySelectorAll('.imgs li');
+// 고정 슬라이드 (GSAP ScrollTrigger 마이그레이션 및 Pin 고정 추가)
+$(function() {
+    gsap.registerPlugin(ScrollTrigger);
 
-  const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.5
-  };
+    const route = document.querySelector('.route');
+    if (!route) return;
 
-  const observerCallback = (entries) => {
-      entries.filter(entry => entry.isIntersecting).forEach(entry => {
-          const id = entry.target.id;
-          [tabs, subs, imgs].forEach(group => 
-              group.forEach((el, index) => 
-                  el.classList.toggle('on', id === `sec${index + 1}`)
-              )
-          );
-      });
-  };
+    const fixElement = route.querySelector('.fix');
+    const sections = route.querySelectorAll('#sec1, #sec2, #sec3');
+    const tabs = route.querySelectorAll('.tabs .tabs_li');
+    const subs = route.querySelectorAll('.subs li');
+    const imgs = route.querySelectorAll('.imgs li');
 
-  const observer = new IntersectionObserver(observerCallback, observerOptions);
-  sections.forEach(section => observer.observe(section));
+    // 1. .fix 요소를 .route 스크롤 트랙 동안 화면 상단에 단단히 고정 (Pin)
+    ScrollTrigger.create({
+        trigger: route,
+        start: "top top",
+        end: "bottom bottom",
+        pin: fixElement,
+        pinSpacing: false,
+        invalidateOnRefresh: true
+    });
+
+    function activateSlide(index) {
+        [tabs, subs, imgs].forEach(group => {
+            group.forEach((el, i) => {
+                el.classList.toggle('on', i === index);
+            });
+        });
+    }
+
+    sections.forEach((section, index) => {
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 50%",
+            end: "bottom 50%",
+            onEnter: () => activateSlide(index),
+            onEnterBack: () => activateSlide(index)
+        });
+    });
 });
 
 

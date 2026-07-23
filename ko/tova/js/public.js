@@ -13,14 +13,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function bgOnEnter(element) {
         gsap.to(element, {
             transform: "scale(1.05)",
-            duration: 0.5
+            duration: 0.35,
+            overwrite: true
         });
     }
 
     function bgOnLeave(element) {
         gsap.to(element, {
             transform: "scale(1)",
-            duration: 0.5
+            duration: 0.35,
+            overwrite: true
         });
     }
     
@@ -28,7 +30,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         gsap.to(element, {
             opacity: 1,
             transform: "scale(1) translate(0%, 0%)",
-            duration: 0.5
+            duration: 0.35,
+            overwrite: true
         });
     }
     
@@ -36,7 +39,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         gsap.to(element, {
             opacity: 0.5,
             transform: "scale(0.7) translate(-47%, 0%)",
-            duration: 0.5
+            duration: 0.35,
+            overwrite: true
         });
     }
 
@@ -82,8 +86,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     ScrollTrigger.create({
         trigger: sections[2],
-        start: "top center",
-        end: "top center",
+        start: "center center",
+        end: "bottom center",
         // markers: true,
         onEnter: () => updateElements(2),
         onLeaveBack: () => updateElements(2)

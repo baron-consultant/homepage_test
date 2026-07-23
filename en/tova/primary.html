@@ -16,31 +16,32 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
   <title>二쇱슂湲곕뒫</title>
-  <link rel="stylesheet" href="./css/reset.css" />
-  <link rel="stylesheet" href="./css/font.css" />
-  <link rel="stylesheet" href="./css/style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" type="text/css" />
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
-  <script type="text/javascript" src="./js/jquery-3.6.1.min.js"></script>
-  <script type="text/javascript" src="./js/jquery.mousewheel.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollToPlugin.min.js"></script>
-  <script type="text/javascript" src="./js/common.js?v=20260713a"></script>
-  <script type="text/javascript" src="./js/popup.js"></script>
+  <link rel="stylesheet" href="../../assets/css/reset.css" />
+  <link rel="stylesheet" href="../../assets/css/font.css" />
+      <link rel="stylesheet" href="../../assets/css/layout.css" />
+<link rel="stylesheet" href="./css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+  <script src="../../assets/js/lib/aos.min.js"></script>
+  <script src="../../assets/js/lib/lenis.min.js"></script>
+  <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+  <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+  <script src="../../assets/js/lib/gsap.min.js"></script>
+  <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+  <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+  <script type="module" src="../../assets/js/eng/common.js?v=20260623-4"></script>
   <script type="text/javascript" src="./js/primary.js"></script>
 </head>
 
 <body>
   <!-- "js__"濡??쒖옉?섎뒗 ?대옒?ㅻ뒗 only ?먮컮?ㅽ겕由쏀듃?⑹엯?덈떎. -->
   <!-- XXXX js__?ｌ뼱??css ?묒꽦 湲덉? XXXX -->
-  <div class="wrapper">
+  <div class="wrap">
     <!-- Header -->
 <!-- Header -->
-            <header class="js__header"></header>
+            <header id="header"></header>
+    <ul class="map_list"></ul>
             <!--popup_wrap-->
 <div class="popup_wrap" id="pop_privacy">
     <!--popup_in-->
@@ -578,7 +579,7 @@
           </div>
         </div>
       </section>
-      <section class="key net layout_fix_left">
+      <section class="key net layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">Efficient transportation<br> <em>network management</em></span>
@@ -670,7 +671,7 @@
           </div>
         </div>
       </section>
-      <section class="key pub layout_fix_left">
+      <section class="key pub layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">High-Precision<br>Public Transportation <em><br>Analysis</em></span>
@@ -775,7 +776,7 @@
           </div>
         </div>
       </section>
-      <section class="key zone layout_fix_left">
+      <section class="key zone layout_fix_left full_screen">
         <div class="left">
           <div class="mid_tit">
             <span data-aos="fade-right" data-aos-duration="600">Powerful<br> Data Processing and <br><em>Analysis</em></span>
@@ -876,18 +877,11 @@
   <script>
   AOS.init();
 
-  const lenis = new Lenis()
-  lenis.on('scroll', (e) => {
-    // console.log(e)
-  })
-  lenis.on('scroll', ScrollTrigger.update)
-  gsap.ticker.add((time) => {
-    lenis.raf(time * 1000)
-  })
-  gsap.ticker.lagSmoothing(0)
+  /* Local Lenis disabled for global integration */
   </script>
 </body>
 </html>
+
 
 
 

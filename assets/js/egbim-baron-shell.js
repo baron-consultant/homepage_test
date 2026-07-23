@@ -22,8 +22,9 @@
       return;
     }
 
-    const loginButton = root.querySelector('.header_login');
-    if (!loginButton) {
+    const loginWrap = root.querySelector('.header_login');
+    const loginLink = root.querySelector('.header_login_link');
+    if (!loginWrap || !loginLink) {
       return;
     }
 
@@ -33,10 +34,10 @@
     html.setAttribute('data-baron-page-mode', 'landing');
     if (isAuthenticated) {
       html.setAttribute('data-baron-auth-state', 'authenticated');
-      loginButton.hidden = false;
-      loginButton.textContent = labels.logout;
-      loginButton.href = '#';
-      loginButton.onclick = function (event) {
+      loginWrap.hidden = false;
+      loginLink.textContent = labels.logout;
+      loginLink.href = '#';
+      loginLink.onclick = function (event) {
         event.preventDefault();
         window.baronSsoLogout?.();
       };
@@ -44,10 +45,10 @@
     }
 
     html.removeAttribute('data-baron-auth-state');
-    loginButton.hidden = false;
-    loginButton.textContent = labels.login;
-    loginButton.href = `${window.location.pathname}?login=1`;
-    loginButton.onclick = null;
+    loginWrap.hidden = false;
+    loginLink.textContent = labels.login;
+    loginLink.href = `${window.location.pathname}?login=1`;
+    loginLink.onclick = null;
   }
 
   function ensurePackageBaronAuth(locale) {

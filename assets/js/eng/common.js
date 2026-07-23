@@ -25,6 +25,8 @@ const publicPagePaths = [
   `${rootPrefix}/en/sv_sw_kngil.html`,
   `${rootPrefix}/ko/pr_`,
   `${rootPrefix}/en/pr_`,
+  `${rootPrefix}/ko/gaia`,
+  `${rootPrefix}/en/gaia`,
 ];
 const normalizedLandingPagePaths = landingPagePaths.map(normalizePath);
 const isLandingPage = normalizedLandingPagePaths.includes(currentPath);
@@ -106,45 +108,114 @@ $(function () {
     });
   }
 
-  // ?��nav ?�결
+  // nav 연결 (depth3 지원)
   function connectNavToMapList() {
-    const currentPath = location.pathname.split("/").pop();
+    const currentPathname = location.pathname; // 전체 경로로 비교
     const navLinks = document.querySelectorAll(
       "header .corp nav ol li.depth1 ul.depth2 li a"
     );
 
+    let matchedLink = null;
+
     navLinks.forEach((link) => {
-      const href = link.getAttribute("href").split("/").pop();
-      if (href === currentPath) {
-        const mapList = document.querySelector(".map_list");
-        if (mapList) {
-          const targetTitle = link.textContent.trim();
-          const categoryTitle = link
-            .closest(".depth1")
-            ?.querySelector("span")
-            ?.textContent.trim();
-          const subTitle = link
-            .closest(".depth1")
-            ?.querySelector("em")
-            ?.textContent.trim();
-          const mainTitle = categoryTitle.replace(subTitle, "");
-          mapList.innerHTML = "";
-          link.closest(".depth1").classList.add("active");
-          const liHome = document.createElement("li");
-          liHome.innerHTML = '<i class="home"></i>';
+      const href = link.getAttribute("href"); // 절대경로 그대로
+      if (href === currentPathname || currentPathname.endsWith(href)) {
+        if (matchedLink && matchedLink.closest('.depth3')) {
+          return;
+        }
+        if (!matchedLink || link.closest('.depth3')) {
+          matchedLink = link;
+        }
+      }
+    });
 
-          const liCategory = document.createElement("li");
-          liCategory.textContent = mainTitle || "";
+    if (matchedLink) {
+      const mapList = document.querySelector(".map_list");
+      if (mapList) {
+        mapList.innerHTML = "";
+        matchedLink.closest(".depth1").classList.add("active");
 
+        const hasDepth3 = matchedLink.closest("li.has_depth3");
+        if (hasDepth3) {
+          matchedLink.closest(".depth1").querySelectorAll("li.has_depth3").forEach(el => {
+            el.classList.remove("active");
+          });
+          hasDepth3.classList.add("active");
+        }
+
+        const liHome = document.createElement("li");
+        liHome.innerHTML = '<i class="home"></i>';
+        mapList.appendChild(liHome);
+
+        const categoryTitle = matchedLink
+          .closest(".depth1")
+          ?.querySelector("span")
+          ?.textContent.trim();
+        const subTitle = matchedLink
+          .closest(".depth1")
+          ?.querySelector("em")
+          ?.textContent.trim();
+        const mainTitle = categoryTitle.replace(subTitle, "").trim();
+
+        const liCategory = document.createElement("li");
+        liCategory.textContent = mainTitle || "";
+        mapList.appendChild(liCategory);
+
+        const depth3El = matchedLink.closest('.depth3');
+        if (depth3El) {
+          const depth2Link = matchedLink.closest('.has_depth3')?.querySelector('a');
+          const depth2Title = depth2Link ? depth2Link.textContent.trim() : "";
+          const liDepth2 = document.createElement("li");
+          liDepth2.textContent = depth2Title;
+          mapList.appendChild(liDepth2);
+
+          const targetTitle = matchedLink.textContent.trim();
           const liOn = document.createElement("li");
           liOn.classList.add("on");
           liOn.textContent = targetTitle || "";
-
-          mapList.appendChild(liHome);
-          mapList.appendChild(liCategory);
+          mapList.appendChild(liOn);
+        } else {
+          const targetTitle = matchedLink.textContent.trim();
+          const liOn = document.createElement("li");
+          liOn.classList.add("on");
+          liOn.textContent = targetTitle || "";
           mapList.appendChild(liOn);
         }
       }
+    }
+  }
+
+  // PC GNB 패키지 S/W 3depth 탭 전환 기능
+  function initPackageSWTab() {
+    const $dropdown = $('.package_sw_dropdown');
+    if (!$dropdown.length) return;
+
+    const $menuItems = $dropdown.find('> li.has_depth3');
+
+    // 패키지 S/W 1depth 메뉴 호버 시 드롭다운이 열리면 첫 번째 항목 기본 활성화
+    $dropdown.closest('.depth1').on('mouseenter', function () {
+      if (!$menuItems.filter('.active').length) {
+        $menuItems.removeClass('active');
+        $menuItems.first().addClass('active');
+      }
+    });
+
+    // 2depth 메뉴 호버 시 active 클래스 전환
+    $menuItems.on('mouseenter', function () {
+      $menuItems.removeClass('active');
+      $(this).addClass('active');
+    });
+  }
+
+  function trimPopupDepth3Nav() {
+    const popupNav = document.querySelector(".popup_wrap.sitemap .popup_contents_wrap nav");
+
+    if (!popupNav) {
+      return;
+    }
+
+    popupNav.querySelectorAll("li.has_depth3 > .depth3").forEach((depth3) => {
+      depth3.remove();
     });
   }
 
@@ -160,7 +231,12 @@ $(function () {
       const shouldKeep = allowedLabels.some((allowedLabel) => label.includes(allowedLabel));
 
       if (!shouldKeep) {
-        item.remove();
+        // li는 유지하고 링크만 비워 sitemap 팝업의 :nth-child 기반 3depth 스타일 위치를 보존한다.
+        item.classList.add('menu_hidden');
+        const depth2 = item.querySelector(':scope > ul.depth2');
+        if (depth2) {
+          depth2.innerHTML = '';
+        }
       }
     });
   }
@@ -170,16 +246,17 @@ $(function () {
       return;
     }
 
-    const loginButton = root.querySelector('.header_login');
-    if (!loginButton) {
+    const loginWrap = root.querySelector('.header_login');
+    const loginLink = root.querySelector('.header_login_link');
+    if (!loginWrap || !loginLink) {
       return;
     }
 
     if (isAuthenticated) {
-      loginButton.hidden = false;
-      loginButton.textContent = 'LOGOUT';
-      loginButton.href = '#';
-      loginButton.onclick = (event) => {
+      loginWrap.hidden = false;
+      loginLink.textContent = 'LOGOUT';
+      loginLink.href = '#';
+      loginLink.onclick = (event) => {
         event.preventDefault();
         window.baronSsoLogout?.();
       };
@@ -187,14 +264,14 @@ $(function () {
     }
 
     if (!isPublicInfoPage) {
-      loginButton.hidden = true;
+      loginWrap.hidden = true;
       return;
     }
 
-    loginButton.hidden = false;
-    loginButton.textContent = 'LOGIN';
-    loginButton.href = `${location.pathname}?login=1`;
-    loginButton.onclick = null;
+    loginWrap.hidden = false;
+    loginLink.textContent = 'LOGIN';
+    loginLink.href = `${location.pathname}?login=1`;
+    loginLink.onclick = null;
   }
 
   function loadSitemapNav() {
@@ -217,6 +294,7 @@ $(function () {
       loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#header .corp .nav', function () {
         normalizeSiteLinks(document.querySelector('#header .corp .nav'));
         connectNavToMapList();
+        initPackageSWTab();
         trimPublicNav(document.querySelector('#header .corp .nav'));
       });
       configureHeaderActions(document.querySelector('#header'));
@@ -245,7 +323,6 @@ $(function () {
     normalizeSiteLinks(document.querySelector('#footer'));
     loadHTML(`${includeBase}/${navIncludeFile}?v=${includeVersion}`, '#footer .nav', function () {
       normalizeSiteLinks(document.querySelector('#footer .nav'));
-      $("#footer .nav ol li.has_depth3 > .depth3").hide();
       trimPublicNav(document.querySelector('#footer .nav'));
     });
   });
@@ -286,12 +363,34 @@ $(function () {
     })
     .progress(1);
 
+  let showMapList = null;
+  const headerNavMM = gsap.matchMedia();
+  headerNavMM.add("(max-width: 1400px)", () => {
+    showMapList = gsap
+      .from(".map_list", {
+        y: -40,
+        autoAlpha: 0,
+        paused: true,
+        duration: 0.2,
+      })
+      .progress(1);
+    return () => {
+      showMapList = null;
+    };
+  });
+
   ScrollTrigger.create({
     start: "top top",
     end: 99999,
     onUpdate: (self) => {
       if (lenis.isStopped) return;
-      self.direction === -1 ? showNav.play() : showNav.reverse();
+      if (self.direction === -1) {
+        showNav.play();
+        showMapList && showMapList.play();
+      } else {
+        showNav.reverse();
+        showMapList && showMapList.reverse();
+      }
     },
   });
 });
@@ -467,7 +566,20 @@ function mobileMenu() {
         return;
       }
 
-      if (!item.classList.contains("active")) {
+      const isActive = item.classList.contains("active");
+
+      // 다른 모든 활성화된 메뉴 닫기 (아코디언 동작)
+      mNav.forEach((otherItem) => {
+        if (otherItem !== item) {
+          otherItem.classList.remove("active");
+          const otherDepth2 = otherItem.querySelector(":scope > .depth2");
+          if (otherDepth2) {
+            otherDepth2.style.maxHeight = null;
+          }
+        }
+      });
+
+      if (!isActive) {
         item.classList.add("active");
         depth2.style.maxHeight = depth2.scrollHeight + "px";
       } else {

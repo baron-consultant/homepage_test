@@ -1,31 +1,36 @@
+<style>
+/* footer .footer_inner nav ol li.depth1:last-child{display:none;} */
+</style>
 <div class="footer_inner">
-  <nav class="nav"></nav>
-  <div class="family_wrap">
-    <div class="family_btn"><span>Family Site</span><i></i></div>
-    <ul class="family_list">
-      <li><a href="http://www.hanmaceng.co.kr" target="_blank">한맥기술</a></li>
-      <li><a href="https://www.samaneng.co.kr/" target="_blank">삼안</a></li>
-      <li><a href="http://www.jangheon.co.kr/" target="_blank">장헌산업</a></li>
-      <li><a href="http://jangheon.com/" target="_blank">(주)장헌</a></li>
-      <li><a href="http://www.pre-cast.co.kr/" target="_blank">피티씨</a></li>
-      <li>
-        <a href="http://www.hallasanup.com/" target="_blank">한라산업개발</a>
-      </li>
-    </ul>
-  </div>
-  <hr />
   <div class="footer_info">
     <!-- h1 로고영역은 style.css에서 제어 -->
     <div class="logo">
-      <a class="home" href="../ko/index.html">(주) 바론컨설턴트</a>
+      <a class="home" href="/ko/index.html">(주) 바론컨설턴트</a>
     </div>
 
     <span><em>주소.</em>서울특별시 송파구 오금로 554(거여동)</span>
-    <span><em>Tel.</em>02-2141-7434</span>
-    <span><em>Mail.</em>baroncs@baroncs.co.kr</span>
-    <span><em>대표이사.</em>장종찬</span>
-    <span><em>© BARON Consultants Co,.Ltd All Rights Reserved.</em></span>
+    <div class="footer_contact">
+      <span><em>Tel.</em>02-2141-7434</span>
+      <span><em>대표이사.</em>장종찬</span>
+    </div>
+    <span class="copyright"><em>© BARON Consultants Co,.Ltd All Rights Reserved.</em></span>
+
+    <div class="family_wrap">
+      <div class="family_btn"><span>Family Site</span><i></i></div>
+      <ul class="family_list">
+        <li><a href="http://www.hanmaceng.co.kr" target="_blank">한맥기술</a></li>
+        <li><a href="https://www.samaneng.co.kr/" target="_blank">삼안</a></li>
+        <li><a href="http://www.jangheon.co.kr/" target="_blank">장헌산업</a></li>
+        <li><a href="http://jangheon.com/" target="_blank">(주)장헌</a></li>
+        <li><a href="http://www.pre-cast.co.kr/" target="_blank">피티씨</a></li>
+        <li>
+          <a href="http://www.hallasanup.com/" target="_blank">한라산업개발</a>
+        </li>
+      </ul>
+    </div>
   </div>
+
+  <nav class="nav"></nav>
 </div>
 
 <!-- TOP버튼 -->
@@ -45,11 +50,12 @@
   });
   const topButton = document.querySelector(".js__top");
   function adjustButtonPosition() {
+    if (!topButton) return;
     const scrollY = window.scrollY; // 현재 스크롤 위치
     const windowHeight = window.innerHeight; // 윈도우 높이
     const documentHeight = document.documentElement.scrollHeight; // 문서 전체 높이
     const bottomSpace = urlParams.indexOf("recruit") != -1 ? 120 : 400; // 탑 버튼이 아래에서 떨어져 있어야 하는 거리
-
+ 
     // 문서의 맨 아래로부터 떨어지기 위한 계산
     if (scrollY + windowHeight >= documentHeight - bottomSpace) {
       topButton.style.bottom = `${
@@ -61,13 +67,23 @@
   }
   window.addEventListener("scroll", adjustButtonPosition);
   window.addEventListener("load", adjustButtonPosition);
-  // 새로운 코드 추가 - topButton의 표시/숨기기 로직
+  // 새로운 코드 추가 - topButton의 표시/숨기기 및 투명도 토글 로직
   function toggleTopButtonClass() {
-    // console.log('*');
+    if (!topButton) return;
     if (window.scrollY === 0) {
-      topButton.style.display = "none";
+      topButton.classList.remove("topbtn_on");
+      topButton.classList.add("topbtn_off");
+      setTimeout(() => {
+        if (window.scrollY === 0) {
+          topButton.style.display = "none";
+        }
+      }, 300);
     } else {
-      topButton.style.display = "initial";
+      topButton.style.display = "block";
+      requestAnimationFrame(() => {
+        topButton.classList.remove("topbtn_off");
+        topButton.classList.add("topbtn_on");
+      });
     }
   }
   window.addEventListener("scroll", toggleTopButtonClass);
@@ -102,31 +118,5 @@
       }
     });
 
-    // FOOTER - 소프트웨어 항목 토글 (TOVA, EGBIM, GAIA)
-    // Event delegation을 사용해 나중에 로드되는 요소에도 적용
-    $(document).on("click", "footer .nav ol li.has_depth3 > a", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      e.stopImmediatePropagation();
-
-      const currentItem = $(this).closest("li.has_depth3");
-      const depth3 = $(this).next(".depth3");
-      const isOpen = currentItem.hasClass("is-open");
-      
-      // 다른 소프트웨어 항목 닫기
-      $("footer .nav ol li.has_depth3").removeClass("is-open");
-      $("footer .nav ol li.has_depth3 > .depth3").stop(true, true).slideUp(200);
-      
-      // 현재 항목 토글
-      if (!isOpen) {
-        currentItem.addClass("is-open");
-        depth3.stop(true, true).slideDown(200);
-      }
-
-      return false;
-    });
-
-    // 초기 상태: 모든 depth3 숨김
-    $("footer .nav ol li.has_depth3 > .depth3").hide();
   });
 </script>

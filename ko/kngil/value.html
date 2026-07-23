@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEDBRC8DL5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EEDBRC8DL5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+    <title>KNGIL 소개</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css" />
+    <link rel="stylesheet" href="../../assets/css/font.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="../../assets/js/lib/aos.min.js"></script>
+    <script src="../../assets/js/lib/lenis.min.js"></script>
+    <script src="../../assets/js/lib/gsap.min.js"></script>
+    <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+    <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header id="header"></header>
+      <ul class="map_list"></ul>
+
+      <!-- floating_menu -->
+      <div class="floating-menu">
+        <div class="floating-kngil">
+          <a class="item-service" href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+            <i class="ico-logo">
+              <img src="./img/logo_kngil.svg" alt="KNGIL">
+            </i>
+            <span>서비스<br>바로가기</span>
+          </a>
+          <a class="item-guide" href="javascript:void(0);" data-guide-open>
+            <i class="ico-guide"></i>
+            <span>사용가이드</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- floating_top_btn : 스크롤 최상단일 때만 노출되는 상단 가로형 버튼 -->
+      <div class="floating-top-btn">
+        <a href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+          <img src="./img/logo_kngil.svg" alt="KNGIL" class="logo">
+          <span>서비스 바로가기</span>
+        </a>
+      </div>
+
+      <!-- guide_modal : 사용가이드 레이어 팝업 -->
+      <div class="guide-modal" id="guideModal" aria-hidden="true">
+        <div class="guide-modal-dim" data-guide-close></div>
+        <div class="guide-modal-panel" role="dialog" aria-modal="true" aria-label="KNGIL 사용가이드">
+          <div class="guide-modal-tabs">
+            <button type="button" class="guide-tab active" data-guide-tab="video">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M10.5 9.2L15 12L10.5 14.8V9.2Z" fill="currentColor"/>
+              </svg>
+              <span>전체 흐름 보기 (영상)</span>
+            </button>
+            <button type="button" class="guide-tab" data-guide-tab="pdf">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 2.5H14L18 6.5V20.5C18 21.0523 17.5523 21.5 17 21.5H6C5.44772 21.5 5 21.0523 5 20.5V3.5C5 2.94772 5.44772 2.5 6 2.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M14 2.5V6.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M8 13H15M8 16.5H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span>핵심 내용 보기 (문서)</span>
+            </button>
+            <button type="button" class="guide-modal-close" data-guide-close aria-label="닫기">
+              <i class="ico-close"></i>
+            </button>
+          </div>
+          <div class="guide-modal-body">
+            <div class="guide-panel guide-panel-video active" data-guide-panel="video">
+              <video class="guide-video" playsinline preload="metadata" poster="./img/video/kngil_guide_poster.jpg">
+                <source src="./img/video/kngil_guide.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="video-center-play" aria-label="재생">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11.25" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.85)" stroke-width="1.2"/>
+                  <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="#ffffff"/>
+                </svg>
+              </button>
+              <div class="video-controls">
+                <button type="button" class="video-btn video-play-toggle" aria-label="재생">
+                  <svg class="ico-play" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 5.5L18 12L7 18.5V5.5Z" fill="currentColor"/>
+                  </svg>
+                  <svg class="ico-pause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                    <rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                  </svg>
+                </button>
+                <span class="video-time video-time-current">0:00</span>
+                <input type="range" class="video-seek" min="0" max="100" value="0" step="0.1" aria-label="재생 위치">
+                <span class="video-time video-time-duration">0:00</span>
+                <button type="button" class="video-btn video-mute-toggle" aria-label="음소거">
+                  <svg class="ico-volume" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15.5 8.5C16.5 9.5 17 10.7 17 12C17 13.3 16.5 14.5 15.5 15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="ico-mute" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15 9L19 15M19 9L15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button type="button" class="video-btn video-fullscreen-toggle" aria-label="전체화면">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M9 4.5H4.5V9M15 4.5H19.5V9M4.5 15V19.5H9M19.5 15V19.5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="guide-panel guide-panel-pdf" data-guide-panel="pdf">
+              <iframe class="guide-pdf" title="KNGIL 사용가이드 문서" src=""></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        /* 수정된 스크립트 부분 */
+        async function openKngilMapApp(userId) {
+            // 1. 함수 진입 확인용 (가장 먼저 실행되어야 함)
+            console.log("함수 호출 시작 - 전달된 ID:", userId);
+            // alert("함수 호출됨: " + userId); // 브라우저에서 알림이 뜨는지 확인하세요.
+
+            if (!userId || userId === "") {
+                console.error("사용자 ID가 없습니다.");
+            login();
+                //alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+                return;
+            }
+
+            // 2. 로그 기록 API 호출
+            try {
+                console.log("로그 기록 시도 중...");
+                const logRes = await fetch('/kngil/bbs/log_service_access.php');
+                const logData = await logRes.json();
+                console.log("서버 응답:", logData);
+            } catch (e) {
+                console.warn("로그 기록 실패(무시하고 진행):", e);
+            }
+
+            // 3. 앱 오픈 로직
+            var appUrl = (userId === "dev01") 
+                ? '/kngil_app_khg/sys/controller/location/Location_controller.php' 
+                : '/kngil_app/sys/controller/location/Location_controller.php';
+
+            const popupName = 'kngilAppPopup';
+            const width = 1400;
+            const height = 900;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            
+            const win = window.open('', popupName, `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+
+            if (!win) {
+                alert("팝업 차단 설정이 되어 있습니다. 팝업을 허용해 주세요.");
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = appUrl;
+            form.target = popupName;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ActionMode';
+            input.value = 'SCREEN_01';
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            console.log("폼 전송 완료");
+        }
+      </script>
+
+      <!-- //floating_menu -->
+
+      <!-- Main Container -->
+      <div class="container value">
+        <!-- Visual Section -->
+        <div class="visual">
+          <section class="sub-header">
+            <div class="page-title">
+              <h2 data-aos="fade-down" data-aos-duration="1000">KNGIL 소개</h2>
+            </div>
+          </section>
+          
+          <section class="sub-content">
+            <div class="sub-tit-box" data-aos="fade-up" data-aos-duration="1000">
+              <p class="sub-tit">
+                설계 실무자를 위한 기초현황 보고서 자동생성으로<br>
+                <strong>기초조사 업무의 효율성</strong>을 높여줍니다.<br><br>
+                KNGIL은 공공데이터 기반으로<br>
+                사업대상구역 내 지형, 인구, 기상, 기반시설 등 기초자료를<br>
+                <strong>보고서 형태로 제공하는 서비스</strong> 입니다.
+              </p>
+                <div class="slogan-box">
+                <img 
+                  src="./img/slogan.png" 
+                  alt="KNGIL Korea National Geographic Information Library"
+                  width="627"
+                  height="auto"
+                >
+              </div>
+            </div>
+
+            <div class="service">
+              <div class="step-list">
+                <p class="step-desc">
+                  분야별 설계 업무는 일반적으로 <br class="mo-only"/> <strong>5단계의 프로세스</strong>를 통하여 수행하며<br>
+                  <span class="bg-yellow">큰길서비스는 <strong>1단계 (기초현황 조사)</strong></span>
+                </p>
+                <div></div>
+                <div class="step-flow-box">
+                  <div class="step-flow-item active">
+                    <div class="step-box">
+                      <div class="step-title">큰길서비스</div>
+                      <div class="step-subtitle">1단계 <strong>기초현황 조사</strong></div>
+                      <div class="step-icon">
+                        <img 
+                          src="./img/value/img_document.png" 
+                          alt="기초현황 조사 문서 아이콘"
+                          width="auto"
+                          height="auto"
+                        > 
+                      </div> 
+                    </div>
+                  </div>
+                  <ol class="step-flow" aria-label="설계 업무 프로세스 단계">
+                    <li class="step-item">
+                      <div class="step-box">
+                        <div class="step-title">2단계 <strong>현장조사</strong></div>
+                      </div>
+                    </li>
+                    <li class="step-item">
+                      <div class="step-box">
+                        <div class="step-title">3단계 <strong>지표 및 계획</strong></div>
+                      </div>
+                    </li>
+                    <li class="step-item">
+                      <div class="step-box">
+                        <div class="step-title">4단계 <strong>기본 및 실시설계</strong></div>
+                      </div>
+                    </li>
+                    <li class="step-item">
+                      <div class="step-box">
+                        <div class="step-title">5단계 <strong>성과품 작성</strong></div>
+                      </div>
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <div class="data-comparison">
+                <div class="bg-line" aria-hidden="true">
+                  <span class="ico-arrow"></span>
+                </div>
+                <div class="comparison-item">
+                  <p class="comparison-label">
+                    <strong class="data">데이터 수집 및 보관</strong> 방식은 <br>
+                    <strong class="fw-big">디지털 전환</strong> 완료
+                  </p>
+                  <div class="data-type-box analog">
+                    <h4 class="data-type-title"><strong>아날로그</strong>(문서)</h4>
+                    <ul class="data-type-list">
+                      <li><span>데이터 문서 수집</span></li>
+                      <li><span>데이터 문서 보관</span></li>
+                    </ul>
+                  </div>
+                  <div class="data-type-box digital">
+                    <h4 class="data-type-title"><strong>전산화</strong>(파일)</h4>
+                    <ul class="data-type-list">
+                      <li><span>데이터 파일 다운로드</span></li>
+                      <li><span>개인 PC 내 저장</span></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="comparison-item">
+                  <p class="comparison-label">
+                    반면에,<br>
+                    <strong class="report">데이터 정리 및 보고서 작성</strong>은 <br>
+                    <strong class="fw-big">엔지니어의 수작업</strong> 진행
+                  </p>
+                  <div class="work-method-box manual">
+                    <h4 class="work-method-title"><strong>기존 업무 방식</strong>(수동화)</h4>
+                    <ul class="work-method-list">
+                      <li>
+                        <div class="work-image">
+                          <img 
+                            src="./img/value/img_manual_01.png" 
+                            alt="데이터 정리 수작업 이미지"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <span>데이터 정리 수작업</span>
+                      </li>
+                      <li>
+                        <div class="work-image">
+                          <img 
+                            src="./img/value/img_manual_02.png" 
+                            alt="보고서 파일 작성 이미지"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div> 
+                        <span>보고서 파일 작성</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="work-method-box automated">
+                    <h4 class="work-method-title"><strong>큰길서비스 활용</strong>(자동화)</h4>
+                    <ul class="work-method-list">
+                      <li>
+                        <div class="work-image">
+                          <img 
+                            src="./img/value/img_automated_01.png" 
+                            alt="데이터DB화 이미지"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div> 
+                        <span><strong>데이터DB화</strong></span>
+                      </li>
+                      <li>
+                        <div class="work-image">
+                          <img 
+                            src="./img/value/img_automated_02.png" 
+                            alt="보고서 자동 생성 이미지"
+                            width="auto"
+                            height="auto"
+                          >
+                        </div>
+                        <span><strong>보고서 자동 생성</strong></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+          </section>
+        </div>
+        
+        <div class="bg-features">
+          <!-- Summary Section -->
+          <section class="summary full">
+            <dl>
+              <dt class="big-tit" data-aos="fade-down" data-aos-duration="1000">
+                <span class="logo-c" aria-label="KNGIL">KNGIL</span> 특징
+              </dt>
+              <dd data-aos="fade-up" data-aos-duration="1000">
+                데이터 분석 및 보고서 생성을 위한 실무자 중심의 편리한 기능을 적용한<br>
+                <strong>기초 현황 보고서 제공서비스</strong> 입니다.
+              </dd>
+            </dl>
+
+            <div class="line" aria-hidden="true"></div>
+            <div class="dot" aria-hidden="true"></div>
+          </section>
+
+          <!-- Value Features Section -->
+          <section class="value-features js-ani full" aria-label="KNGIL 주요 기능">
+            <article class="feature-card feature-gis" data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000">
+              <dl>
+                <dt class="sub-tit">
+                  <i aria-hidden="true"></i>
+                  GIS 기반<br class="pc-only"> 지형 및 공간정보 분석
+                </dt> 
+                <dd>자연조건 및 사회특성으로 분류된 <br class="pc-only"/>
+                  항목별 데이터 정보를 면밀히 분석하여 <br class="pc-only"/>정밀도를 높였습니다.</dd>
+              </dl>
+            </article>
+
+            <article class="feature-card feature-data" data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">
+              <dl>
+                <dt class="sub-tit">
+                  <i aria-hidden="true"></i>
+                  기초 현황 데이터<br class="pc-only"> 항목 최다 제공
+                </dt>
+                <dd>
+                    도시계획, 상하수도분야 등 관련 <br class="pc-only"/>
+                    현황데이터(99개)를 제공함으로써 <br class="pc-only"/>
+                    활용범위의 확장성을 높였습니다.
+                </dd>
+              </dl>
+            </article>
+
+            <article class="feature-card feature-map" data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000">
+              <dl>
+                <dt class="sub-tit">
+                  <i aria-hidden="true"></i>
+                  다양한 좌표계 지원 및<br class="pc-only"> 시각화
+                </dt>
+                <dd>
+                  Bessel(지역 중심 타원체) 및 GRS80 <br class="pc-only"/>
+                  (지구 중심 타원체) 좌표계를 <br class="pc-only"/>
+                  제공하며, 사용자가 업로드한 <br class="pc-only"/>
+                  사업대상구역을 좌표계와 매칭하여 <br class="pc-only"/>
+                  화면에 실시간 표시하였습니다.
+                </dd>
+              </dl>
+            </article>
+
+            <article class="feature-card feature-custom" data-aos="fade-up" data-aos-delay="400" data-aos-duration="1000">
+              <dl>
+                <dt class="sub-tit">
+                  <i aria-hidden="true"></i>
+                  기준값 설정 관련<br class="pc-only"> 커스터마이징
+                </dt>
+                <dd>
+                  추정사업비, 비작업일수 산정을 위한 <br class="pc-only"/> 
+                  관련법, 지침 및 기준 등을 참고하여 <br class="pc-only"/>
+                  사용자가 쉽게 변경할 수 있도록 <br class="pc-only"/>
+                 편의 기능을 강화하였습니다.</dd>
+              </dl>
+            </article>
+
+            <!-- Line Animation (Decorative) -->
+            <div class="lines" aria-hidden="true">
+              <div class="v1"></div>
+              <div class="v2"></div>
+              <div class="v3"></div>
+              <div class="h"></div>
+              <div class="d1"></div>
+              <div class="d2"></div>
+              <div class="d3"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <!-- // Main Container -->
+      
+      <footer id="footer"></footer>
+    </div>
+    <script src="./js/floating-menu.js"></script>
+    <script src="./js/value.js"></script>
+  </body>
+</html>

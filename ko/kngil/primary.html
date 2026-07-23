@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EEDBRC8DL5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EEDBRC8DL5');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon" />
+    <title>주요기능</title>
+    <link rel="stylesheet" href="../../assets/css/reset.css" />
+    <link rel="stylesheet" href="../../assets/css/font.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/aos.min.css" />
+    <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
+    <script src="../../assets/js/lib/aos.min.js"></script>
+    <script src="../../assets/js/lib/lenis.min.js"></script>
+    <script src="../../assets/js/lib/gsap.min.js"></script>
+    <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
+    <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
+    <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <header id="header"></header>
+      <ul class="map_list"></ul>
+
+      <!-- floating_menu -->
+      <div class="floating-menu">
+        <div class="floating-kngil">
+          <a class="item-service" href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+            <i class="ico-logo">
+              <img src="./img/logo_kngil.svg" alt="KNGIL">
+            </i>
+            <span>서비스<br>바로가기</span>
+          </a>
+          <a class="item-guide" href="javascript:void(0);" data-guide-open>
+            <i class="ico-guide"></i>
+            <span>사용가이드</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- floating_top_btn : 스크롤 최상단일 때만 노출되는 상단 가로형 버튼 -->
+      <div class="floating-top-btn">
+        <a href="https://kngil.com/kngil/bbs/login.php" target="_blank" rel="noopener noreferrer">
+          <img src="./img/logo_kngil.svg" alt="KNGIL" class="logo">
+          <span>서비스 바로가기</span>
+        </a>
+      </div>
+
+      <!-- guide_modal : 사용가이드 레이어 팝업 -->
+      <div class="guide-modal" id="guideModal" aria-hidden="true">
+        <div class="guide-modal-dim" data-guide-close></div>
+        <div class="guide-modal-panel" role="dialog" aria-modal="true" aria-label="KNGIL 사용가이드">
+          <div class="guide-modal-tabs">
+            <button type="button" class="guide-tab active" data-guide-tab="video">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M10.5 9.2L15 12L10.5 14.8V9.2Z" fill="currentColor"/>
+              </svg>
+              <span>전체 흐름 보기 (영상)</span>
+            </button>
+            <button type="button" class="guide-tab" data-guide-tab="pdf">
+              <svg class="ico-tab" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M6 2.5H14L18 6.5V20.5C18 21.0523 17.5523 21.5 17 21.5H6C5.44772 21.5 5 21.0523 5 20.5V3.5C5 2.94772 5.44772 2.5 6 2.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M14 2.5V6.5H18" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M8 13H15M8 16.5H12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+              <span>핵심 내용 보기 (문서)</span>
+            </button>
+            <button type="button" class="guide-modal-close" data-guide-close aria-label="닫기">
+              <i class="ico-close"></i>
+            </button>
+          </div>
+          <div class="guide-modal-body">
+            <div class="guide-panel guide-panel-video active" data-guide-panel="video">
+              <video class="guide-video" playsinline preload="metadata" poster="./img/video/kngil_guide_poster.jpg">
+                <source src="./img/video/kngil_guide.mp4" type="video/mp4">
+              </video>
+              <button type="button" class="video-center-play" aria-label="재생">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="12" cy="12" r="11.25" fill="rgba(0,0,0,0.45)" stroke="rgba(255,255,255,0.85)" stroke-width="1.2"/>
+                  <path d="M10 8.5L16 12L10 15.5V8.5Z" fill="#ffffff"/>
+                </svg>
+              </button>
+              <div class="video-controls">
+                <button type="button" class="video-btn video-play-toggle" aria-label="재생">
+                  <svg class="ico-play" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M7 5.5L18 12L7 18.5V5.5Z" fill="currentColor"/>
+                  </svg>
+                  <svg class="ico-pause" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="6.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                    <rect x="13.5" y="5" width="4" height="14" rx="1" fill="currentColor"/>
+                  </svg>
+                </button>
+                <span class="video-time video-time-current">0:00</span>
+                <input type="range" class="video-seek" min="0" max="100" value="0" step="0.1" aria-label="재생 위치">
+                <span class="video-time video-time-duration">0:00</span>
+                <button type="button" class="video-btn video-mute-toggle" aria-label="음소거">
+                  <svg class="ico-volume" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15.5 8.5C16.5 9.5 17 10.7 17 12C17 13.3 16.5 14.5 15.5 15.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                  <svg class="ico-mute" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M4 9.5V14.5H7.5L12 18.5V5.5L7.5 9.5H4Z" fill="currentColor"/>
+                    <path d="M15 9L19 15M19 9L15 15" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+                  </svg>
+                </button>
+                <button type="button" class="video-btn video-fullscreen-toggle" aria-label="전체화면">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M9 4.5H4.5V9M15 4.5H19.5V9M4.5 15V19.5H9M19.5 15V19.5H15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="guide-panel guide-panel-pdf" data-guide-panel="pdf">
+              <iframe class="guide-pdf" title="KNGIL 사용가이드 문서" src=""></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        /* 수정된 스크립트 부분 */
+        async function openKngilMapApp(userId) {
+            // 1. 함수 진입 확인용 (가장 먼저 실행되어야 함)
+            console.log("함수 호출 시작 - 전달된 ID:", userId);
+            // alert("함수 호출됨: " + userId); // 브라우저에서 알림이 뜨는지 확인하세요.
+
+            if (!userId || userId === "") {
+                console.error("사용자 ID가 없습니다.");
+            login();
+                //alert("로그인 정보가 없습니다. 다시 로그인해주세요.");
+                return;
+            }
+
+            // 2. 로그 기록 API 호출
+            try {
+                console.log("로그 기록 시도 중...");
+                const logRes = await fetch('/kngil/bbs/log_service_access.php');
+                const logData = await logRes.json();
+                console.log("서버 응답:", logData);
+            } catch (e) {
+                console.warn("로그 기록 실패(무시하고 진행):", e);
+            }
+
+            // 3. 앱 오픈 로직
+            var appUrl = (userId === "dev01") 
+                ? '/kngil_app_khg/sys/controller/location/Location_controller.php' 
+                : '/kngil_app/sys/controller/location/Location_controller.php';
+
+            const popupName = 'kngilAppPopup';
+            const width = 1400;
+            const height = 900;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+            
+            const win = window.open('', popupName, `width=${width},height=${height},left=${left},top=${top},resizable=yes,scrollbars=yes`);
+
+            if (!win) {
+                alert("팝업 차단 설정이 되어 있습니다. 팝업을 허용해 주세요.");
+                return;
+            }
+
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = appUrl;
+            form.target = popupName;
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ActionMode';
+            input.value = 'SCREEN_01';
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+            console.log("폼 전송 완료");
+        }
+      </script>
+      <!-- //floating_menu -->
+
+      <!-- Main Container -->
+      <div class="container primary">
+        <!-- Header Section -->
+        <section class="sub-header">
+          <div class="page-title js-dark">
+            <h2 data-aos="fade-down" data-aos-duration="1000">주요기능</h2>
+             <p class="sub-txt">
+              더 쉽고 빠른 보고서 설정을 위한<br>
+              사용자 맞춤 기능 제공
+            </p>
+          </div>
+        </section>
+        
+        <!-- Content Section -->
+        <section class="sub-content">
+          <div class="sub-tit-box">
+            <h3 class="sub-tit">
+              데이터 활용 및 대상구역 범위에 따른 <strong>보고서 설정</strong> 관련하여 <br>
+              <strong>사용자 맞춤형 방식</strong>으로 다양한 기능을 제공
+            </h3>
+          </div>
+          <div class="diagram-wrap aos-init aos-animate" data-aos="fade-up" data-aos-duration="1000" aria-label="주요기능 다이어그램">
+            <div class="dia-circles-wrap">
+              <div class="circle-core">
+                <span>
+                  <img 
+                    src="./img/logo_kngil.svg" 
+                    alt="KNGIL 로고"
+                    width="auto"
+                    height="auto"
+                  >
+                </span>
+                <strong>주요기능</strong>
+              </div>
+              <div class="circle-dots" aria-hidden="true">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="dia-element e01">
+              <i aria-hidden="true"></i>
+              <span class="dia-tit">다양한 사업대상구역<br> 입력방식 선택</span>
+            </div>
+            <div class="dia-element e02">
+              <i aria-hidden="true"></i>
+              <span class="dia-tit">효율적인 사용자 설정<br> 구성 및 시각화</span>
+            </div>
+            <div class="dia-element e03">
+              <i aria-hidden="true"></i>
+              <span class="dia-tit">사용자가 신청한<br> 목록 및 진행단계 <br class="mo-only"> 실시간 제공</span>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Key Features Section -->
+        <section class="key location layout-fix-left" aria-label="주요 기능 상세">
+          <nav class="left" aria-label="기능 네비게이션">
+            <div class="mid-tit">
+              <span data-aos="fade-right" data-aos-duration="600">
+                다양하고 효율적인<br>
+                <strong>사용자 중심의 설정<br>기능 제공</strong>
+              </span>
+            </div>
+            <ul 
+              data-aos="fade-right" 
+              data-aos-duration="1000" 
+              data-aos-delay="300" 
+              class="js-fixLeft-tit"
+              role="tablist"
+              aria-label="주요 기능 목록"
+            >
+              <li class="on" role="tab" aria-selected="true" tabindex="0">
+                <span><strong>01</strong>사업구역 입력</span>
+              </li>
+              <li role="tab" aria-selected="false" tabindex="-1">
+                <span><strong>02</strong>보고서 관련 설정</span>
+              </li>
+              <li role="tab" aria-selected="false" tabindex="-1">
+                <span><strong>03</strong>진행과정(4단계) 실시간 표시</span>
+              </li>
+              <li role="tab" aria-selected="false" tabindex="-1">
+                <span><strong>04</strong>사업비 및 비작업일수 기준</span>
+              </li>
+              <li role="tab" aria-selected="false" tabindex="-1">
+                <span><strong>05</strong>데이터 항목 선택</span>
+              </li>
+            </ul>
+          </nav>
+          
+          <div class="right js-fixLeft-secs" role="tabpanel">
+            <article class="sec-area-input" id="sec-area-input" aria-labelledby="area-input-title">
+              <h4 id="area-input-title" class="sub-tit">사업구역 입력</h4>
+              <div class="sub-text">
+                사업의 특성 및 범위를 고려하여 실무자가 상황에 맞게 유연하게 활용할 수 있도록 <br>
+                <strong>4가지 입력 방식</strong>을 제공합니다.
+              </div>
+              <div class="sub-figs area">
+                <img src="./img/primary/img_area_01.png"/>
+                <div class="dim-layer"> 
+                </div>
+                <div class="apx apx-01">
+                  <img src="./img/primary/img_area_01_apx.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_area_01_zoom.png" />
+                  </span>
+                </div>
+                <div class="apx apx-02">
+                  <img src="./img/primary/img_area_02_apx.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_area_02_zoom.png" />
+                  </span>
+                </div>
+              </div>
+            </article>
+            
+            <article class="sec-report-config" id="sec-report-config" aria-labelledby="report-config-title">
+              <h4 id="report-config-title" class="sub-tit">보고서 관련 설정</h4>
+              <div class="sub-text">
+                사용자에게 제공되는 보고서에 영향을 미치는 <strong>항목별 설정은 최소화</strong>하고,<br>
+                직관적으로 쉽게 선택할 수 있도록 <strong>시각화</strong>에 중점을 두었습니다.
+              </div>
+              <div class="sub-figs report">
+                <img 
+                  src="./img/primary/img_report_01.png" 
+                  alt="보고서 관련 설정 화면"
+                  width="auto"
+                  height="auto"
+                >
+                <div class="apx apx-01">
+                  <img src="./img/primary/img_report_02.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_report_02_zoom.png" />
+                  </span>
+                </div>
+                <div class="apx apx-02">
+                  <img src="./img/primary/img_report_03.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_report_03_zoom.png" />
+                  </span>
+                </div>
+              </div>
+            </article>
+            
+            <article class="sec-progress-realtime" id="sec-progress-realtime" aria-labelledby="progress-title">
+              <h4 id="progress-title" class="sub-tit">진행과정(4단계) 실시간 표시</h4>
+              <div class="sub-text">
+                사용자는 신청건의 처리과정을 4단계로 <strong>실시간 확인 가능</strong>하며, 기존 신청 이력에 대해서는 <br>
+                일정 기간 내 <strong>재신청 및 다운로드를 반복적으로 수행</strong> 할 수 있습니다.
+              </div>
+              <div class="sub-figs sub-figs-bg-slide" aria-label="">
+                <span class="bg-slide-layer" data-bg="1" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="2" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="3" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="4" aria-hidden="true"></span>
+              </div>
+
+              <div class="sub-figs progress">
+                <img 
+                  src="./img/primary/img_progress_01.png" 
+                  alt="진행과정 4단계 시각화"
+                  width="auto"
+                  height="auto"
+                >
+                <div class="apx apx-01">
+                  <img src="./img/primary/img_progress_02.png" />
+                  <div class="sub-apx-slide">
+                    <div class="sub-apx-slide-item">
+                      <img src="./img/primary/img_progress_step_01.png" />
+                    </div>
+                    <div class="sub-apx-slide-item">
+                      <img src="./img/primary/img_progress_step_02.png" />
+                    </div>
+                    <div class="sub-apx-slide-item">
+                      <img src="./img/primary/img_progress_step_03.png" />
+                    </div>
+                    <div class="sub-apx-slide-item">
+                      <img src="./img/primary/img_progress_step_04.png" />
+                    </div>
+                  </div>
+                </div> 
+                <div class="apx apx-02">
+                  <img src="./img/primary/img_progress_03.png" />
+                </div>
+              </div>
+              
+            </article>
+            
+            <article class="sec-cost-criteria" id="sec-cost-criteria" aria-labelledby="cost-title">
+              <h4 id="cost-title" class="sub-tit">사업비 및 비작업일수 기준</h4>
+              <div class="sub-text">
+                주요 지표, 추정사업비, 비작업일수 등 <strong>항목별 기준값</strong>을 사용자가 손쉽게 수정·적용할 수 있으며, <br>
+                위치 정보 기반의 특정 데이터는 화면에 시각적으로 표시하여 <strong>선택을 위한 가이드</strong>를 제공합니다.
+              </div>
+              <div class="sub-figs sub-figs-bg-slide" aria-label="사업비 및 작업일수 기준 시각화">
+                <span class="bg-slide-layer" data-bg="1" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="2" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="3" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="4" aria-hidden="true"></span>
+              </div>
+              <div class="sub-figs cost">
+                <img 
+                  src="./img/primary/img_cost_01.png" 
+                  alt="사업비 및 작업일수 기준 시각화"
+                  width="auto"
+                  height="auto"
+                >
+                <div class="apx apx-01">
+                  <img src="./img/primary/img_cost_02.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_cost_02_zoom.png" />
+                  </span>
+                </div>
+
+                <div class="apx apx-02">
+                  <img src="./img/primary/img_cost_03.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_cost_03_zoom.png" />
+                  </span>
+                </div>
+
+                <div class="apx apx-03">
+                  <img src="./img/primary/img_cost_04.png" />
+                  <span class="zoom-box">
+                    <img src="./img/primary/img_cost_04_zoom.png" />
+                  </span>
+                </div>
+              </div>
+            </article>
+            
+            <article class="sec-data-select" id="sec-data-select" aria-labelledby="data-select-title">
+              <h4 id="data-select-title" class="sub-tit">데이터 항목 선택</h4>
+              <div class="sub-text">
+                업무 활용을 위해 개별 Raw 데이터만 필요한 경우, <br>
+                정보의 유사성을 기준으로 그룹화된 항목 중 사용자가 <strong>선택한 데이터를 제공</strong> 받을 수 있습니다.
+              </div>
+              <div class="sub-figs sub-figs-bg-slide" aria-label="데이터 항목 선택 시각화">
+                <span class="bg-slide-layer" data-bg="1" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="2" aria-hidden="true"></span>
+                <span class="bg-slide-layer" data-bg="3" aria-hidden="true"></span>
+              </div>
+              <div class="sub-figs data">
+                <img src="./img/primary/img_data_01.png" />
+                <div class="apx apx-01">
+                  <img src="./img/primary/img_data_02.png" />
+                  <div class="zoom-box">
+                    <img src="./img/primary/img_data_02_zoom.png" />
+                  </div>
+                </div>
+                <div class="apx apx-02">
+                  <img src="./img/primary/img_data_03.png" />
+                  <div class="zoom-box">
+                    <img src="./img/primary/img_data_03_zoom.png" />
+                  </div>
+                </div>
+                <div class="apx apx-03">
+                  <img src="./img/primary/img_data_04.png" />
+                </div>
+              </div>
+            </article> 
+          </div>
+        </section>
+      </div>
+      <!-- // Main Container -->
+      
+      <footer id="footer"></footer>
+    </div>
+    <script src="./js/layout-fix.js"></script>
+    <script src="./js/floating-menu.js"></script>
+    <script src="./js/primary.js"></script>
+  </body>
+</html>

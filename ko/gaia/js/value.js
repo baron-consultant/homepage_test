@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', (event)=> {
                     content.style.display = '';
                 });
             } else {
-                item.style.backgroundImage = 'url(../img/value_screen1.jpg)'
+                item.style.backgroundImage = 'url(img/value_screen1.jpg)'
                 item.classList.remove("full");
                 item.style.transition = '0.5s'
                 item.style.transform = 'translate(-50%, 0%) scale(0.6)';
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', (event)=> {
             }
         },
         onLeave: () => {
-            document.querySelector(".js__height_item").style.backgroundImage = 'url(../img/value_screen1.jpg)'
+            document.querySelector(".js__height_item").style.backgroundImage = 'url(img/value_screen1.jpg)'
         }
     });
 })

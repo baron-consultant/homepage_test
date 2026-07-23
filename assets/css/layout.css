@@ -34,38 +34,20 @@
 }
 
 html {
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: visible !important;
   scroll-behavior: smooth;
   max-width: 3840px;
   /*min-width: 1280px;*/
   margin: 0 auto;
   background-color: #eee;
+  height: auto !important;
 }
 
 body {
   width: 100%;
   background-color: #fff;
-  overflow: hidden;
-}
-
-html[data-baron-auth-state="authenticated"] body {
-  min-height: 100vh;
-}
-
-html[data-baron-auth-state="authenticated"] .wrap {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-html[data-baron-auth-state="authenticated"] .wrap .container {
-  flex: 1 0 auto;
-}
-
-html[data-baron-auth-state="authenticated"] footer {
-  margin-top: auto;
-  flex-shrink: 0;
+  overflow: visible !important;
+  height: auto !important;
 }
 
 .wrap {
@@ -190,6 +172,11 @@ body:has(.index, .dx) header .header_inner:hover nav ol li.depth1 span {
   color: #000;
 }
 
+body:has(.index, .dx) header .header_inner nav ol li.depth1 .depth3 li:hover span{
+  color: #0044fe;
+}
+
+
 body:has(.index, .dx) header .header_inner:hover .btn_menu div {
   background-color: #000;
 }
@@ -218,7 +205,7 @@ body:has(.index, .dx) header .header_inner .header_R .language::before {
   background-image: url(../img/ico_language_w.svg);
 }
 
-body:has(.index, .dx) header .header_inner:hover .header_R .language::before {
+body:has(.index, .dx) header:hover .header_inner .header_R .language::before {
   background-image: url(../img/ico_language.svg);
 }
 
@@ -232,8 +219,8 @@ body:has(.index, .dx)
 }
 
 body:has(.index, .dx)
-  header
-  .header_inner:hover
+  header:hover
+  .header_inner
   .header_R
   .language
   a:first-child::after {
@@ -244,7 +231,7 @@ body:has(.index, .dx) header .header_inner .header_R .language a {
   color: #fff;
 }
 
-body:has(.index, .dx) header .header_inner:hover .header_R .language a {
+body:has(.index, .dx) header:hover .header_inner .header_R .language a {
   color: #000;
 }
 
@@ -276,9 +263,7 @@ header#header_recruit .header_inner.recruit .btn_corp {
 }
 
 header .header_inner nav {
-  display: flex;
   flex: 1 1 auto;
-  justify-content: center;
   min-width: 0;
   height: 100%;
 }
@@ -286,8 +271,8 @@ header .header_inner nav ol {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  width: max-content;
+  gap: clamp(100px, 1.6vw, 28px);
+  width: 100%;
   height: 100%;
 }
 header .header_inner nav ol li.depth1 {
@@ -315,13 +300,11 @@ header .header_inner nav ol li.depth1.active span {
   font-weight: 500;
   opacity: 1;
 }
-header .header_inner nav ol li.depth1.active em {
-  opacity: 1;
-}
 header .header_inner nav ol li.depth1 span em {
   display: block;
   width: 100%;
-  margin-top: -15px;
+  height: 0;
+  margin-top: 0;
   color: #999;
   font-size: 13px;
   text-align: center;
@@ -329,6 +312,15 @@ header .header_inner nav ol li.depth1 span em {
   white-space: nowrap;
   word-break: keep-all;
   opacity: 0;
+  overflow: hidden;
+  transition: height 0.2s ease, margin-top 0.2s ease, opacity 0.2s ease;
+}
+header .header_inner nav ol li.depth1:hover span em,
+header .header_inner nav ol li.depth1.active span em {
+  height: 18px;
+  margin-top: -10px;
+  opacity: 1;
+  overflow: visible;
 }
 header .header_inner nav ol li.depth1 span i {
   display: inline-block;
@@ -345,11 +337,10 @@ header .header_inner nav ol li.depth1 ul.depth2 {
   translate: -50% 0;
   min-width: 180px;
   width: max-content;
-  box-shadow: var(--btn-shadow);
   padding: 20px;
   background-color: #fff;
   border-radius: 0px 0px 5px 5px;
-  box-shadow: 0px 4px 4px #00000033;
+  box-shadow: 0px 4px 4px #00000033, 0px 2px 2px #00000010 inset;
   display: none;
 }
 header .header_inner nav ol li.depth1 ul.depth2 li {
@@ -368,12 +359,21 @@ header .header_inner nav ol li.depth1 ul.depth2 li a {
   font-size: 16px;
   line-height: 28px;
 }
+
+html[lang="en"] header .header_inner nav ol li.depth1 ul.depth2 li:first-child {
+  margin-top: 0;
+}
+
+html[lang="en"] header .header_inner nav ol li.depth1 ul.depth2 li a {  
+  line-height: 110%;
+}
+
+
 header .header_inner nav ol li.depth1 ul.depth2 li.has_depth3 {
   position: relative;
 }
 header .header_inner nav ol li.depth1 ul.depth2 li.has_depth3 > a {
   display: block;
-  font-weight: 700;
 }
 header .header_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
   position: absolute;
@@ -413,7 +413,135 @@ header .header_inner nav ol li.depth1:hover ul.depth2 {
   display: block;
 }
 header .header_inner nav ol li.depth1 ul.depth2 li:hover a {
-  color: var(--color-primary);
+  color: #0044f2;
+}
+
+/* PC GNB 패키지 S/W 전용 드롭다운 (전 제품 목록 노출형, Figma node 12222:396 기준) */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown {
+  width: 360px;
+  box-sizing: border-box;
+  padding: 0 10px;
+  display: none;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 0px 0px 8px 8px;
+  background: #ffffff;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  translate: 0;
+}
+
+header .header_inner nav ol li.depth1:hover ul.package_sw_dropdown {
+  display: flex;
+}
+
+
+/* 2depth 리스트 항목 (EG-BIM, TOVA, GAIA) : 라벨 + 3depth 그리드를 한 행에 노출
+   라벨(a)은 absolute + top/bottom:0 으로 행 높이에 꽉 차게 고정 (flex stretch는
+   부모 li의 높이가 콘텐츠(ul.depth3)로부터 계산되는 특성상 일부 브라우저에서
+   확실히 stretch 되지 않아, absolute 방식으로 명시적으로 채움) */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 {
+  width: 100%;
+  margin-top: 0;
+  text-align: left;
+  position: relative;
+}
+
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 > a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 107px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0) 3.57%, #ffffff 101.4%), #f5f7fa;
+  font-size: 16px;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+  color: #000;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+/* 2depth 활성화/호버 상태 */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3.active > a,
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 > a:hover {
+  color: #0044f2;
+  opacity: 1;
+}
+
+/* 3depth 그리드 (제품별 하위 메뉴, 2열 고정 노출) */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 ul.depth3 {
+  position: static;
+  margin-left: 127px;
+  width: 213px;
+  height: auto;
+  box-sizing: border-box;
+  padding: 19.87px 0;
+  background: none;
+  border-radius: 0;
+  border-left: none;
+  box-shadow: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+  letter-spacing: -0.28px;
+}
+
+/* 두 번째 행부터 상단 구분선 노출 (Figma Line 2184/2185) */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3:not(:first-child) ul.depth3 {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* 영문판: 3depth 메뉴명이 길어 2열 그리드에서 줄바꿈되므로 컬럼 폭을 넓혀 한 줄로 표시 (2열 구조 및 국문은 그대로 유지) */
+html[lang="en"] header .header_inner nav ol li.depth1 ul.package_sw_dropdown {
+  width: 470px;
+}
+html[lang="en"] header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 ul.depth3 {
+  width: 320px;
+}
+
+/* 일반 depth2 드롭다운의 ':hover { display:block }' 규칙(특정성 우선순위 높음)이
+   패키지 S/W 그리드를 덮어쓰지 않도록 동일 특정성으로 재정의 */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3:hover ul.depth3 {
+  display: grid;
+}
+
+/* 3depth 리스트 항목 */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 ul.depth3 li {
+  width: 100%;
+  margin-top: 0;
+}
+
+/* 3depth 메뉴 링크 (플레인 텍스트 스타일) */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 ul.depth3 li a {
+  display: block;
+  width: auto;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 0;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #000;
+  opacity: 0.8;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+/* 3depth 호버 상태 */
+header .header_inner nav ol li.depth1 ul.package_sw_dropdown li.has_depth3 ul.depth3 li a:hover {
+  color: #0044f2;
+  opacity: 1;
+  background: none;
 }
 
 header .header_inner .header_R {
@@ -493,32 +621,29 @@ header .header_inner .btn_menu div:nth-child(3) {
   bottom: 7px;
 }
 
+/* 메뉴 임시 숨김 처리 (패키지 S/W · 서비스 S/W · 홍보센터만 노출) */
+header .header_inner nav ol li.depth1.menu_hidden,
+header .sitemap nav ol li.depth1.menu_hidden,
+footer .footer_inner nav ol li.depth1.menu_hidden {
+  display: none;
+}
+
 header .sitemap .popup_contents_wrap {
-  width: 100%;
-  height: 100%;
-  max-width: none;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  text-align: left;
-  background: #fff;
-  overflow: auto;
-  box-shadow: none;
-  backdrop-filter: none;
 }
 header .sitemap .popup_header {
   width: 100%;
   max-width: 100%;
   min-height: 92px;
-  padding: 0 144px 0 160px;
+  padding: 0 50px;
   border-bottom: 1px solid #ccc;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
+  z-index: 1;
 }
 header .sitemap .logo_box {
   display: inline-flex;
@@ -527,26 +652,36 @@ header .sitemap .logo_box {
 
 header .sitemap .btn_close {
   height: 92px;
+  width: 64px;
   position: initial;
 }
 header .sitemap .btn_close i {
+  display: block;
+  position: relative;
   height: 70%;
+  width: auto;
+  aspect-ratio: 1/1;
+  margin: 0 auto;
 }
 header .sitemap .btn_close i::after,
 header .sitemap .btn_close i::before {
+  content: "";
   background-color: #000;
+  position: absolute;
+  width: 50%;
+  height: 2px;
 }
 header .sitemap .btn_close i::after {
   transform-origin: top left;
   top: 30%;
   left: 32%;
-  animation: btn-close-bar1 0.35s ease both;
+  animation: btn-close-ico1 0.35s ease both;
 }
 header .sitemap .btn_close i::before {
   transform-origin: bottom left;
   top: 65.3%;
   left: 32%;
-  animation: btn-close-bar2 0.35s ease both;
+  animation: btn-close-ico2 0.35s ease both;
 }
 header .sitemap .btn_close:hover {
   background: transparent;
@@ -555,24 +690,20 @@ header .sitemap nav {
   width: 100%;
   max-width: 100%;
   height: 100%;
-  min-height: 0;
-  flex: 1 1 auto;
   margin: 0 auto;
   text-align: left;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   background-color: #fff;
-  padding: 0 80px 0 100px;
+  padding: 0 240px 0 270px;
 }
 header .sitemap nav ol {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: 100%;
-  grid-auto-rows: minmax(auto, 160px);
+  grid-auto-rows: minmax(auto, 260px);
   align-content: center;
   align-items: center;
-  gap: 0;
-  justify-content: normal;
   position: relative;
 }
 header .sitemap nav ol::before {
@@ -581,131 +712,132 @@ header .sitemap nav ol::before {
   width: 30%;
   height: 100%;
   top: 0;
-  right: 80%;
-  background: linear-gradient(90deg, transparent 0%, var(--color-primary) 100%);
+  right: 82%;
+  background: linear-gradient(90deg, transparent 0%, #006aff 100%);
   opacity: 0.05;
   pointer-events: none;
 }
 header .sitemap nav ol li.depth1 {
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 240px 1fr;
+  column-gap: 29px;
   align-content: stretch;
   align-items: center;
   height: 100%;
   opacity: 0.5;
 }
 header .sitemap nav ol li.depth1 span {
-  width: auto;
-  height: auto;
-  display: block;
-  text-align: left;
-  opacity: 1;
-  cursor: default;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
 }
 header .sitemap nav ol li.depth1 span em {
   display: block;
-  width: auto;
-  margin-top: 0;
-  color: inherit;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
-  text-align: left;
-  opacity: 1;
 }
 header .sitemap nav ol li.depth1 ul.depth2 {
   display: grid;
-  position: static;
-  top: auto;
-  left: auto;
-  translate: none;
-  min-width: 0;
-  width: auto;
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   height: 100%;
-  font-size: 18px;
-  padding-left: 80px;
-  background-color: transparent;
-  border-radius: 0;
-  box-shadow: none;
+  font-size: 20px;
+  color: #333;
+  letter-spacing: -0.8px;
+  padding-left: 70px;
   border-bottom: 1px solid #eee;
+  gap: 90px;
+}
+
+header .sitemap nav ol li.depth1:last-child ul.depth2 {
+  border-bottom: none;
+}
+
+header .sitemap nav ol li.depth1 ul.depth2 > li > a {
+  opacity: 1;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li {
-  margin-top: 0;
   padding: 16px 0;
   width: 80%;
-  text-align: left;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li a {
-  width: 100%;
+  /* width: 100%; */
   height: 100%;
   display: block;
-  text-align: left;
-  font-size: inherit;
-  line-height: normal;
-  font-weight: inherit;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li.has_depth3 {
   width: 100%;
 }
-header .sitemap nav ol li.depth1 ul.depth2 li.has_depth3 > a {
-  font-weight: 700;
-}
 header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 {
-  position: static;
-  top: auto;
-  left: auto;
-  min-width: 0;
-  width: auto;
-  padding: 12px 0 0;
-  background-color: transparent;
-  border-radius: 0;
-  box-shadow: none;
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-top: 12px;
   padding-top: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  font-size: 15px;
+  font-size: 14px;
   opacity: 0.75;
+  width:80%
 }
-header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3,
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
+header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3,
+header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+  
+header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 > a,
+header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 > a {
+  width:auto;
+  margin-top: 2px;
+  line-height: 100%;
+}
+header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3,
+header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 ul.depth3 {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+  opacity: 1;
+  color: #7f7f7f;
+  font-size: 18px;
+  letter-spacing: -0.36px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px 16px;
-  align-content: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-flow: row;
+  grid-template-rows: repeat(3, auto);
+  column-gap: 20px;
+  row-gap: 12px;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li {
   width: 100%;
   padding: 0;
-  margin-top: 0;
-  text-align: left;
-}
-header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li,
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li {
-  width: auto;
 }
 header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li a {
   display: block;
-  text-align: left;
-  font-size: inherit;
-  line-height: normal;
-  font-weight: inherit;
+  line-height: 1.2;
 }
-header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3 li a,
-header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 li a {
-  white-space: nowrap;
+header .sitemap nav ol li.depth1:last-child ul.depth2 li i {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  background: no-repeat center/contain;
+  margin-left: 4px;
+  translate: 0 1px;
+  background-color: #000;
+  -webkit-mask-image: url(../img/ico_more.svg);
+  mask-image: url(../img/ico_more.svg);
+  background-size: cover;
+  -webkit-background-size: cover;
+  mask-size: contain;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
 }
-header .sitemap nav ol li.depth1 ul.depth2 li:hover {
-  color: var(--color-primary);
-  font-weight: 700;
+header .sitemap nav ol li.depth1 ul.depth2 li a:hover {
+  color:#006aff;
 }
-header .sitemap nav ol li.depth1 ul.depth2 li:hover i {
-  background-color: var(--color-primary);
+header .sitemap nav ol li.depth1 ul.depth2 li a:hover i {
+  background-color: #006aff;
 }
 header .sitemap nav ol li.depth1:hover {
   opacity: 1;
@@ -714,7 +846,7 @@ header .sitemap nav ol li.depth1:hover {
 /* --- 오픈형 메뉴 */
 /* --- 버튼형 메뉴 */
 /* --- 사이트맵 */
-@keyframes btn-close-bar1 {
+@keyframes btn-close-ico1 {
   from {
     transform: rotate(0);
   }
@@ -722,7 +854,7 @@ header .sitemap nav ol li.depth1:hover {
     transform: rotate(45deg);
   }
 }
-@keyframes btn-close-bar2 {
+@keyframes btn-close-ico2 {
   from {
     transform: rotate(0);
   }
@@ -740,43 +872,62 @@ footer {
   position: relative;
   z-index: 10;
 }
-.recruit + footer .nav,
-.recruit + footer .footer_inner hr {
+.recruit + footer .nav {
   display: none;
 }
 footer .footer_inner {
   width: 100%;
   height: 100%;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  justify-content: stretch;
-  align-content: space-between;
-  column-gap: 28px;
-  row-gap: 40px;
-  padding: 40px 40px 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 0px;
+  position: relative;
+  padding: 40px 160px 50px;
   overflow: hidden;
 }
+
+
 footer .footer_inner nav {
-  display: flex;
-  justify-content: center;
-  min-width: 0;
+  flex: 0 0 900px;
+  width: 900px;
 }
 footer .footer_inner nav ol {
-  width: max-content;
-  max-width: none;
+  width: 100%;
   display: flex;
-  justify-content: center;
-  gap: 54px;
+  justify-content: space-between;
 }
+html[lang="en"] footer .footer_inner{
+  gap: 80px;
+}
+html[lang="en"] footer .footer_inner nav ol{
+  justify-content: left;
+  gap: 40px;
+}
+
+html[lang="en"] footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown{
+  width: auto;
+}
+
+html[lang="en"] footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li{
+  width: 150px;
+}
+
+html[lang="en"] footer .footer_inner .footer_info .home{
+  margin-bottom: 36px;
+}
+
+
 footer .footer_inner nav ol li.depth1 {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 32px;
   position: relative;
   height: max-content;
 }
 footer .footer_inner nav ol li.depth1 span {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   position: relative;
 }
@@ -792,7 +943,7 @@ footer .footer_inner nav ol li.depth1 span::after {
 footer .footer_inner nav ol li.depth1 span em {
   display: block;
   opacity: 0.5;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
 }
 footer .footer_inner nav ol li.depth1 span i {
@@ -804,70 +955,169 @@ footer .footer_inner nav ol li.depth1 span i {
   translate: 0 1px;
   filter: invert(1);
 }
+/* footer .footer_inner nav ol li.depth1:last-child {
+  padding-left: 48px;
+}
+footer .footer_inner nav ol li.depth1:last-child::before {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 100%;
+  border-left: 1px dashed #fff;
+  margin-left: -48px;
+  opacity: 0.5;
+}
+footer .footer_inner nav ol li.depth1:last-child span::after,
+footer .footer_inner nav ol li.depth1:last-child ul.depth2 {
+  display: none;
+} */
 footer .footer_inner nav ol li.depth1 ul.depth2 {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  opacity: 0.8;
+  gap: 8px;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
+  letter-spacing: -0.32px;
+  line-height: normal;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li.has_depth3 {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
-footer .footer_inner nav ol li.depth1 ul.depth2 li.has_depth3 > a {
-  font-weight: 700;
+footer .footer_inner nav ol li.depth1 ul.depth2 li a {
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+footer .footer_inner nav ol li.depth1 ul.depth2 li a:hover {
+  opacity: 1;
+  /* font-weight 대신 text-shadow로 굵어 보이게 처리 (박스 크기에 영향 없어 옆 항목이 밀리지 않음) */
+  text-shadow: 0 0 0.4px currentColor;
+}
+
+/* 패키지 S/W · 서비스 S/W : 제품명 라벨(EG-BIM, TOVA, GAIA, KNGIL)을 좌측에 두고
+   우측 3열 그리드가 나란히 노출 (Figma node 12225:1056 기준) */
+footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown {
+  gap: 12px;
+  width: 319px;
+}
+footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown li.has_depth3 {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2) inset;
+}
+footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown li.has_depth3:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+  box-shadow: none;
+}
+footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown li.has_depth3 > a {
+  display: block;
+  flex: 0 0 auto;
+  min-width: 80px;
+  font-size: 16px;
+  letter-spacing: -0.32px;
+  box-shadow: none;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-left: 12px;
-  opacity: 0.8;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  column-gap: 12px;
+  row-gap: 4px;
+  flex: 1 1 auto;
   font-size: 14px;
+  letter-spacing: -0.28px;
+  line-height: normal;
+}
+/* EG-BIM/TOVA/GAIA/KNGIL이 각각 별도의 grid 컨테이너라 grid-template-columns:auto가
+   행마다 콘텐츠 기준으로 따로 계산되어 열 경계가 어긋났음(정렬 오류).
+   한국어판은 열 너비를 고정해 모든 행에서 동일한 위치에 정렬되도록 함. */
+html[lang="ko"] footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown {
+  width: 340px;
+}
+html[lang="ko"] footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
+  grid-template-columns: 84px 80px 1fr;
+}
+footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li {
+  
+  opacity: 0.8;
+  text-align: left;
+}
+
+
+footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3:hover li{
+  opacity: 1;
+}
+
+
+footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li a {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  word-break: keep-all;
+}
+/* footer에서만 "EG-BIM 소개" 등 소프트웨어명 접두어를 감추고 "소개"만 표시 */
+footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li a .sw_name {
+  display: none;
+}
+/* header 드롭다운·사이트맵 팝업에서는 "li.depth1 span" 전역 스타일(센터정렬 큰 글씨)이
+   depth3 안의 .sw_name span까지 덮어써서 깨지므로 원래 인라인 텍스트로 리셋 */
+header .header_inner .package_sw_dropdown .depth3 a .sw_name,
+header .sitemap .package_sw_dropdown .depth3 a .sw_name {
+  all: unset;
+  display: inline;
+  /* all:unset은 opacity(비상속 속성)를 항상 1로 되돌려서 부모 a의 hover opacity(0.8→1) 변화를
+     따라가지 못했음. color/opacity를 명시적으로 부모 상태에 동기화 */
+  color: inherit;
+  opacity: inherit;
 }
 footer .footer_inner .family_wrap {
-  grid-column: 2;
-  position: relative;
+  position: absolute;
+  right: 160px;
+  bottom: 50px;
   display: flex;
   height: max-content;
-  width: 160px;
+  width: 194px;
 }
 footer .footer_inner .family_wrap .family_btn {
-  background: rgba(255, 255, 255, 0.1333333333);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 14px;
-  font-weight: 500;
-  padding: 8px 12px;
+  font-weight: 700;
+  opacity: 0.8;
+  padding: 7px 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
   width: 100%;
-  height: 32px;
-  border-radius: 2px;
+  max-width: 500px;
+  height: 34px;
+  border-radius: 4px;
 }
 footer .footer_inner .family_wrap .family_btn i {
   width: 12px;
+  height: 12px;
   background: url(../img/ico_angle.svg) no-repeat center/contain;
-  _transform: scaleY(-1);
+  transform: scaleY(-1);
   transition: 0.2s;
 }
 footer .footer_inner .family_wrap:has(.family_on) .family_btn i {
-  transform: scaleY(-1);
+  transform: scaleY(1);
 }
 footer .footer_inner .family_wrap .family_list {
   background: #fff;
   width: 100%;
-  border-radius: 0 0 4px 4px;
+  border-radius: 4px 4px 0 0;
   padding: 0 10px;
   box-sizing: border-box;
-  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1333333333);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1333333333);
   display: none;
   position: absolute;
-  top: 100%;
+  bottom: 100%;
 }
 footer .footer_inner .family_wrap .family_list.family_on {
   display: block;
@@ -885,46 +1135,52 @@ footer .footer_inner .family_wrap .family_list li a:hover {
   color: #000;
   font-weight: 500;
 }
-footer .footer_inner hr {
-  display: block;
-  grid-column: span 2;
-  border: 0;
-  border-top: 1px solid #fff;
-  opacity: 0.2;
-}
 footer .footer_inner .footer_info {
-  grid-column: span 2;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 32px;
-  height: max-content;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex: 0 0 408px;
+  width: 408px;
   letter-spacing: 0;
 }
+
 footer .footer_inner .footer_info .home {
   display: inline-block;
-  width: 160px;
-  height: 24px;
+  width: 250px;
+  height: 34px;
+  margin-top: 32px;
+  margin-bottom: 74px;
   background-image: url(../img/logo_w.svg);
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center center;
+  background-position: left center;
   color: transparent;
 }
 footer .footer_inner .footer_info span {
-  display: inline-block;
+  display: block;
   font-size: 16px;
+  letter-spacing: -0.64px;
   white-space: nowrap;
 }
 footer .footer_inner .footer_info span em {
   padding-right: 4px;
-  font-weight: 300;
+  font-weight: 400;
   opacity: 0.5;
 }
-footer .footer_inner .footer_info span:last-child {
-  margin-left: auto;
+footer .footer_inner .footer_contact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+footer .footer_inner .footer_info > span:first-of-type {
+  margin-top: 16px;
+}
+footer .footer_inner .footer_info .copyright {
+  margin-top: 16px;
   font-size: 14px;
+  letter-spacing: 0;
 }
 footer .btn_top {
   position: fixed;
@@ -971,19 +1227,21 @@ footer .btn_top .arrow::after {
 footer .btn_top .arrow::before {
   transform: translateX(calc(-50% - 6px)) rotate(-45deg);
 }
-footer .btn_top:hover::after {
-  transition: 0.2s;
-  padding: 0;
-}
-footer .btn_top:hover .arrow {
-  transition: 0.2s;
-  padding: 0;
-  bottom: 12px;
-}
-footer .btn_top:hover .arrow::after,
-footer .btn_top:hover .arrow::before {
-  transition: 0.2s;
-  padding: 0;
+@media (hover: hover) {
+  footer .btn_top:hover::after {
+    transition: 0.2s;
+    padding: 0;
+  }
+  footer .btn_top:hover .arrow {
+    transition: 0.2s;
+    padding: 0;
+    bottom: 12px;
+  }
+  footer .btn_top:hover .arrow::after,
+  footer .btn_top:hover .arrow::before {
+    transition: 0.2s;
+    padding: 0;
+  }
 }
 
 /* 공통적용 - 상단 브래드크럼 map_list */
@@ -991,9 +1249,10 @@ footer .btn_top:hover .arrow::before {
 .map_list {
   display: flex;
   align-items: center;
-  position: sticky;
+  position: fixed;
+  right: 0;
   top: 124px;
-  z-index: 10;
+  z-index: 99;
   color: rgb(255, 255, 255);
   width: max-content;
   height: 0px;
@@ -1110,6 +1369,13 @@ header#header_recruit .btn_menu {
 }
 
 /* media query */
+
+@media all and (max-width: 1700px) {
+  footer .footer_inner {
+    padding: 40px 60px 50px;
+  }
+}
+
 @media all and (max-width: 1400px) {
   html {
     min-width: 100%;
@@ -1118,9 +1384,13 @@ header#header_recruit .btn_menu {
     min-width: 100%;
   }
   header {
-    background: none;
     height: 50px;
     border-bottom: none;
+  }
+
+  /* index/dx 페이지는 어두운 히어로 위에 떠 있는 헤더라 투명 + 흰색 아이콘을 유지 */
+  body:has(.index, .dx) header {
+    background: none;
   }
 
   header.open,
@@ -1136,13 +1406,13 @@ header#header_recruit .btn_menu {
     width: 36px;
     -webkit-mask-image: url(../img/logo.svg);
     mask-image: url(../img/logo.svg);
-    background-color: #fff;
+    background-color: #0c367f;
   }
-  body:has(.dx) header .header_inner .logo_box a.logo {
+  body:has(.index, .dx) header .header_inner .logo_box a.logo {
     background-color: #fff;
   }
 
-  body:has(.dx) header:hover .header_inner .logo_box a.logo,
+  body:has(.index, .dx) header:hover .header_inner .logo_box a.logo,
   header:hover .header_inner .logo_box a.logo,
   header.open .header_inner .logo_box a.logo {
     background-color: #0c367f;
@@ -1154,10 +1424,32 @@ header#header_recruit .btn_menu {
     display: none;
   }
 
-  header:not(.open) .header_inner .btn_menu div {
+  body:has(.index, .dx) header:not(.open) .header_inner .btn_menu div {
     background-color: #fff;
   }
   header:not(.open):hover .header_inner .btn_menu div {
+    background-color: #000;
+  }
+
+  body:has(.index, .dx) header .header_inner .header_R .language::before {
+    background-image: url(../img/ico_language_w.svg);
+  }
+  body:has(.index, .dx) header .header_inner .header_R .language a {
+    color: #fff;
+  }
+  body:has(.index, .dx) header .header_inner .header_R .language a:first-child::after {
+    background-color: #fff;
+  }
+  header:hover .header_inner .header_R .language::before,
+  header.open .header_inner .header_R .language::before {
+    background-image: url(../img/ico_language.svg);
+  }
+  header:hover .header_inner .header_R .language a,
+  header.open .header_inner .header_R .language a {
+    color: #000;
+  }
+  header:hover .header_inner .header_R .language a:first-child::after,
+  header.open .header_inner .header_R .language a:first-child::after {
     background-color: #000;
   }
 
@@ -1200,6 +1492,11 @@ header#header_recruit .btn_menu {
   }
 
   /* 모바일 메뉴 */
+  .popup_wrap.sitemap {
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    z-index: 1;
+  }
   header .sitemap .popup_contents_wrap {
     width: 84.4444%;
     max-width: 640px;
@@ -1222,9 +1519,6 @@ header#header_recruit .btn_menu {
     width: 133px;
     background-color: #fff;
   }
-  header .sitemap .btn_close i {
-    margin-top: 12px;
-  }
   header .sitemap .btn_close i::after,
   header .sitemap .btn_close i::before {
     background-color: #fff;
@@ -1241,7 +1535,7 @@ header#header_recruit .btn_menu {
   header .sitemap nav ol {
     display: block;
     align-content: baseline;
-    padding-top: 24px;
+    padding-top: 8px;
     padding-bottom: 80px;
     height: auto;
   }
@@ -1266,7 +1560,7 @@ header#header_recruit .btn_menu {
     cursor: pointer;
     font-weight: 400;
   }
-  header .sitemap nav ol li.depth1 span::after {
+  header .sitemap nav ol li.depth1 > span::after {
     content: " ";
     position: absolute;
     right: 25px;
@@ -1278,17 +1572,23 @@ header#header_recruit .btn_menu {
     transform: rotate(-135deg);
     transition: transform 0.3s ease-out;
   }
-  header .sitemap nav ol li.depth1.active span::after {
+  header .sitemap nav ol li.depth1.active > span::after {
     transform: rotate(45deg);
-    top: 42%;
+    top: 40%;
   }
 
   header .sitemap nav ol li.depth1 span em {
-    display: inline;
-    font-size: inherit;
-    color: inherit;
-    opacity: 1;
-    margin-right: 6px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease-in;
+  }
+  header .sitemap nav ol li.depth1:last-child span i {
+    display: inline-block;
+    float: right;
+    width: 20px;
+    height: 20px;
+    background: url(../img/ico_more.svg) no-repeat center / contain;
   }
 
   header .sitemap nav ol li.depth1 ul.depth2 {
@@ -1300,33 +1600,43 @@ header#header_recruit .btn_menu {
     transition: max-height 0.3s ease-out;
     border-bottom: none;
   }
-  header .sitemap nav ol li.depth1 ul.depth2 li {
-    padding: 16px 40px;
+  header .sitemap nav ol li.depth1 ul.depth2 li{
+    padding: 16px 28px;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     font-size: 16px;
     opacity: 0.6;
     width: 100%;
   }
-  header .sitemap nav ol li.depth1 ul.depth2 li.has_depth3 {
-    opacity: 1;
-  }
-  header .sitemap nav ol li.depth1 ul.depth2 li.has_depth3 > a {
-    font-weight: 700;
-  }
   header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 {
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     margin-top: 12px;
     padding-top: 12px;
     font-size: 14px;
     opacity: 1;
   }
-  header .sitemap nav ol li.depth1:nth-child(1) ul.depth2 li.has_depth3 ul.depth3,
-  header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3 {
-    grid-template-columns: none;
+
+  header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 > a,
+  header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 > a{
+    width: auto;
+    min-width: auto;
+    padding-right: 0;
+    border-right: 0;
+    opacity: 1;
   }
+
+  header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3,
+  header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3{
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  header .sitemap nav ol li.depth1:nth-child(4) ul.depth2 li.has_depth3 ul.depth3,
+  header .sitemap nav ol li.depth1:nth-child(5) ul.depth2 li.has_depth3 ul.depth3{
+    gap: 4px;
+    grid-auto-flow: row;
+  }
+
   header .sitemap nav ol li.depth1 ul.depth2 li ul.depth3 li {
     padding: 0;
     border: 0;
@@ -1401,21 +1711,40 @@ header#header_recruit .btn_menu {
     padding: 38px 24px 44px;
   }
 
-  footer .footer_inner .nav,
-  footer .footer_inner hr {
+  footer .footer_inner .nav {
     display: none;
   }
+
 
   footer .footer_inner .footer_info {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
+    flex: 0 0 auto;
     gap: 10px;
-    width: 100vw;
+    width: 100%;
   }
+
+  footer .footer_inner .footer_contact {
+    display: contents;
+  }
+
+  footer .footer_inner .footer_info > span:first-of-type {
+    margin-top: 0;
+  }
+  
+  footer .footer_inner .footer_info span{
+    white-space: normal;
+    word-break: break-word;
+  }
+
   footer .footer_inner .footer_info .logo {
     width: 100%;
+  }
+
+  footer .footer_inner .footer_info .home {
+    margin-bottom: 16px;
   }
 
   footer .footer_inner .footer_info h1 {
@@ -1425,6 +1754,7 @@ header#header_recruit .btn_menu {
     margin-bottom: 16px;
   }
   footer .footer_inner .family_wrap {
+    position: static;
     width: 100%;
     max-width: 360px;
   }
@@ -1444,7 +1774,7 @@ header#header_recruit .btn_menu {
     font-size: 14px;
     font-weight: 400;
   }
-  footer .footer_inner .footer_info span:last-child {
+  footer .footer_inner .footer_info .copyright {
     display: block;
     margin: auto;
     width: 100%;
@@ -1454,9 +1784,7 @@ header#header_recruit .btn_menu {
     padding-right: 24px;
     top: 74px;
   }
-}
 
-@media all and (max-width: 768px) {
   footer .footer_inner .footer_info {
     flex-wrap: nowrap;
     flex-direction: column;
@@ -1476,6 +1804,10 @@ header#header_recruit .btn_menu {
     left: calc(50% - 10px);
   }
 
+  footer .btn_top::before{
+    display: none;
+  }
+
   footer .btn_top .arrow {
     height: 22px;
   }
@@ -1489,5 +1821,15 @@ header#header_recruit .btn_menu {
   }
   footer .btn_top .arrow::after {
     transform: translateX(calc(-50% + 4px)) rotate(45deg);
+  }
+}
+
+@media all and (max-width: 768px) {
+  .map_list li:not(:first-child):not(.on) {
+    font-size: 0;
+  }
+  .map_list li:not(:first-child):not(.on)::after {
+    content: "..";
+    font-size: 14px;
   }
 }

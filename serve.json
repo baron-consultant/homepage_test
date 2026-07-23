@@ -1,0 +1,7 @@
+{
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/", "destination": "/ko/index.html", "type": 302 }
+  ]
+}

@@ -2479,7 +2479,7 @@ body:has(.br) {
     gap: 0;
   }
   .br.value section.sub1 .column_wrap li > .icon_wrap p {
-    font-size: clamp(18px, 4vw, 36px);
+    font-size: clamp(18px, 4vw, 28px);
   }
   .br.value section.sub1 .column_wrap li > .icon_wrap img:not(.bg_line) {
     min-width: 32px;
