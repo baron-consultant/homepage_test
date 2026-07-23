@@ -996,6 +996,7 @@ footer .footer_inner nav ol li.depth1 {
 footer .footer_inner nav ol li.depth1 span {
   font-size: 16px;
   font-weight: 700;
+  white-space: nowrap;
   position: relative;
 }
 footer .footer_inner nav ol li.depth1 span::after {
@@ -1012,6 +1013,7 @@ footer .footer_inner nav ol li.depth1 span em {
   opacity: 0.5;
   font-size: 14px;
   font-weight: 400;
+  white-space: nowrap;
 }
 footer .footer_inner nav ol li.depth1 span i {
   display: inline-block;
@@ -1042,7 +1044,7 @@ footer .footer_inner nav ol li.depth1 ul.depth2 {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   letter-spacing: -0.32px;
   line-height: normal;
@@ -1053,7 +1055,9 @@ footer .footer_inner nav ol li.depth1 ul.depth2 li.has_depth3 {
   gap: 12px;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li a {
+  display: block;
   opacity: 0.8;
+  white-space: nowrap;
   transition: opacity 0.2s ease;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li a:hover {
@@ -1066,7 +1070,7 @@ footer .footer_inner nav ol li.depth1 ul.depth2 li a:hover {
    우측 3열 그리드가 나란히 노출 (Figma node 12225:1056 기준) */
 footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown {
   gap: 12px;
-  width: 319px;
+  width: max-content;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown li.has_depth3 {
   flex-direction: row;
@@ -1091,7 +1095,7 @@ footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown li.has_depth
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
   display: grid;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: repeat(2, auto);
   column-gap: 12px;
   row-gap: 4px;
   flex: 1 1 auto;
@@ -1103,10 +1107,10 @@ footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
    행마다 콘텐츠 기준으로 따로 계산되어 열 경계가 어긋났음(정렬 오류).
    한국어판은 열 너비를 고정해 모든 행에서 동일한 위치에 정렬되도록 함. */
 html[lang="ko"] footer .footer_inner nav ol li.depth1 ul.depth2.package_sw_dropdown {
-  width: 340px;
+  width: 280px;
 }
 html[lang="ko"] footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 {
-  grid-template-columns: 84px 80px 1fr;
+  grid-template-columns: 70px 110px;
 }
 footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li {
   
@@ -1130,16 +1134,10 @@ footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li a {
 footer .footer_inner nav ol li.depth1 ul.depth2 li ul.depth3 li a .sw_name {
   display: none;
 }
-/* header 드롭다운·사이트맵 팝업에서는 "li.depth1 span" 전역 스타일(센터정렬 큰 글씨)이
-   depth3 안의 .sw_name span까지 덮어써서 깨지므로 원래 인라인 텍스트로 리셋 */
+/* 헤더 드롭다운·사이트맵 팝업에서도 footer와 동일하게 "EG-BIM 소개" 등 소프트웨어명 접두어를 감추고 "소개"만 표시 */
 header .header_inner .package_sw_dropdown .depth3 a .sw_name,
 header .sitemap .package_sw_dropdown .depth3 a .sw_name {
-  all: unset;
-  display: inline;
-  /* all:unset은 opacity(비상속 속성)를 항상 1로 되돌려서 부모 a의 hover opacity(0.8→1) 변화를
-     따라가지 못했음. color/opacity를 명시적으로 부모 상태에 동기화 */
-  color: inherit;
-  opacity: inherit;
+  display: none;
 }
 footer .footer_inner .family_wrap {
   position: absolute;
@@ -1263,6 +1261,10 @@ html[data-baron-auth-state="authenticated"] footer .footer_inner nav {
   order: 1;
   flex: 1 1 auto;
   width: 100%;
+}
+
+html[data-baron-auth-state="authenticated"] footer .footer_inner nav ol {
+  gap: 48px;
 }
 
 html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info {
