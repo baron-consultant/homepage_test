@@ -38,11 +38,15 @@
     filter: none;
   }
 
+  html[data-baron-page-mode="landing"] header:hover .header_login_trigger img {
+    filter: brightness(0);
+  }
+
   header .header_login_menu {
     position: absolute;
     top: 100%;
     left: 50%;
-    margin-top: 12px;
+    padding-top: 12px;
     transform: translateX(-50%) translateY(4px);
     opacity: 0;
     visibility: hidden;
@@ -62,7 +66,7 @@
   header .header_login_menu::before {
     content: "";
     position: absolute;
-    top: -6px;
+    top: 6px;
     left: 50%;
     transform: translateX(-50%);
     width: 0;
@@ -80,9 +84,17 @@
     font-size: 13px;
     font-weight: 700;
     padding: 10px 22px;
+    border: 2px solid transparent;
     border-radius: 10px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
     text-align: center;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  header .header_login_link:hover {
+    background: #ffcc00;
+    border-color: #ffffff;
   }
 
   @media (max-width: 768px) {
