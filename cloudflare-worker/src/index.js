@@ -142,7 +142,7 @@ export default {
         continue;
       }
 
-      return createObjectResponse(object, key, request.method === 'HEAD', session, url);
+      return createObjectResponse(object, key, request.method === 'HEAD', session, url, config);
     }
 
     return new Response('Not Found', {
@@ -541,7 +541,7 @@ function hasFileExtension(pathname) {
   return lastSegment.includes('.');
 }
 
-async function createObjectResponse(object, key, headOnly, session, url) {
+async function createObjectResponse(object, key, headOnly, session, url, config) {
   const headers = new Headers();
   object.writeHttpMetadata(headers);
   headers.set('etag', object.httpEtag);
@@ -564,18 +564,18 @@ async function createObjectResponse(object, key, headOnly, session, url) {
   }
 
   let html = await object.text();
-  html = injectWorkerBootstrap(html, session, url);
+  html = injectWorkerBootstrap(html, session, url, config);
   headers.set('cache-control', 'no-store');
   return new Response(html, { status: 200, headers });
 }
 
-function injectWorkerBootstrap(html, session, url) {
+function injectWorkerBootstrap(html, session, url, config) {
   const bootstrap = {
     mode: 'worker',
     authenticated: Boolean(session),
     profile: sanitizeProfile(session?.profile || null),
     loginUrl: buildWorkerLoginUrl(url),
-    logoutUrl: `/auth/logout?returnTo=${encodeURIComponent(buildSafeReturnTo(url))}`,
+    logoutUrl: buildWorkerLogoutUrl(url, config),
   };
 
   const script = `<script>window.BARON_WORKER_AUTH=${JSON.stringify(bootstrap).replace(/</g, '\\u003c')};</script>`;
@@ -588,6 +588,11 @@ function injectWorkerBootstrap(html, session, url) {
   }
 
   return `${script}${html}`;
+}
+
+function buildWorkerLogoutUrl(url, config) {
+  const returnTo = sanitizeReturnTo(config?.postLogoutRedirectUri, url.origin, '/');
+  return `/auth/logout?returnTo=${encodeURIComponent(returnTo)}`;
 }
 
 function sanitizeProfile(profile) {
