@@ -14,6 +14,8 @@ const DEFAULT_PUBLIC_EXACT_PATHS = [
   '/en/index.html',
   '/ko/sv_sw_kngil.html',
   '/en/sv_sw_kngil.html',
+  '/ko/sv_bigroom.html',
+  '/en/sv_bigroom.html',
   '/_include/header.html',
   '/_include/footer.html',
   '/_include/nav-public.html',
