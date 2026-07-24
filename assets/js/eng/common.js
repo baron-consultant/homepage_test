@@ -11,6 +11,15 @@ const normalizePath = (path) => {
   return normalizedPath;
 };
 const currentPath = normalizePath(location.pathname);
+const matchesPublicPath = (path, entry) => {
+  const normalizedEntry = normalizePath(entry);
+
+  if (normalizedEntry.endsWith('_')) {
+    return path.startsWith(normalizedEntry);
+  }
+
+  return path === normalizedEntry || path.startsWith(`${normalizedEntry}/`);
+};
 const landingPagePaths = [
   `${rootPrefix}/ko`,
   `${rootPrefix}/ko/`,
@@ -21,23 +30,26 @@ const landingPagePaths = [
 ];
 const publicPagePaths = [
   ...landingPagePaths,
-  `${rootPrefix}/ko/sv_sw_kngil.html`,
-  `${rootPrefix}/en/sv_sw_kngil.html`,
+  `${rootPrefix}/ko/sv_sw.html`,
+  `${rootPrefix}/en/sv_sw.html`,
+  `${rootPrefix}/ko/sv_sw_`,
+  `${rootPrefix}/en/sv_sw_`,
+  `${rootPrefix}/ko/egbim`,
+  `${rootPrefix}/en/egbim`,
+  `${rootPrefix}/ko/tova`,
+  `${rootPrefix}/en/tova`,
   `${rootPrefix}/ko/pr_`,
   `${rootPrefix}/en/pr_`,
   `${rootPrefix}/ko/gaia`,
   `${rootPrefix}/en/gaia`,
+  `${rootPrefix}/ko/kngil`,
+  `${rootPrefix}/en/kngil`,
+  `${rootPrefix}/ko/sv_bigroom.html`,
+  `${rootPrefix}/en/sv_bigroom.html`,
 ];
 const normalizedLandingPagePaths = landingPagePaths.map(normalizePath);
 const isLandingPage = normalizedLandingPagePaths.includes(currentPath);
-const isPublicInfoPage = publicPagePaths.some((entry) => {
-  const normalizedEntry = normalizePath(entry);
-  if (normalizedEntry.endsWith('/pr_')) {
-    return currentPath.startsWith(normalizedEntry);
-  }
-
-  return currentPath === normalizedEntry || currentPath.startsWith(`${normalizedEntry}/`);
-});
+const isPublicInfoPage = publicPagePaths.some((entry) => matchesPublicPath(currentPath, entry));
 const loginRequested = isPublicInfoPage && new URL(window.location.href).searchParams.get('login') === '1';
 
 if (isLandingPage) {

@@ -87,6 +87,17 @@ function normalizePath(path) {
   return normalizedPath;
 }
 
+function matchesPublicPath(path, entry) {
+  const normalizedPath = normalizePath(path);
+  const normalizedEntry = normalizePath(entry);
+
+  if (normalizedEntry.endsWith("_")) {
+    return normalizedPath.startsWith(normalizedEntry);
+  }
+
+  return normalizedPath === normalizedEntry || normalizedPath.startsWith(`${normalizedEntry}/`);
+}
+
 function detectLocale() {
   return window.location.pathname.startsWith("/en/") ? "en" : "ko";
 }
@@ -269,10 +280,7 @@ function isConfigured(config) {
 
 function isPublicPath(config) {
   const currentPath = normalizePath(window.location.pathname);
-  return config.publicPaths.some((entry) => {
-    const normalizedEntry = normalizePath(entry);
-    return currentPath === normalizedEntry || currentPath.startsWith(`${normalizedEntry}/`);
-  });
+  return config.publicPaths.some((entry) => matchesPublicPath(currentPath, entry));
 }
 
 function buildRedirectUri(config) {
@@ -836,11 +844,7 @@ export async function ensureBaronSsoAuth(overrides = {}) {
   const hasCallbackParams = currentUrl.searchParams.has("code") || currentUrl.searchParams.has("state");
   const workerAuth = getWorkerManagedAuth();
   const workerPublicPaths = normalizeArray(overrides.publicPaths);
-  const workerPublicPath = workerPublicPaths.some((entry) => {
-    const currentPath = normalizePath(window.location.pathname);
-    const normalizedEntry = normalizePath(entry);
-    return currentPath === normalizedEntry || currentPath.startsWith(`${normalizedEntry}/`);
-  });
+  const workerPublicPath = workerPublicPaths.some((entry) => matchesPublicPath(window.location.pathname, entry));
   const workerForceAuth = Boolean(overrides.forceAuth);
 
   if (workerAuth) {
