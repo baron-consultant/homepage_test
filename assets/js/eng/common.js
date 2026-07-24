@@ -224,7 +224,7 @@ $(function () {
       return;
     }
 
-    const allowedLabels = ['Package S/W', 'Service S/W', 'PR Center'];
+    const allowedLabels = ['Package S/W', 'Service S/W', 'Big Room', 'PR Center'];
     const topLevels = root.querySelectorAll('ol > li.depth1');
     topLevels.forEach((item) => {
       const label = item.querySelector('span')?.textContent.replace(/\s+/g, ' ').trim() || '';

@@ -234,7 +234,7 @@ $(function () {
       return;
     }
 
-    const allowedLabels = ['패키지 S/W', '서비스 S/W', '홍보센터'];
+    const allowedLabels = ['패키지 S/W', '서비스 S/W', '빅룸', '홍보센터'];
     const topLevels = root.querySelectorAll('ol > li.depth1');
     topLevels.forEach((item) => {
       const label = item.querySelector('span')?.textContent.replace(/\s+/g, ' ').trim() || '';
