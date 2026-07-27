@@ -461,9 +461,31 @@
       <!-- // Main Container -->
       
       <footer id="footer"></footer>
+
+      <!-- popup_wrap -->
+      <div class="popup-wrap" id="pop_notice" role="dialog" aria-labelledby="notice_title" aria-modal="true">
+        <!-- popup_in -->
+        <div class="popup-in notice">
+          <span class="border-effect"></span>
+          <!-- popup_container -->
+          <div class="popup-container notice">
+            <div class="pop-contents" role="region" aria-label="공지">
+              <img src="./img/popup/260727_pop.png" alt="KNGIL 서비스 일시중단 안내: 건물 내 전기설비 점검 및 작업으로 인해 2026.7.27(월) 18:00부터 2026.7.28(화) 10:00까지 큰길 서비스 이용이 중단됩니다." id="notice_title" />
+            </div>
+            <div class="pop-footer">
+              <button type="button" class="pop-no-show" id="pop-no-show-btn" aria-label="오늘 하루 이 팝업 보지 않기">오늘 하루 보지 않기</button>
+              <button class="btn-close pop-close-btn" type="button" aria-label="팝업 닫기">닫기</button>
+            </div>
+          </div>
+          <!-- //popup_container -->
+        </div>
+        <!-- //popup_in -->
+      </div>
+      <!-- //popup_wrap -->
     </div>
     <script src="./js/layout-fix.js"></script>
     <script src="./js/floating-menu.js"></script>
     <script src="./js/primary.js"></script>
+    <script src="./js/notice-popup.js"></script>
   </body>
 </html>
