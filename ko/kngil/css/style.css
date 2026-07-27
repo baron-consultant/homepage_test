@@ -9976,4 +9976,12 @@ body.loaded .results-wrap {
     width: 100%;
     max-width: 420px;
   }
+
+  #pop_notice.popup-wrap {
+    padding: 8px;
+  }
+
+  #pop_notice .popup-in.notice .popup-container .pop-contents {
+    padding: 0;
+  }
 }
