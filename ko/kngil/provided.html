@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="../../assets/css/lib/lenis.min.css" />
     <link rel="stylesheet" href="../../assets/css/layout.css" />
     <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="./css/style.css" />
     <script src="../../assets/js/lib/jquery-3.6.1.min.js"></script>
     <script src="../../assets/js/lib/aos.min.js"></script>
@@ -611,7 +612,18 @@
           <!-- popup_container -->
           <div class="popup-container notice">
             <div class="pop-contents" role="region" aria-label="공지">
-              <img src="./img/popup/260727_pop.png" alt="KNGIL 서비스 일시중단 안내: 건물 내 전기설비 점검 및 작업으로 인해 2026.7.27(월) 18:00부터 2026.7.28(화) 10:00까지 큰길 서비스 이용이 중단됩니다." id="notice_title" />
+              <img class="notice-pop-desktop" src="./img/popup/260804_pop.png" alt="KNGIL 공지: ① 서비스 일시중단 안내 - 기술개발센터 내부 네트워크 점검 작업으로 인해 2026.8.7(금) 18:00부터 2026.8.12(수) 09:00까지 큰길 서비스 이용이 중단됩니다. ② 한글파일버전 추가 제공 안내 - 큰길 프로그램 고도화 작업완료에 따라 2026.8.12(수) 09:00부터 기존 엑셀파일과 동일한 문서형태의 한글파일이 추가 제공됩니다." id="notice_title" />
+              <div class="notice-pop-swiper swiper">
+                <div class="notice-pop-swiper__pagination"></div>
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <img src="./img/popup/260804_pop_mo1.png" alt="KNGIL 서비스 일시중단 안내: 기술개발센터 네트워크 점검으로 인해 2026.8.7(금) 18:00부터 2026.8.12(수) 09:00까지 큰길 서비스 이용이 중단됩니다. 서비스 일시중단 시작 전 이용을 마무리해 주시기 바랍니다." />
+                  </div>
+                  <div class="swiper-slide">
+                    <img src="./img/popup/260804_pop_mo2.png" alt="KNGIL 한글파일버전 추가 제공 안내: 큰길 프로그램 고도화 작업완료에 따라 2026년 8월 12일(수) 09:00부터 기존에 제공하던 엑셀파일과 동일한 문서형태의 한글파일이 추가 제공됩니다." />
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="pop-footer">
               <button type="button" class="pop-no-show" id="pop-no-show-btn" aria-label="오늘 하루 이 팝업 보지 않기">오늘 하루 보지 않기</button>
@@ -626,6 +638,7 @@
     </div>
     <script src="./js/floating-menu.js"></script>
     <script src="./js/provided.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./js/notice-popup.js"></script>
   </body>
 </html>

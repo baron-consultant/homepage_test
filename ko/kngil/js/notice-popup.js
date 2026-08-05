@@ -1,7 +1,7 @@
 (function () {
   var STORAGE_KEY = 'kngil_notice_popup_hide_date';
-  // 공지 내용(전기설비 점검) 종료 시각 이후에는 자동으로 팝업을 노출하지 않음
-  var EXPIRE_AT = new Date('2026-07-28T10:00:00+09:00').getTime();
+  // 공지 내용(서비스 일시중단 및 한글파일버전 추가 제공) 종료 시각 이후에는 자동으로 팝업을 노출하지 않음
+  var EXPIRE_AT = new Date('2026-08-12T09:00:00+09:00').getTime();
 
   function getLocalDateString() {
     var d = new Date();
@@ -30,24 +30,18 @@
     }
   }
 
-  function lockScroll() {
-    var scrollY = window.scrollY || window.pageYOffset || 0;
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + scrollY + 'px';
-    document.body.style.left = '0';
-    document.body.style.right = '0';
-    document.body.style.width = '100%';
-  }
-
-  function unlockScroll() {
-    var top = document.body.style.top;
-    var scrollY = top ? -parseInt(top, 10) : 0;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.left = '';
-    document.body.style.right = '';
-    document.body.style.width = '';
-    window.scrollTo(0, scrollY);
+  function initSwiper(wrap) {
+    var el = wrap.querySelector('.notice-pop-swiper');
+    if (!el || typeof window.Swiper === 'undefined') return;
+    new window.Swiper(el, {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: false,
+      pagination: {
+        el: el.querySelector('.notice-pop-swiper__pagination'),
+        clickable: true,
+      },
+    });
   }
 
   function isOpen(wrap) {
@@ -55,19 +49,19 @@
   }
 
   function openPopup(wrap) {
-    lockScroll();
     wrap.classList.add('is-open');
   }
 
   function closePopup(wrap) {
     if (!isOpen(wrap)) return;
     wrap.classList.remove('is-open');
-    unlockScroll();
   }
 
   function init() {
     var wrap = document.getElementById('pop_notice');
     if (!wrap) return;
+
+    initSwiper(wrap);
 
     if (!isExpired() && !isHiddenToday()) {
       openPopup(wrap);
@@ -80,12 +74,6 @@
         closePopup(wrap);
       }, remaining);
     }
-
-    wrap.addEventListener('click', function (e) {
-      if (e.target === wrap) {
-        closePopup(wrap);
-      }
-    });
 
     var noShowBtn = document.getElementById('pop-no-show-btn');
     if (noShowBtn) {

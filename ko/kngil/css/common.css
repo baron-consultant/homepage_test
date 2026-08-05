@@ -2124,15 +2124,7 @@ label {
     gap: 20px;
   }
 }
-#pop_notice.popup-wrap {
-  position: absolute;
-  left: 100px;
-  top: calc(50% + 20px);
-  transform: translate(0%, -50%);
-  width: 100%;
-  max-width: 820px;
-  height: auto;
-}
+/* #pop_notice.popup-wrap 자체 위치/크기는 style.css의 전용 재정의가 담당(중앙 정렬 PC / 하단 고정 모바일) */
 
 /* 그라데이션 테두리 효과 */
 #pop_notice.popup-wrap .border-effect {
@@ -2156,9 +2148,9 @@ label {
     height: calc(100% + 4px);
 }
 
-/* 공지 내부: max-content면 슬라이드 폭이 한 장 기준으로만 잡혀 PC 2열이 깨짐 */
+/* 배경 딤 처리 없음 */
 #pop_notice.popup-wrap::before{
-  background: transparent;
+  content: none;
 }
 
 @keyframes popNoticeFadeIn {
@@ -2182,6 +2174,7 @@ label {
 .popup-in.notice img {
   width: 100%;
   height: auto;
+  max-width: 979px;
 }
 
 .popup-in.notice .pop-contents {
@@ -2189,7 +2182,13 @@ label {
   max-width: 100%;
 }
 
+/* 데스크톱: 결합 이미지 1장, 모바일: 슬라이드 2장 중 택1 노출 */
+.popup-in.notice .notice-pop-desktop {
+  display: block;
+}
+
 .popup-in.notice .notice-pop-swiper {
+  display: none;
   width: 100%;
   max-width: 100%;
   overflow: hidden;
@@ -2210,7 +2209,7 @@ label {
 
 .popup-in.notice .notice-pop-swiper__pagination {
   position: relative;
-  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -2223,46 +2222,31 @@ label {
   background: rgba(0, 0, 0, 0.75);
 }
 
-@media only screen and (min-width: 722px) {
-  #pop_notice.popup-wrap {
-    /* max-width: min(max-content, 1680px); */
-    max-width: 600px;
-  }
-
-  /* PC: 이미지당 최대 490px, 배너 2개면 가로 490×2 영역 확보(index.js .notice-pop-swiper--dual-pc) */
-  .popup-in.notice .notice-pop-swiper.notice-pop-swiper--dual-pc {
-    width: min(100%, 980px);
-    max-width: min(100%, 980px);
-  }
-
-  .popup-in.notice .notice-pop-swiper .swiper-slide picture,
-  .popup-in.notice .notice-pop-swiper .swiper-slide img {
-    /*max-width: 490px;*/
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .popup-in.notice .notice-pop-swiper__pagination {
-    display: none;
+@media only screen and (min-width: 768px) {
+  /* PC: 팝업 이미지를 원본 크기(1011×717)의 50%로 노출 */
+  .popup-in.notice img {
+    width: 506px;
+    max-width: 100%;
+    height: auto;
   }
 }
 
-@media only screen and (max-width: 722px) {
+/* 모바일(767px 이하): 슬라이드로 한 장씩 노출 */
+@media only screen and (max-width: 767px) {
   .popup-in.notice,
   .popup-in.notice .pop-contents ,
-  .popup-in.notice .notice-pop-swiper { 
-    width: 100%;   
+  .popup-in.notice .notice-pop-swiper {
+    width: 100%;
+  }
+
+  .popup-in.notice .notice-pop-desktop {
+    display: none;
+  }
+
+  .popup-in.notice .notice-pop-swiper {
+    display: block;
   }
 }
-
-@media only screen and (max-width: 1080px) {
-  #pop_notice.popup-wrap {
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
 
 .popup-in.notice .popup-container {
   flex-direction: column;
@@ -2308,17 +2292,17 @@ label {
   padding: 0;
   width: auto;
 }
-@media only screen and (max-width: 721px) {
-  #pop_notice.popup-wrap{
-    top: auto;
-    bottom: 0;
-    transform: translate(-50%, 0);
+@media only screen and (max-width: 767px) {
+  /* 모바일: 골드 그라데이션 테두리 장식 제거, 하단 검정 그라데이션만 유지 */
+  #pop_notice.popup-wrap .border-effect {
+    display: none;
   }
+
   .popup-in.notice .popup-container {
     border-radius: 0;
-    background: linear-gradient(180deg, 
-  rgba(0, 0, 0, 0.00) 4.98%, 
-  rgba(0, 0, 0, 0.42) 19.23%, 
+    background: linear-gradient(180deg,
+  rgba(0, 0, 0, 0.00) 4.98%,
+  rgba(0, 0, 0, 0.42) 19.23%,
   rgba(0, 0, 0, 0.70) 100%
 );
     box-shadow: none;
