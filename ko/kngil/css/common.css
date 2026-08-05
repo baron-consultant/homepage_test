@@ -2185,6 +2185,7 @@ label {
 /* 데스크톱: 결합 이미지 1장, 모바일: 슬라이드 2장 중 택1 노출 */
 .popup-in.notice .notice-pop-desktop {
   display: block;
+  width: auto;
 }
 
 .popup-in.notice .notice-pop-swiper {
@@ -2209,7 +2210,6 @@ label {
 
 .popup-in.notice .notice-pop-swiper__pagination {
   position: relative;
-  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -2245,6 +2245,11 @@ label {
 
   .popup-in.notice .notice-pop-swiper {
     display: block;
+  }
+
+  .popup-in.notice .notice-pop-swiper .swiper-slide img {
+    width: 92%;
+    margin: 0 auto;
   }
 }
 
@@ -2307,6 +2312,8 @@ label {
 );
     box-shadow: none;
     overflow: hidden;
+    min-height: 60vh;
+    justify-content: flex-end;
   }
 
   .popup-in.notice .popup-container .pop-contents {
