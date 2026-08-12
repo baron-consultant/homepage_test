@@ -922,7 +922,7 @@ html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol {
 }
 
 html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 {
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 210px 1fr;
 }
 
 html[lang="en"][data-baron-auth-state="authenticated"] header .sitemap nav ol li.depth1 span {
@@ -1288,7 +1288,7 @@ html[data-baron-auth-state="authenticated"] footer .footer_inner nav {
 }
 
 html[data-baron-auth-state="authenticated"] footer .footer_inner nav ol {
-  gap: 48px;
+  gap: 28px;
 }
 
 html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info {
