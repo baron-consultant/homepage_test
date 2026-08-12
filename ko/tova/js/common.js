@@ -1773,7 +1773,7 @@ function getBaronNavMarkup() {
                         </ul>
                     </li>
                     <li class="depth1 active">
-                        <span onclick="location.href='/ko/sv_sw.html'"><em>가치를 실현하는</em>패키지 S/W</span>
+                        <span onclick="location.href='/ko/sv_sw.html'"><em>혁신을 구현하는</em>패키지 S/W</span>
                         <ul class="depth2">
                             <li class="has_depth3">
                                 <a href="/ko/sv_sw.html">TOVA</a>
@@ -1796,9 +1796,9 @@ function getBaronNavMarkup() {
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/ko/sv_bigroom.html'"><em>가치를 실현하는</em>빅룸</span>
+                        <span onclick="location.href='/ko/sv_bigroom.html'"><em>협업을 지원하는</em>빅룸</span>
                         <ul class="depth2">
-                            <li><a href="/ko/sv_bigroom.html">빅룸</a></li>
+                            <li><a href="/ko/sv_bigroom.html">협업을 지원하는 빅룸</a></li>
                         </ul>
                     </li>
                     <li class="depth1">

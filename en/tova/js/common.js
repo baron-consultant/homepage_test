@@ -1735,7 +1735,7 @@ function getBaronNavMarkup() {
                         </ul>
                     </li>
                     <li class="depth1 active">
-                        <span onclick="location.href='/en/sv_sw.html'"><em>Realizing Value</em>Package S/W</span>
+                        <span onclick="location.href='/en/sv_sw.html'"><em>Realizing Innovation</em>Package S/W</span>
                         <ul class="depth2">
                             <li class="has_depth3">
                                 <a href="/en/sv_sw.html">TOVA</a>
@@ -1755,9 +1755,9 @@ function getBaronNavMarkup() {
                         </ul>
                     </li>
                     <li class="depth1">
-                        <span onclick="location.href='/en/sv_bigroom.html'"><em>Realizing Value</em>Big Room</span>
+                        <span onclick="location.href='/en/sv_bigroom.html'"><em>Supporting Collaboration</em>Big Room</span>
                         <ul class="depth2">
-                            <li><a href="/en/sv_bigroom.html">Big Room</a></li>
+                            <li><a href="/en/sv_bigroom.html">Supporting Collaboration Big Room</a></li>
                         </ul>
                     </li>
                     <li class="depth1">
