@@ -1,7 +1,7 @@
 (function () {
   var STORAGE_KEY = 'kngil_notice_popup_hide_date';
-  // 공지 내용(서비스 일시중단 및 한글파일버전 추가 제공) 종료 시각 이후에는 자동으로 팝업을 노출하지 않음
-  var EXPIRE_AT = new Date('2026-08-12T09:00:00+09:00').getTime();
+  // 공지 팝업 종료 시각 이후에는 자동으로 팝업을 노출하지 않음
+  var EXPIRE_AT = new Date('2026-08-18T13:00:00+09:00').getTime();
 
   function getLocalDateString() {
     var d = new Date();

@@ -2190,7 +2190,6 @@ label {
 /* 데스크톱: 결합 이미지 1장, 모바일: 슬라이드 2장 중 택1 노출 */
 .popup-in.notice .notice-pop-desktop {
   display: block;
-  width: auto;
 }
 
 .popup-in.notice .notice-pop-swiper {
