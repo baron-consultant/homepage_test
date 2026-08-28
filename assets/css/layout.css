@@ -1333,7 +1333,7 @@ html[data-baron-auth-state="authenticated"] footer .footer_inner .footer_info .c
 }
 
 html[data-baron-auth-state="authenticated"] footer .footer_inner .family_wrap {
-  position: static;
+  position: relative;
   margin-left: 16px;
 }
 } /* /@media (min-width: 1401px) 로그인 풋터 PC 전용 */
