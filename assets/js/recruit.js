@@ -1,4 +1,4 @@
-import lenis from "./common.js";
+import lenis from "./common.js?v=20260623-4";
 
 // ------------------------------
 // [1] ?�이??로딩 �??�렬

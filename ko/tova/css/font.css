@@ -1,5 +1,6 @@
 @charset "utf-8";
 @font-face {
+  font-display: swap;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 100;
@@ -8,6 +9,7 @@
          url(../font/NotoKR-Thin/notokr-thin.otf) format('opentype');
   }
   @font-face {
+  font-display: swap;
     font-family: 'Noto Sans KR';
     font-style: normal;
     font-weight: 300;
@@ -16,6 +18,7 @@
          url(../font/NotoKR-Light/notokr-light.otf) format('opentype');
   }
   @font-face {
+  font-display: swap;
      font-family: 'Noto Sans KR';
      font-style: normal;
      font-weight: 400;
@@ -24,6 +27,7 @@
           url(../font/NotoKR-Regular/notokr-regular.otf) format('opentype');
    }
   @font-face {
+  font-display: swap;
      font-family: 'Noto Sans KR';
      font-style: normal;
      font-weight: 500;
@@ -32,6 +36,7 @@
           url(../font/NotoKR-Medium/notokr-medium.otf) format('opentype');
    }
   @font-face {
+  font-display: swap;
      font-family: 'Noto Sans KR';
      font-style: normal;
      font-weight: 700;
@@ -40,6 +45,7 @@
           url(../font/NotoKR-Bold/notokr-bold.otf) format('opentype');
    }
   @font-face {
+  font-display: swap;
      font-family: 'Noto Sans KR';
      font-style: normal;
      font-weight: 900;

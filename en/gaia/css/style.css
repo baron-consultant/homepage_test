@@ -1302,14 +1302,14 @@ footer .address em {
 .value .intro::after {
   top: 0;
   left: 0;
-  background-image: url(../img/value_intro_bg_top.png);
+  background-image: url(../img/value_intro_bg_top.perf.webp);
   background-position: center top;
   background-size: 100% auto;
 }
 .value .intro::before {
   bottom: 0;
   right: 0;
-  background-image: url(../img/value_intro_bg_bottom.png);
+  background-image: url(../img/value_intro_bg_bottom.perf.webp);
   background-position: right bottom;
   background-size: 70vw;
   mix-blend-mode: overlay;
@@ -1909,7 +1909,7 @@ footer .address em {
   width: 100%;
   height: 100vh;
   background-color: #f3ece5;
-  background-image: url(../img/value_screen_bg.png);
+  background-image: url(../img/value_screen_bg.perf.webp);
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2193,7 +2193,7 @@ footer .address em {
   right: 15.5%;
 }
 .value .screen .guide.full .tab_item.i2 {
-  background-image: url(../img/value_screen2.jpg);
+  background-image: url(../img/value_screen2.perf.webp);
   z-index: 3;
 }
 .value .screen .guide.full .tab_item.i2::after {
@@ -2218,7 +2218,7 @@ footer .address em {
   flex-direction: row-reverse;
 }
 .value .screen .guide.full .tab_item.i3 {
-  background-image: url(../img/value_screen3.jpg);
+  background-image: url(../img/value_screen3.perf.webp);
   z-index: 2;
 }
 .value .screen .guide.full .tab_item.i3::after {
@@ -2242,7 +2242,7 @@ footer .address em {
   right: 4%;
 }
 .value .screen .guide.full .tab_item.i4 {
-  background-image: url(../img/value_screen4.jpg);
+  background-image: url(../img/value_screen4.perf.webp);
 }
 .value .screen .guide.full .tab_item.i4::after {
   background-image: url(../img/value_screen_tab3.svg);
@@ -2341,7 +2341,7 @@ footer .address em {
   line-height: 1.4em;
 }
 .primary .intro .top {
-  background-image: url(../img/primary_intro_bg.jpg);
+  background-image: url(../img/primary_intro_bg.perf.webp);
 }
 .primary .intro::after {
   position: absolute;
@@ -2619,10 +2619,10 @@ footer .address em {
   font-weight: inherit;
 }
 .primary .location .left .mid_tit {
-  background-image: url(../img/primary_01.png);
+  background-image: url(../img/primary_01.perf.webp);
 }
 .primary .model .left .mid_tit {
-  background-image: url(../img/primary_02.png);
+  background-image: url(../img/primary_02.perf.webp);
   left: calc(11rem - .75rem);
   width: calc(100vw - 11rem);
   max-width: 109rem;
@@ -2632,7 +2632,7 @@ footer .address em {
   bottom: -6.25rem;
 }
 .primary .modify .left .mid_tit {
-  background-image: url(../img/primary_03.png);
+  background-image: url(../img/primary_03.perf.webp);
 }
 .primary .key .right {
   padding: 0 12.5rem 5rem 0;
@@ -2717,64 +2717,64 @@ footer .address em {
 /* ------- location01 Web지도 활용한 시추조사 계획 */
 .primary .location01 .sub_figs .imgs .imgs_ani {
   animation: ani_location01 5s;
-  background-image: url("../img/location_img_01_01.png");
+  background-image: url("../img/location_img_01_01.perf.webp");
 }
 @keyframes ani_location01 {
   10% {
-    background-image: url("../img/location_img_01_01.png");
+    background-image: url("../img/location_img_01_01.perf.webp");
   }
   20% {
-    background-image: url("../img/location_img_01_02.png");
+    background-image: url("../img/location_img_01_02.perf.webp");
   }
   30% {
-    background-image: url("../img/location_img_01_02.png");
+    background-image: url("../img/location_img_01_02.perf.webp");
   }
   40% {
-    background-image: url("../img/location_img_01_03.png");
+    background-image: url("../img/location_img_01_03.perf.webp");
   }
   50% {
-    background-image: url("../img/location_img_01_03.png");
+    background-image: url("../img/location_img_01_03.perf.webp");
   }
   55% {
-    background-image: url("../img/location_img_01_04.png");
+    background-image: url("../img/location_img_01_04.perf.webp");
   }
   60% {
-    background-image: url("../img/location_img_01_03.png");
+    background-image: url("../img/location_img_01_03.perf.webp");
   }
   65% {
-    background-image: url("../img/location_img_01_04.png");
+    background-image: url("../img/location_img_01_04.perf.webp");
   }
   70% {
-    background-image: url("../img/location_img_01_03.png");
+    background-image: url("../img/location_img_01_03.perf.webp");
   }
   75% {
-    background-image: url("../img/location_img_01_04.png");
+    background-image: url("../img/location_img_01_04.perf.webp");
   }
   90% {
-    background-image: url("../img/location_img_01_04.png");
+    background-image: url("../img/location_img_01_04.perf.webp");
   }
 }
 
 /* ------- location02 실작업자 지정 시스템 */
 .primary .location02 .sub_figs .imgs .imgs_ani {
   animation: ani_location02 5s;
-  background-image: url("../img/location_img_02_01.png");
+  background-image: url("../img/location_img_02_01.perf.webp");
 }
 @keyframes ani_location02 {
   10% {
-    background-image: url("../img/location_img_02_01.png");
+    background-image: url("../img/location_img_02_01.perf.webp");
   }
   20% {
-    background-image: url("../img/location_img_02_02.png");
+    background-image: url("../img/location_img_02_02.perf.webp");
   }
   59% {
-    background-image: url("../img/location_img_02_02.png");
+    background-image: url("../img/location_img_02_02.perf.webp");
   }
   65% {
-    background-image: url("../img/location_img_02_04.png");
+    background-image: url("../img/location_img_02_04.perf.webp");
   }
   90% {
-    background-image: url("../img/location_img_02_04.png");
+    background-image: url("../img/location_img_02_04.perf.webp");
   }
 }
 .primary .location02 .sub_figs .imgs img.pop {
@@ -2811,17 +2811,17 @@ footer .address em {
 }
 .primary .location03 .sub_figs .imgs .imgs_ani {
   animation: ani_location03 5s;
-  background-image: url("../img/location_img_03_01.png");
+  background-image: url("../img/location_img_03_01.perf.webp");
 }
 @keyframes ani_location03 {
   10% {
-    background-image: url("../img/location_img_03_01.png");
+    background-image: url("../img/location_img_03_01.perf.webp");
   }
   20% {
-    background-image: url("../img/location_img_03_02.png");
+    background-image: url("../img/location_img_03_02.perf.webp");
   }
   90% {
-    background-image: url("../img/location_img_03_02.png");
+    background-image: url("../img/location_img_03_02.perf.webp");
   }
 }
 .primary .location03 .sub_figs .imgs .pop {
@@ -2882,23 +2882,23 @@ footer .address em {
 /* ------- model01 현장작업 모니터링 */
 .primary .model01 .sub_figs .imgs .imgs_ani {
   animation: ani_model01 4s;
-  background-image: url("../img/model_img_01_01.png");
+  background-image: url("../img/model_img_01_01.perf.webp");
 }
 @keyframes ani_model01 {
   10% {
-    background-image: url("../img/model_img_01_01.png");
+    background-image: url("../img/model_img_01_01.perf.webp");
   }
   30% {
-    background-image: url("../img/model_img_01_02.png");
+    background-image: url("../img/model_img_01_02.perf.webp");
   }
   65% {
-    background-image: url("../img/model_img_01_02.png");
+    background-image: url("../img/model_img_01_02.perf.webp");
   }
   70% {
-    background-image: url("../img/model_img_01_03.png");
+    background-image: url("../img/model_img_01_03.perf.webp");
   }
   90% {
-    background-image: url("../img/model_img_01_03.png");
+    background-image: url("../img/model_img_01_03.perf.webp");
   }
 }
 
@@ -3046,17 +3046,17 @@ footer .address em {
 }
 .primary .modify01 .sub_figs .imgs .imgs_ani {
   animation: ani_modify01 4s;
-  background-image: url("../img/modify_img_01_01.png");
+  background-image: url("../img/modify_img_01_01.perf.webp");
 }
 @keyframes ani_modify01 {
   20% {
-    background-image: url("../img/modify_img_01_01.png");
+    background-image: url("../img/modify_img_01_01.perf.webp");
   }
   30% {
-    background-image: url("../img/modify_img_01_02.png");
+    background-image: url("../img/modify_img_01_02.perf.webp");
   }
   80% {
-    background-image: url("../img/modify_img_01_02.png");
+    background-image: url("../img/modify_img_01_02.perf.webp");
   }
 }
 .primary .modify01 .sub_figs .imgs .pop {
@@ -3093,30 +3093,30 @@ footer .address em {
 /* ------- modify02 WYSIWYG */
 .primary .modify02 .sub_figs .imgs .imgs_ani {
   animation: ani_modify02 5s;
-  background-image: url("../img/modify_img_02_01.png");
+  background-image: url("../img/modify_img_02_01.perf.webp");
 }
 @keyframes ani_modify02 {
   /* 0%{}   */
   10% {
-    background-image: url("../img/modify_img_02_01.png");
+    background-image: url("../img/modify_img_02_01.perf.webp");
   }
   15% {
-    background-image: url("../img/modify_img_02_02.png");
+    background-image: url("../img/modify_img_02_02.perf.webp");
   }
   35% {
-    background-image: url("../img/modify_img_02_02.png");
+    background-image: url("../img/modify_img_02_02.perf.webp");
   }
   40% {
-    background-image: url("../img/modify_img_02_03.png");
+    background-image: url("../img/modify_img_02_03.perf.webp");
   }
   60% {
-    background-image: url("../img/modify_img_02_03.png");
+    background-image: url("../img/modify_img_02_03.perf.webp");
   }
   65% {
-    background-image: url("../img/modify_img_02_04.png");
+    background-image: url("../img/modify_img_02_04.perf.webp");
   }
   90% {
-    background-image: url("../img/modify_img_02_04.png");
+    background-image: url("../img/modify_img_02_04.perf.webp");
   }
 }
 
@@ -3126,23 +3126,23 @@ footer .address em {
 }
 .primary .modify03 .sub_figs .imgs .imgs_ani {
   animation: ani_modify03 6s;
-  background-image: url("../img/modify_img_03_01.png");
+  background-image: url("../img/modify_img_03_01.perf.webp");
 }
 @keyframes ani_modify03 {
   10% {
-    background-image: url("../img/modify_img_03_01.png");
+    background-image: url("../img/modify_img_03_01.perf.webp");
   }
   20% {
-    background-image: url("../img/modify_img_03_02.png");
+    background-image: url("../img/modify_img_03_02.perf.webp");
   }
   40% {
-    background-image: url("../img/modify_img_03_02.png");
+    background-image: url("../img/modify_img_03_02.perf.webp");
   }
   50% {
-    background-image: url("../img/modify_img_03_03.png");
+    background-image: url("../img/modify_img_03_03.perf.webp");
   }
   90% {
-    background-image: url("../img/modify_img_03_03.png");
+    background-image: url("../img/modify_img_03_03.perf.webp");
   }
 }
 .primary .modify03 .sub_figs .imgs .pop {
@@ -3165,20 +3165,20 @@ footer .address em {
   }
   60% {
     opacity: 1;
-    background-image: url(../img/modify_img_03_04.png);
+    background-image: url(../img/modify_img_03_04.perf.webp);
     transform: scale(1);
   }
   75% {
     opacity: 1;
-    background-image: url(../img/modify_img_03_04.png);
+    background-image: url(../img/modify_img_03_04.perf.webp);
   }
   76% {
     opacity: 1;
-    background-image: url(../img/modify_img_03_05.png);
+    background-image: url(../img/modify_img_03_05.perf.webp);
   }
   90% {
     opacity: 1;
-    background-image: url(../img/modify_img_03_05.png);
+    background-image: url(../img/modify_img_03_05.perf.webp);
     transform: scale(1);
   }
   100% {
@@ -3328,7 +3328,7 @@ footer .address em {
   line-height: 1.4em;
 }
 .results .intro .top {
-  background-image: url(../img/results_intro_bg.png);
+  background-image: url(../img/results_intro_bg.perf.webp);
 }
 .results .intro .keyword {
   margin-top: 3.75rem;
@@ -3644,7 +3644,7 @@ footer .address em {
   padding: 7.5rem 12.5rem 2.5rem;
   display: flex;
   flex-direction: column;
-  background: url(../img/slide_fix_bg.png),
+  background: url(../img/slide_fix_bg.perf.webp),
     linear-gradient(180deg, #f7f7f6 0%, #f7f7f600 10%);
   background-size: contain;
   background-repeat: no-repeat;
@@ -4156,29 +4156,29 @@ footer .address em {
 /*^ E: 개별 태그 */
 
 .results .route .imgs li.section_01_img ul {
-  background-image: url("../img/slide_img_01.png");
+  background-image: url("../img/slide_img_01.perf.webp");
 }
 .results .route .imgs li.section_02_img ul {
-  background-image: url("../img/slide_img_02.png");
+  background-image: url("../img/slide_img_02.perf.webp");
 }
 .results .route .imgs li.section_03_img ul {
-  background-image: url("../img/slide_img_03.png");
+  background-image: url("../img/slide_img_03.perf.webp");
 }
 .results .route .imgs li.section_03_img ul:has(li:nth-child(3).on) {
-  background-image: url("../img/slide_img_03_03.png"),
-    url("../img/slide_img_03.png");
+  background-image: url("../img/slide_img_03_03.perf.webp"),
+    url("../img/slide_img_03.perf.webp");
 }
 .results .route .imgs li.section_04_img ul {
-  background-image: url("../img/slide_img_04.png");
+  background-image: url("../img/slide_img_04.perf.webp");
 }
 .results .route .imgs li.section_05_img ul {
-  background-image: url("../img/slide_img_05.png");
+  background-image: url("../img/slide_img_05.perf.webp");
 }
 .results .route .imgs .section_01_img li:nth-child(1) {
   background-image: url("../img/slide_img_01_01.png");
 }
 .results .route .imgs .section_01_img li:nth-child(2) {
-  background-image: url("../img/slide_img_01_03.png");
+  background-image: url("../img/slide_img_01_03.perf.webp");
   background-size: 90% auto;
   background-position: bottom right .875rem;
 }
@@ -4188,7 +4188,7 @@ footer .address em {
   background-position: left .4375rem top;
 }
 .results .route .imgs .section_02_img li:nth-child(2) {
-  background-image: url("../img/slide_img_02_03.png");
+  background-image: url("../img/slide_img_02_03.perf.webp");
 }
 .results .route .imgs .section_03_img li:nth-child(1) {
   background-image: url("../img/slide_img_03_01.png");
@@ -4206,12 +4206,12 @@ footer .address em {
   animation: slide_up 0.3s ease-in;
 }
 .results .route .imgs .section_03_img li:nth-child(2) > div:nth-child(1) {
-  background-image: url("../img/slide_img_03_03.png");
+  background-image: url("../img/slide_img_03_03.perf.webp");
   background-size: 90% auto;
   background-position: bottom right 1.0625rem;
 }
 .results .route .imgs .section_03_img li:nth-child(2) > div:nth-child(2) {
-  background-image: url("../img/slide_img_03_04.png");
+  background-image: url("../img/slide_img_03_04.perf.webp");
   animation-delay: 0.7s;
   opacity: 0;
   animation-fill-mode: forwards;
@@ -4222,7 +4222,7 @@ footer .address em {
   background-image: url("../img/slide_img_04_01.png");
 }
 .results .route .imgs .section_04_img li:nth-child(2) {
-  background-image: url("../img/slide_img_04_03.png");
+  background-image: url("../img/slide_img_04_03.perf.webp");
   background-size: 92% auto;
   background-position: bottom right;
 }
@@ -4230,7 +4230,7 @@ footer .address em {
   background-image: url("../img/slide_img_05_01.png");
 }
 .results .route .imgs .section_05_img li:nth-child(2) {
-  background-image: url("../img/slide_img_05_03.png");
+  background-image: url("../img/slide_img_05_03.perf.webp");
 }
 .results:has(.section_05_img li:nth-child(2).on) .mouse_mark {
   opacity: 0 !important;
@@ -4976,7 +4976,7 @@ footer .address em {
   padding: 0;
 }
 .faq .intro .top {
-  background-image: url(../img/faq_intro_bg.png);
+  background-image: url(../img/faq_intro_bg.perf.webp);
 }
 /* -----------------------------------
    GAIA Q&A / FAQ 상단 탭 (EG-BIM 스타일 이식본)
@@ -5900,7 +5900,7 @@ footer .address em {
   right: 5.375rem;
   box-shadow: 1.25rem -1.25rem 3.125rem #000000cc;
   border: .25rem solid var(--color-primary);
-  background-image: url("../img/bg_pop.png");
+  background-image: url("../img/bg_pop.perf.webp");
   background-size: cover;
   background-repeat: no-repeat;
   border-radius: .3125rem 0 .3125rem .3125rem;
@@ -6039,7 +6039,7 @@ footer .address em {
   flex-direction: column;
   padding: 7.5rem 0 5.625rem 3rem;
   position: relative;
-  background-image: url("../img/bg_pop.png");
+  background-image: url("../img/bg_pop.perf.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top left;
@@ -9238,7 +9238,7 @@ footer .address em {
     position: absolute;
     left: 0;
     top: 0;
-    background: #f3ece5 no-repeat url("../img/value_screen_bg_m.png") center
+    background: #f3ece5 no-repeat url("../img/value_screen_bg_m.perf.webp") center
       bottom / 100% 59%;
   }
   .value .screen.m .fix {
@@ -9971,19 +9971,19 @@ footer .address em {
     background-position: center top;
   }
   .results .route .imgs li.section_01_img ul {
-    background-image: url("../img/slide_img_01_m.png");
+    background-image: url("../img/slide_img_01_m.perf.webp");
   }
   .results .route .imgs li.section_02_img ul {
-    background-image: url("../img/slide_img_02_m.png");
+    background-image: url("../img/slide_img_02_m.perf.webp");
   }
   .results .route .imgs li.section_03_img ul {
-    background-image: url("../img/slide_img_03_m.png");
+    background-image: url("../img/slide_img_03_m.perf.webp");
   }
   .results .route .imgs li.section_04_img ul {
-    background-image: url("../img/slide_img_04_m.png");
+    background-image: url("../img/slide_img_04_m.perf.webp");
   }
   .results .route .imgs li.section_05_img ul {
-    background-image: url("../img/slide_img_05_m.png");
+    background-image: url("../img/slide_img_05_m.perf.webp");
   }
   .results .route .imgs .section_01_img li:nth-child(1) {
     background-image: url("../img/slide_img_01_01_m.png");
@@ -9995,28 +9995,28 @@ footer .address em {
     background-image: url("../img/slide_img_02_01_m.png");
   }
   .results .route .imgs .section_02_img li:nth-child(2) {
-    background-image: url("../img/slide_img_02_03_m.png");
+    background-image: url("../img/slide_img_02_03_m.perf.webp");
   }
   .results .route .imgs .section_03_img li:nth-child(1) {
     background-image: url("../img/slide_img_03_01_m.png");
   }
   .results .route .imgs .section_03_img li:nth-child(2) > div:nth-child(1) {
-    background-image: url(../img/slide_img_03_03_m.png);
+    background-image: url(../img/slide_img_03_03_m.perf.webp);
   }
   .results .route .imgs .section_03_img li:nth-child(2) > div:nth-child(2) {
-    background-image: url(../img/slide_img_03_04_m.png);
+    background-image: url(../img/slide_img_03_04_m.perf.webp);
   }
   .results .route .imgs .section_04_img li:nth-child(1) {
     background-image: url("../img/slide_img_04_01_m.png");
   }
   .results .route .imgs .section_04_img li:nth-child(2) {
-    background-image: url("../img/slide_img_04_03_m.png");
+    background-image: url("../img/slide_img_04_03_m.perf.webp");
   }
   .results .route .imgs .section_05_img li:nth-child(1) {
     background-image: url("../img/slide_img_05_01_m.png");
   }
   .results .route .imgs .section_05_img li:nth-child(2) {
-    background-image: url("../img/slide_img_05_03_m.png");
+    background-image: url("../img/slide_img_05_03_m.perf.webp");
   }
 
   .results .route .imgs li.section_01_img .point_01 {

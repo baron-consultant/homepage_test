@@ -1222,7 +1222,7 @@ footer .address em.tel {
 /* TOVA소개 value */
 /* --------------------------------- */
 .value .intro {
-  background-image: url(../img/value_intro_bg.jpg);
+  background-image: url(../img/value_intro_bg.perf.webp);
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -1960,7 +1960,7 @@ footer .address em.tel {
   bottom: 50%;
   _transform: translateY(70%), scale(0.5);
   filter: drop-shadow(0 50px 60px #00000077);
-  background-image: url(../img/value_screen1.png);
+  background-image: url(../img/value_screen1.perf.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -2215,7 +2215,7 @@ footer .address em.tel {
   z-index: 10;
 }
 .value .screen .guide.full div[class*="li"] {
-  background-image: url(../img/value_screen1.png);
+  background-image: url(../img/value_screen1.perf.webp);
 }
 .value .screen .guide.full .mask.li1 {
   clip-path: inset(2.2% 46% 96% 0%);
@@ -2229,7 +2229,7 @@ footer .address em.tel {
     31.1% 40.4%,
     15.2% 40.4%
   );
-  background-image: url(../img/value_screen2.png);
+  background-image: url(../img/value_screen2.perf.webp);
 }
 .value .screen .guide.full .mask.li3 {
   clip-path: inset(7.5% 83% 18% 0);
@@ -2256,7 +2256,7 @@ footer .address em.tel {
   animation-duration: 3s;
 }
 .value .screen .guide.show_ani {
-  background-image: url(../img/value_screen2.png) !important;
+  background-image: url(../img/value_screen2.perf.webp) !important;
 }
 .value .screen .guide.show_ani .dim {
   display: block;
@@ -2264,7 +2264,7 @@ footer .address em.tel {
 .value .screen .guide.show_ani .mask {
   display: block !important;
   animation-name: show-mask-lis1;
-  background-image: url(../img/value_screen2.png);
+  background-image: url(../img/value_screen2.perf.webp);
 }
 .value .screen .guide.show_ani ul li:nth-of-type(-n + 4) {
   animation-name: show-z-lis1;
@@ -2702,7 +2702,7 @@ footer .address em.tel {
   top: 0;
 }
 .primary .net .left .mid_tit {
-  background-image: url(../img/primary_01.png);
+  background-image: url(../img/primary_01.perf.webp);
 }
 .primary .net .net01 .sub_figs {
   grid-template-columns: 2fr 1fr 1fr;
@@ -2942,7 +2942,7 @@ footer .address em.tel {
 }
 
 .primary .pub .left .mid_tit {
-  background-image: url(../img/primary_02.png);
+  background-image: url(../img/primary_02.perf.webp);
   left: calc(176px - 12px);
   width: calc(100vw - 176px);
 }
@@ -3091,7 +3091,7 @@ footer .address em.tel {
 }
 
 .primary .zone .left .mid_tit {
-  background-image: url(../img/primary_03.png);
+  background-image: url(../img/primary_03.perf.webp);
 }
 .primary .zone .zone01 .sub_figs {
   gap: 16px;
@@ -3740,7 +3740,7 @@ footer .address em.tel {
 /* 대중교통 public */
 /* --------------------------------- */
 .public .sub_text{text-align: justify; line-height: 1.4em;}
-.public .intro .top {background-image: url(../img/public_intro_bg.jpg);}
+.public .intro .top {background-image: url(../img/public_intro_bg.perf.webp);}
 .public .intro .condition {margin: 0 auto; text-align: center;}
 .public .intro .condition .diagram_wrap {display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 40px;margin: 60px 0;}
 .public .intro .condition .diagram_wrap .dia_element_bottom{display: flex; gap: 300px; position: absolute; bottom: 17px;}
@@ -3796,9 +3796,9 @@ footer .address em.tel {
 .public .route .imgs {grid-row: span 2; width: 100%; height: 100%; display: flex; gap: 16px;}
 .public .route .imgs li {width: 100%; height: 100%; background-position: center; background-size: cover; background-repeat: no-repeat; border-radius: 8px; opacity: 0.3;}
 .public .route .imgs li a {display: block; width: 100%; height: 100%;}
-.public .route .imgs li:nth-child(1) {background-image: url('../img/slide_img_bus.png');}
-.public .route .imgs li:nth-child(2) {background-image: url('../img/slide_img_subway.png');}
-.public .route .imgs li:nth-child(3) {background-image: url('../img/slide_img_trans.png');}
+.public .route .imgs li:nth-child(1) {background-image: url('../img/slide_img_bus.perf.webp');}
+.public .route .imgs li:nth-child(2) {background-image: url('../img/slide_img_subway.perf.webp');}
+.public .route .imgs li:nth-child(3) {background-image: url('../img/slide_img_trans.perf.webp');}
 .public .route .imgs li:hover {opacity: 1;}
 .public .route .imgs li.on {width: 300%; opacity: 1; transition: 1s ease; }
 .public .process .left{display: flex; flex-direction: column; justify-content: center; gap: 24px; min-width: 700px; padding: 0; padding-left: 300px; height:100vh}
@@ -3833,7 +3833,7 @@ footer .address em.tel {
   padding: 0;
 }
 .faq .intro .top {
-  background-image: url(../img/faq_intro_bg.png);
+  background-image: url(../img/faq_intro_bg.perf.webp);
 }
 .faq .sub_tab {
   display: flex;
@@ -4737,7 +4737,7 @@ footer .address em.tel {
   right: 86px;
   box-shadow: 20px -20px 50px #000000cc;
   border: 2px solid #000;
-  background-image: url("../img/bg_pop.png");
+  background-image: url("../img/bg_pop.perf.webp");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top left;
@@ -5540,7 +5540,7 @@ footer .address em.tel {
   background-repeat: no-repeat;
   z-index: 9;
   background-color: #00000003;
-  background-image: url("../img/bg_pop.png");
+  background-image: url("../img/bg_pop.perf.webp");
   overflow: hidden;
 }
 .privacy .tab_wrap {
@@ -7233,7 +7233,7 @@ footer .address em.tel {
     display: flex;
     justify-content: center;
     position: relative;
-    background: url(../img/value_screen1.png);
+    background: url(../img/value_screen1.perf.webp);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center top;

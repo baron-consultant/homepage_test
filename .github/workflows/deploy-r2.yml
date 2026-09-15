@@ -72,7 +72,7 @@ jobs:
 
           should_skip() {
             case "$1" in
-              .git/*|.github/*|cloudflare-worker/*|*.md|img/*|*/img/*|"") return 0 ;;
+              .git/*|.github/*|cloudflare-worker/*|.perf-tools/*|artifacts/*|scripts/*|docs/*|assets/media/*|*.md|img/*|*/img/*|"") return 0 ;;
               *) return 1 ;;
             esac
           }
@@ -132,6 +132,11 @@ jobs:
               --exclude ".git/*" \
               --exclude ".github/*" \
               --exclude "cloudflare-worker/*" \
+              --exclude ".perf-tools/*" \
+              --exclude "artifacts/*" \
+              --exclude "scripts/*" \
+              --exclude "docs/*" \
+              --exclude "assets/media/*" \
               --exclude "img/*" \
               --exclude "*/img/*" \
               --exclude "*.md" \

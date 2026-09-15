@@ -2885,7 +2885,7 @@ label {
   display: flex;
   flex-direction: column;
   padding: 120px 0 90px 48px;
-  background-image: url(../img/bg_pop.png);
+  background-image: url(../img/bg_pop.perf.webp);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top left;
@@ -3271,7 +3271,7 @@ label {
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  background-image: url(../img/bg_pop.png);
+  background-image: url(../img/bg_pop.perf.webp);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: top left;

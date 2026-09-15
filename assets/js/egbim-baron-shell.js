@@ -1117,23 +1117,22 @@
       .replace(/\.\.\/assets\//g, rootPrefix + '/assets/');
   }
 
+  // Share both in-flight and completed static includes within this page.
+  const htmlRequests = new Map();
+
   function loadBaronInclude(url, target, callback) {
-    $.ajax({
-      url: url,
-      async: true,
-      cache: false,
-      success: function (data) {
-        $(target).html(normalizeBaronIncludeHtml(data));
-        if (typeof callback === 'function') {
-          callback();
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error('Failed to load ' + url + ':', error || status);
-        if (typeof callback === 'function') {
-          callback();
-        }
-      }
+    let request = htmlRequests.get(url);
+    if (!request) {
+      request = $.ajax({ url, cache: true, dataType: "html", timeout: 5000 });
+      htmlRequests.set(url, request);
+      request.fail(function () { htmlRequests.delete(url); });
+    }
+    request.done(function (data) {
+      $(target).html(normalizeBaronIncludeHtml(data));
+      if (typeof callback === "function") callback();
+    }).fail(function (xhr, status, error) {
+      console.error(`Failed to load ${url}:`, error || status);
+      if (typeof callback === "function") callback();
     });
   }
 

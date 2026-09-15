@@ -500,7 +500,7 @@ html:has(.wrap.main) {
 }
 
 .value .visual {
-  background-image: url("../img/value/bg_value_visual.jpg");
+  background-image: url("../img/value/bg_value_visual.perf.webp");
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
@@ -1895,7 +1895,7 @@ html:has(.wrap.main) {
 }
 
 .value .value-features .feature-data::before {
-  background-image: url(../img/value/bg_value_data.png);
+  background-image: url(../img/value/bg_value_data.perf.webp);
 }
 
 .value .value-features .feature-data dt i {
@@ -2041,7 +2041,7 @@ html:has(.wrap.main) {
 }
 
 .provided .sub-header {
-  background: url(../img/provided/bg_provided_title.jpg) no-repeat center center;
+  background: url(../img/provided/bg_provided_title.perf.webp) no-repeat center center;
   background-size: cover;
 }
 
@@ -2866,28 +2866,28 @@ html:has(.wrap.main) {
 }
 
 .provided .process .left .bg:nth-child(1) {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_natural.png);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_natural.perf.webp);
   background-size: cover;
   background-position: bottom center;
 }
 
 @media only screen and (max-width: 998px) {
   .provided .process .left .bg:nth-child(1) {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_natural_m.png);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_natural_m.perf.webp);
     background-size: cover;
     background-position: center center;
   }
 }
 
 .provided .process .left .bg:nth-child(2) {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_social.png);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_social.perf.webp);
   background-size: cover;
   background-position: bottom center;
 }
 
 @media only screen and (max-width: 998px) {
   .provided .process .left .bg:nth-child(2) {
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_social_m.png);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.5019607843) 100%), url(../img/provided/bg_provided_social_m.perf.webp);
     background-size: cover;
     background-position: center center;
   }
@@ -5890,7 +5890,7 @@ html:has(.wrap.main) {
 }
 
 .primary .key.key .left .mid-tit {
-  background-image: url(../img/primary/bg_key_title.png);
+  background-image: url(../img/primary/bg_key_title.perf.webp);
 }
 
 @media (max-width: 1600px) {
@@ -6571,7 +6571,7 @@ html:has(.wrap.main) {
 }
 
 .analysis .spatial .left .mid-tit {
-  background-image: url(../img/analysis/bg_spatial_title.png);
+  background-image: url(../img/analysis/bg_spatial_title.perf.webp);
 }
 
 .analysis .spatial .spatial01 .sub-figs .apx {
@@ -6646,7 +6646,7 @@ html:has(.wrap.main) {
 }
 
 .analysis .statistics .left .mid-tit {
-  background-image: url(../img/analysis/bg_statistics_title.png);
+  background-image: url(../img/analysis/bg_statistics_title.perf.webp);
   left: 164px;
   width: calc(100vw - 176px);
 }
@@ -6728,7 +6728,7 @@ html:has(.wrap.main) {
 }
 
 .analysis .attribute .left .mid-tit {
-  background-image: url(../img/analysis/bg_attribute_title.png);
+  background-image: url(../img/analysis/bg_attribute_title.perf.webp);
 }
 
 .analysis .attribute .right .attribute02 .sub-figs .imgs img,
@@ -7550,7 +7550,7 @@ html:has(.wrap.main) {
   transition: opacity 0.35s ease-out;
   background-repeat: no-repeat, no-repeat;
   background-position: left bottom, right bottom;
-  background-image: url(../img/results/bg_natural_left.png), url(../img/results/bg_grid.png);
+  background-image: url(../img/results/bg_natural_left.perf.webp), url(../img/results/bg_grid.png);
   background-size: 70.5729% auto, 100% auto;
 }
 
@@ -7561,12 +7561,12 @@ html:has(.wrap.main) {
 }
 
 .results-wrap .tab-content.social {
-  background-image: url(../img/results/bg_social_left.png), url(../img/results/bg_grid.png);
+  background-image: url(../img/results/bg_social_left.perf.webp), url(../img/results/bg_grid.png);
   background-size: 60.15625% auto, 100% auto;
 }
 
 .results-wrap .tab-content.cost {
-  background-image: url(../img/results/bg_cost_left.png), url(../img/results/bg_grid.png);
+  background-image: url(../img/results/bg_cost_left.perf.webp), url(../img/results/bg_grid.png);
   background-size: 31.927% auto, 100% auto;
 }
 
@@ -7845,7 +7845,7 @@ body.loaded .results-wrap {
 }
 
 .faq .sub-header {
-  background-image: url(../img/bg_faq_title.png);
+  background-image: url(../img/bg_faq_title.perf.webp);
 }
 
 .faq .sub-tab {
@@ -9191,7 +9191,7 @@ body.loaded .results-wrap {
   width: 100%;
   height: 100%;
   position: relative;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 47.78%, #FFF 100%), url("../img/buy/bg_buy_content.png") center/cover no-repeat;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 47.78%, #FFF 100%), url("../img/buy/bg_buy_content.perf.webp") center/cover no-repeat;
   overflow: hidden;
 }
 

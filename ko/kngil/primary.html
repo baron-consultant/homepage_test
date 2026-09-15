@@ -33,6 +33,7 @@
   <script src="../../assets/js/lib/scrolltrigger.min.js"></script>
   <script src="../../assets/js/lib/scrollToPlugin.min.js"></script>
   <script type="module" src="../../assets/js/common.js?v=20260623-4"></script>
+    <link rel="preload" as="image" href="img/primary/bg_primary_title.jpg" fetchpriority="high" />
 </head>
 
 <body>
@@ -92,7 +93,7 @@
         </div>
         <div class="guide-modal-body">
           <div class="guide-panel guide-panel-video active" data-guide-panel="video">
-            <video class="guide-video" playsinline preload="metadata" poster="./img/video/kngil_guide_poster.jpg">
+            <video class="guide-video" playsinline preload="none" poster="./img/video/kngil_guide_poster.jpg">
               <source src="./img/video/kngil_guide.mp4" type="video/mp4">
             </video>
             <button type="button" class="video-center-play" aria-label="재생">
@@ -295,19 +296,19 @@
               <strong>4가지 입력 방식</strong>을 제공합니다.
             </div>
             <div class="sub-figs area">
-              <img src="./img/primary/img_area_01.png" />
+              <img src="./img/primary/img_area_01.perf.webp" />
               <div class="dim-layer">
               </div>
               <div class="apx apx-01">
-                <img src="./img/primary/img_area_01_apx.png" />
+                <img src="./img/primary/img_area_01_apx.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_area_01_zoom.png" />
+                  <img loading="lazy" decoding="async" src="./img/primary/img_area_01_zoom.perf.webp" />
                 </span>
               </div>
               <div class="apx apx-02">
-                <img src="./img/primary/img_area_02_apx.png" />
+                <img src="./img/primary/img_area_02_apx.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_area_02_zoom.png" />
+                  <img src="./img/primary/img_area_02_zoom.perf.webp" />
                 </span>
               </div>
             </div>
@@ -320,17 +321,17 @@
               직관적으로 쉽게 선택할 수 있도록 <strong>시각화</strong>에 중점을 두었습니다.
             </div>
             <div class="sub-figs report">
-              <img src="./img/primary/img_report_01.png" alt="보고서 관련 설정 화면" width="auto" height="auto">
+              <img src="./img/primary/img_report_01.perf.webp" alt="보고서 관련 설정 화면" width="auto" height="auto">
               <div class="apx apx-01">
-                <img src="./img/primary/img_report_02.png" />
+                <img src="./img/primary/img_report_02.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_report_02_zoom.png" />
+                  <img src="./img/primary/img_report_02_zoom.perf.webp" />
                 </span>
               </div>
               <div class="apx apx-02">
-                <img src="./img/primary/img_report_03.png" />
+                <img src="./img/primary/img_report_03.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_report_03_zoom.png" />
+                  <img src="./img/primary/img_report_03_zoom.perf.webp" />
                 </span>
               </div>
             </div>
@@ -350,9 +351,9 @@
             </div>
 
             <div class="sub-figs progress">
-              <img src="./img/primary/img_progress_01.png" alt="진행과정 4단계 시각화" width="auto" height="auto">
+              <img src="./img/primary/img_progress_01.perf.webp" alt="진행과정 4단계 시각화" width="auto" height="auto">
               <div class="apx apx-01">
-                <img src="./img/primary/img_progress_02.png" />
+                <img src="./img/primary/img_progress_02.perf.webp" />
                 <div class="sub-apx-slide">
                   <div class="sub-apx-slide-item">
                     <img src="./img/primary/img_progress_step_01.png" />
@@ -369,7 +370,7 @@
                 </div>
               </div>
               <div class="apx apx-02">
-                <img src="./img/primary/img_progress_03.png" />
+                <img src="./img/primary/img_progress_03.perf.webp" />
               </div>
             </div>
 
@@ -388,25 +389,25 @@
               <span class="bg-slide-layer" data-bg="4" aria-hidden="true"></span>
             </div>
             <div class="sub-figs cost">
-              <img src="./img/primary/img_cost_01.png" alt="사업비 및 작업일수 기준 시각화" width="auto" height="auto">
+              <img src="./img/primary/img_cost_01.perf.webp" alt="사업비 및 작업일수 기준 시각화" width="auto" height="auto">
               <div class="apx apx-01">
-                <img src="./img/primary/img_cost_02.png" />
+                <img src="./img/primary/img_cost_02.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_cost_02_zoom.png" />
+                  <img src="./img/primary/img_cost_02_zoom.perf.webp" />
                 </span>
               </div>
 
               <div class="apx apx-02">
-                <img src="./img/primary/img_cost_03.png" />
+                <img src="./img/primary/img_cost_03.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_cost_03_zoom.png" />
+                  <img src="./img/primary/img_cost_03_zoom.perf.webp" />
                 </span>
               </div>
 
               <div class="apx apx-03">
-                <img src="./img/primary/img_cost_04.png" />
+                <img src="./img/primary/img_cost_04.perf.webp" />
                 <span class="zoom-box">
-                  <img src="./img/primary/img_cost_04_zoom.png" />
+                  <img src="./img/primary/img_cost_04_zoom.perf.webp" />
                 </span>
               </div>
             </div>
@@ -424,21 +425,21 @@
               <span class="bg-slide-layer" data-bg="3" aria-hidden="true"></span>
             </div>
             <div class="sub-figs data">
-              <img src="./img/primary/img_data_01.png" />
+              <img src="./img/primary/img_data_01.perf.webp" />
               <div class="apx apx-01">
-                <img src="./img/primary/img_data_02.png" />
+                <img src="./img/primary/img_data_02.perf.webp" />
                 <div class="zoom-box">
-                  <img src="./img/primary/img_data_02_zoom.png" />
+                  <img src="./img/primary/img_data_02_zoom.perf.webp" />
                 </div>
               </div>
               <div class="apx apx-02">
-                <img src="./img/primary/img_data_03.png" />
+                <img src="./img/primary/img_data_03.perf.webp" />
                 <div class="zoom-box">
-                  <img src="./img/primary/img_data_03_zoom.png" />
+                  <img src="./img/primary/img_data_03_zoom.perf.webp" />
                 </div>
               </div>
               <div class="apx apx-03">
-                <img src="./img/primary/img_data_04.png" />
+                <img src="./img/primary/img_data_04.perf.webp" />
               </div>
             </div>
           </article>
@@ -457,12 +458,12 @@
         <!-- popup_container -->
         <div class="popup-container notice">
           <div class="pop-contents" role="region" aria-label="공지">
-            <img class="notice-pop-desktop" src="./img/popup/260818_pop.jpg" alt="KNGIL(큰길) 공지 안내" id="notice_title" />
+            <img class="notice-pop-desktop" src="./img/popup/260818_pop.perf.webp" alt="KNGIL(큰길) 공지 안내" id="notice_title" />
             <div class="notice-pop-swiper swiper">
               <div class="notice-pop-swiper__pagination"></div>
               <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                  <img src="./img/popup/260818_pop_mo1.png" alt="KNGIL(큰길) 공지 안내" />
+                  <img src="./img/popup/260818_pop_mo1.perf.webp" alt="KNGIL(큰길) 공지 안내" />
                 </div>
               </div>
             </div>
