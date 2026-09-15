@@ -1,5 +1,11 @@
 # 이미지 21개 404 원인 조사
 
+## main push 이후 재확인
+
+`41ce755` push 이후 `https://baroncs.co.kr/ko/index.html`에서 index-web.mp4 참조, `/ko/tova/public.html`에서 public_process_01.perf.svg 참조, `/ko/tova/css/style.css`에서 새 .perf. 참조 17건을 확인했다. 코드 반영은 확인됐지만 해당 21개 이미지의 GET 응답은 여전히 404였다.
+
+이 결과는 R2 업로드 실패 자체를 증명하지 않는다. 업로드된 객체의 전체 키와 실제 제공 도메인을 대조해야 업로드 경로 불일치 또는 제공 경로 문제를 확정할 수 있다. 원시 기록은 `post-push-missing-assets.json`, `post-push-public-source.json`이다.
+
 ## 결론
 
 새 HTML/CSS가 요청하는 최적화 파일 경로에서 서버가 HTTP 404 / Not Found를 반환한다. 21개 모두 대응하는 기존 원본 URL은 200이고, 새 파일의 로컬 URL도 200이다. 서버가 새 파일명에 해당하는 리소스를 제공하지 못하는 상태다.

@@ -133,21 +133,77 @@ $(function() {
 // 듀얼모니터 시퀀스 애니메이션 (GSAP v3 ScrollTrigger 마이그레이션)
 $(function(){
     gsap.registerPlugin(ScrollTrigger);
+    var target = document.getElementById("myimg");
+    if (!target || !document.getElementById("dualm")) return;
 
-    var images = Array();
-    for (let i = 1; i < 105; i++) {
-        images.push(`img/com_img/eng/comp_${i}.png`);
-    }
-
+    // Keep the optimized HTML poster until a requested frame is decoded.
+    var firstSrc = target.getAttribute("src");
+    var ready = {0: firstSrc};
+    var pending = {};
+    var failed = {};
+    var queue = [];
+    var active = 0;
+    var near = false;
+    var desired = 0;
+    var direction = 1;
     var obj = {curImg: 0};
 
-    gsap.to(obj, {
-        curImg: images.length - 1,
+    function render() {
+        if (ready[desired] && target.getAttribute("src") !== ready[desired]) {
+            target.setAttribute("src", ready[desired]);
+        }
+    }
+
+    function pump() {
+        while (near && active < 4 && queue.length) {
+            load(queue.shift());
+        }
+    }
+
+    function load(index) {
+        if (ready[index] || pending[index] || failed[index]) return;
+        pending[index] = true;
+        active++;
+        var img = new Image();
+        var src = "img/com_img/eng/comp_" + (index + 1) + ".png";
+        function finish(ok) {
+            if (ok) ready[index] = src;
+            else failed[index] = true;
+            delete pending[index];
+            active--;
+            render();
+            pump();
+        }
+        img.onload = function () {
+            if (img.decode) img.decode().then(function () { finish(true); }, function () { finish(false); });
+            else finish(img.naturalWidth > 0);
+        };
+        img.onerror = function () { finish(false); };
+        img.src = src;
+    }
+
+    function schedule() {
+        // Rebuild only a small window; fast scrolling discards stale queued work.
+        queue = [];
+        if (!near) return;
+        [0, direction, 2 * direction, 3 * direction, -direction].forEach(function (offset) {
+            var index = desired + offset;
+            if (index >= 0 && index < 104 && !ready[index] && !pending[index] && !failed[index]) queue.push(index);
+        });
+        pump();
+    }
+
+    var sequence = gsap.to(obj, {
+        curImg: 103,
         roundProps: "curImg",
         immediateRender: true,
         ease: "none",
         onUpdate: function () {
-            $("#myimg").attr("src", images[obj.curImg]);
+            var next = Math.max(0, Math.min(103, Math.round(obj.curImg)));
+            if (next !== desired) direction = next > desired ? 1 : -1;
+            desired = next;
+            render();
+            schedule();
         },
         scrollTrigger: {
             trigger: "#dualm",
@@ -157,5 +213,19 @@ $(function(){
             scrub: true,
             invalidateOnRefresh: true
         }
+    });
+    function updateProximity(self) {
+        var next = self.isActive && window.scrollY > 0;
+        if (next !== near) { near = next; schedule(); }
+    }
+
+    // Prepare frames only after scrolling toward this section.
+    ScrollTrigger.create({
+        trigger: "#dualm",
+        start: "top bottom+=600",
+        end: function () { return sequence.scrollTrigger.end + window.innerHeight + 600; },
+        onToggle: updateProximity,
+        onUpdate: updateProximity,
+        onRefresh: updateProximity
     });
 });

@@ -1,0 +1,67 @@
+"""Summarize live measurements without mixing them with local results."""
+import json
+from pathlib import Path
+from statistics import median
+
+ROOT=Path(__file__).resolve().parents[1]
+OUT=ROOT/'artifacts/performance/egbim-interface-live'
+rows=json.loads((OUT/'measurements.json').read_text(encoding='utf-8'))
+assert len(rows)==9
+def ms(value): return f'{value/1000:.2f}초' if value else '35초 내 미완료'
+labels={'live':'운영 · 회선 제한 없음','limited':'운영 · 10Mbps/CPU 4배 감속','limited-without-frame-preload':'진단 · 동일 제한 + 103장 차단'}
+summary={}
+for mode in labels:
+    group=[r for r in rows if r['mode']==mode]
+    summary[mode]={
+        'load':median(r['metrics']['navigation']['loadEventEnd'] for r in group),
+        'header':median(r['metrics'].get('headerReady') or 0 for r in group),
+        'bytes':median(r['receivedBytes'] for r in group),
+        'ttfb':median(r['metrics']['navigation']['responseStart'] for r in group),
+    }
+normal=summary['live'];blocked=summary['limited-without-frame-preload']
+md=['# 운영 EG-BIM 인터페이스 페이지 성능 검사','',
+'## 1. 검사 대상 및 방법','',
+'- 운영 페이지 `https://baroncs.co.kr/ko/egbim/interface.html`을 Playwright/Edge로 검사했음',
+'- 데스크톱 1365×768, 새 브라우저 컨텍스트, 브라우저 캐시 비활성화 조건을 사용했음',
+'- 실제 회선 3회, 다운로드 10Mbps·업로드 5Mbps·지연 40ms·CPU 4배 감속 3회, 동일 제한에서 프레임 요청 차단 3회로 총 9회 측정했음',
+'- 제한 조건은 회당 35초 관측했으며, 아래 표는 3회 중앙값으로 정리했음',
+'- 이전 로컬 속도 비교 결과와 구분해 운영 서버에서 새로 측정했음','',
+'## 2. 측정 결과','',
+'| 조건 | 전체 load | 상단 메뉴 준비 | 관측 기간 수신량 |','|---|---:|---:|---:|']
+for mode,label in labels.items():
+    s=summary[mode]
+    md.append(f"| {label} | {ms(s['load'])} | {ms(s['header'])} | {s['bytes']/1e6:.2f} MB |")
+md+=['',
+'- 운영 무제한 회선에서는 104장 모두 다운로드 완료됐음',
+'- 10Mbps 원본 조건에서는 3회 모두 35초가 지나도 상단 메뉴와 배경 이미지 다운로드가 완료되지 않았음',
+'- 10Mbps 수신량은 35초까지의 부분 다운로드량이며 페이지 전체 용량으로 해석하면 안 됨',
+'- 차단 실험은 첫 프레임을 남기고 나머지 103장 요청을 브라우저에서만 막았음. 실제 개선 배포 결과가 아니며 스크롤 애니메이션 기능 검증으로 사용할 수 없음',
+'- 원본 제한 조건의 LCP는 작은 H2 텍스트였고, 차단 조건의 LCP는 배경 이미지였음. 대상이 달라 LCP 수치만으로 전후 개선율을 계산하지 않았음','',
+'## 3. 확인한 병목','',
+'### 애니메이션 PNG 104장 동시 사전 로딩','',
+'- 운영 `ko/egbim/js/interface.js`가 로컬 소스와 일치함을 확인했음',
+'- 139행에서 comp_1.png~comp_104.png 목록을 만들고, 146~148행에서 new Image()와 src 대입으로 전부 즉시 요청하고 있었음',
+'- 스크롤하지 않은 상태에서도 PNG 104장, 본문 합계 93,873,413 bytes(약 93.87 MB)가 요청됐음',
+f"- 페이지 전체 수신량 약 {normal['bytes']/1e6:.2f} MB 중 대부분을 해당 PNG가 차지했음",
+'- 프레임 103장의 요청을 차단하면 같은 10Mbps 조건에서도 메뉴·배경·전체 로딩이 완료돼 초기 사전 다운로드가 병목임을 확인했음',
+'- 이전 정적 이미지 최적화 이후에도 JS에서 동적으로 구성한 104장 PNG 요청이 유지되고 있었음','',
+'### 추가 확인 사항','',
+'- 첫 화면 배경 interface_intro_bg.perf.webp도 2,912,190 bytes(약 2.91 MB)로 큰 상태였음',
+f"- 실제 회선의 HTML 첫 바이트 수신 시간 중앙값은 {normal['ttfb']/1000:.2f}초였음",
+'- 이번 9회 검사에서 HTTP 4xx/5xx와 JavaScript 실행 오류는 발견되지 않았음. 진단용으로 차단한 103개 요청의 실패는 의도된 결과임',
+'- interface.js 응답에 public, max-age=31536000, immutable이 설정돼 있었으며 HTML 참조에 버전 쿼리가 없었음. 이후 수정 배포 시 캐시 갱신 처리가 필요함','',
+'## 4. 우선 개선 방향','',
+'1. 페이지 진입 즉시 104장 전체를 다운로드하는 동작을 제거하고, 애니메이션 구간 접근 시 필요한 프레임부터 제한된 동시 요청으로 준비해야 함',
+'2. 프레임 이미지의 WebP 변환 및 용량 축소를 검토하되 UI 글자 선명도와 스크롤 전환을 함께 검증해야 함',
+'3. 2.91 MB 배경 이미지의 추가 경량화와 첫 화면 우선 로딩을 적용할 필요가 있음',
+'4. 수정한 JS/CSS의 버전 URL 또는 캐시 정책을 조정한 뒤 운영 재측정이 필요함','',
+'## 5. 회차별 결과','',
+'| 조건 | 회차 | 전체 load | 메뉴 준비 | LCP / 대상 | 수신 MB |','|---|---:|---:|---:|---|---:|']
+for r in rows:
+    m=r['metrics'];lcp=m.get('lcp') or {}
+    md.append(f"| {labels[r['mode']]} | {r['run']} | {ms(m['navigation']['loadEventEnd'])} | {ms(m.get('headerReady'))} | {ms(lcp.get('ms'))} / {lcp.get('element','')} | {r['receivedBytes']/1e6:.2f} |")
+md+=['','- 원시 기록과 스크린샷은 artifacts/performance/egbim-interface-live/에 저장했음',
+'- 운영 코드·이미지·버킷 설정은 수정하지 않았으며 커밋·push·배포도 실행하지 않았음','']
+(ROOT/'docs/egbim-interface-live-test.md').write_text('\n'.join(md),encoding='utf-8')
+(OUT/'summary.json').write_text(json.dumps(summary,ensure_ascii=False,indent=2),encoding='utf-8')
+print(json.dumps(summary,ensure_ascii=False))

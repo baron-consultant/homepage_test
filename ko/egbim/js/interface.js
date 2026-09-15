@@ -134,38 +134,77 @@ $(function() {
 // 듀얼모니터 시퀀스 애니메이션 (GSAP v3 ScrollTrigger 마이그레이션)
 $(function(){
     gsap.registerPlugin(ScrollTrigger);
+    var target = document.getElementById("myimg");
+    if (!target || !document.getElementById("dualm")) return;
 
-    var images = Array();
-    for (let i = 1; i < 105; i++) {
-        images.push(`img/com_img/comp_${i}.png`);
+    // Keep the optimized HTML poster until a requested frame is decoded.
+    var firstSrc = target.getAttribute("src");
+    var ready = {0: firstSrc};
+    var pending = {};
+    var failed = {};
+    var queue = [];
+    var active = 0;
+    var near = false;
+    var desired = 0;
+    var direction = 1;
+    var obj = {curImg: 0};
+
+    function render() {
+        if (ready[desired] && target.getAttribute("src") !== ready[desired]) {
+            target.setAttribute("src", ready[desired]);
+        }
     }
 
-    // 프레임을 미리 로드해 캐시에 채워둔다. 스크롤로 해당 구간에 도달하기 전
-    // 백그라운드에서 로드가 끝나야, 스크럽 시 아직 받아오지 못한 프레임 때문에
-    // 이미지가 깨지거나 빈 화면으로 보이는 현상을 막을 수 있다.
-    var loadedImages = images.map(function (src) {
+    function pump() {
+        while (near && active < 4 && queue.length) {
+            load(queue.shift());
+        }
+    }
+
+    function load(index) {
+        if (ready[index] || pending[index] || failed[index]) return;
+        pending[index] = true;
+        active++;
         var img = new Image();
+        var src = "img/com_img/comp_" + (index + 1) + ".png";
+        function finish(ok) {
+            if (ok) ready[index] = src;
+            else failed[index] = true;
+            delete pending[index];
+            active--;
+            render();
+            pump();
+        }
+        img.onload = function () {
+            if (img.decode) img.decode().then(function () { finish(true); }, function () { finish(false); });
+            else finish(img.naturalWidth > 0);
+        };
+        img.onerror = function () { finish(false); };
         img.src = src;
-        return img;
-    });
+    }
 
-    var obj = {curImg: 0};
-    var lastLoadedSrc = images[0];
+    function schedule() {
+        // Rebuild only a small window; fast scrolling discards stale queued work.
+        queue = [];
+        if (!near) return;
+        [0, direction, 2 * direction, 3 * direction, -direction].forEach(function (offset) {
+            var index = desired + offset;
+            if (index >= 0 && index < 104 && !ready[index] && !pending[index] && !failed[index]) queue.push(index);
+        });
+        pump();
+    }
 
-    gsap.to(obj, {
-        curImg: images.length - 1,
+    var sequence = gsap.to(obj, {
+        curImg: 103,
         roundProps: "curImg",
         immediateRender: true,
         ease: "none",
         onUpdate: function () {
-            var idx = obj.curImg;
-            var img = loadedImages[idx];
-            // 아직 로드가 끝나지 않은 프레임은 건너뛰고, 직전까지 정상적으로
-            // 로드된 프레임을 계속 보여준다.
-            if (img.complete && img.naturalWidth > 0) {
-                lastLoadedSrc = images[idx];
-            }
-            $("#myimg").attr("src", lastLoadedSrc);
+            var next = Math.max(0, Math.min(103, Math.round(obj.curImg)));
+            if (next !== desired) direction = next > desired ? 1 : -1;
+            desired = next;
+            render();
+            schedule();
         },
         scrollTrigger: {
             trigger: "#dualm",
@@ -176,5 +215,18 @@ $(function(){
             invalidateOnRefresh: true
         }
     });
-});
+    function updateProximity(self) {
+        var next = self.isActive && window.scrollY > 0;
+        if (next !== near) { near = next; schedule(); }
+    }
 
+    // Prepare frames only after scrolling toward this section.
+    ScrollTrigger.create({
+        trigger: "#dualm",
+        start: "top bottom+=600",
+        end: function () { return sequence.scrollTrigger.end + window.innerHeight + 600; },
+        onToggle: updateProximity,
+        onUpdate: updateProximity,
+        onRefresh: updateProximity
+    });
+});
