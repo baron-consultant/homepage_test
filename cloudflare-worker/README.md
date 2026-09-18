@@ -1,6 +1,6 @@
 # BARON Cloudflare Worker
 
-이 폴더는 Cloudflare Worker `baron-auth-gateway-test`가 R2 버킷 `baron-hompage`의 정적 파일을 `test.baroncs.co.kr`에서 서빙하기 위한 구성이다.
+이 폴더는 Cloudflare Worker가 R2 버킷 `baron-hompage-test`의 정적 파일을 브라우저에 서빙하기 위한 최소 구성이다.
 
 ## 포함 파일
 
@@ -133,8 +133,8 @@
 	- `AUTH_USERINFO_URL`
 	- `AUTH_LOGOUT_URL`
 - IDP에 Worker 도메인의 callback URL이 등록되어 있어야 한다.
-- 예: `https://test.baroncs.co.kr/auth/callback`
+	- 예: `https://baroncs.co.kr/auth/callback`
 - 로그아웃 후 복귀 URI도 IDP와 Worker 설정이 서로 맞아야 한다.
-- 예: `https://test.baroncs.co.kr/`
+	- 예: `https://baroncs.co.kr/`
 
 즉, 코드만 배포 저장소에 있는 상태로는 부족하고, Cloudflare Worker 설정과 IDP 설정이 따로 필요하다.

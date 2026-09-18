@@ -31,7 +31,6 @@ jobs:
         run: |
           trimmed_account_id="$(printf '%s' "$R2_ACCOUNT_ID" | tr -d '\r\n[:space:]')"
           trimmed_bucket="$(printf '%s' "$R2_BUCKET" | tr -d '\r\n')"
-          expected_bucket="baron-hompage"
           endpoint="https://$trimmed_account_id.r2.cloudflarestorage.com"
 
           if [ -z "$trimmed_account_id" ]; then
@@ -41,11 +40,6 @@ jobs:
 
           if [ -z "$trimmed_bucket" ]; then
             echo "::error::CF_R2_BUCKET is empty. Set it to the exact R2 bucket name."
-            exit 1
-          fi
-
-          if [ "$trimmed_bucket" != "$expected_bucket" ]; then
-            echo "::error::CF_R2_BUCKET must be '$expected_bucket' for the test Worker deployment."
             exit 1
           fi
 
